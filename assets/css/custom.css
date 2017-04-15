@@ -1,0 +1,22 @@
+.input-text {
+	border-top: none;
+	border-right: none;
+	border-left-color: #d2d6de;
+	border-bottom-color: #ffffff;
+}
+
+.input-text:focus {
+	border-bottom-color: red;
+}
+
+.input-icon {
+	border: none;
+}
+
+span .fa {
+	width: 20px;
+}
+
+.push-left {
+	float: left;
+}
