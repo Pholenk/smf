@@ -19,78 +19,83 @@ class Migration_Improvement_database_supplier extends CI_Migration
 			'id' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'email' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'password' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'jabatan' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'name_full' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ktp_no' => array(
 				'type' => 'INT',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ktp_img' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'alamat' => array(
 				'type' => 'Text',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'telepon_primer' => array(
 				'type' => 'INT',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'rekening_no' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 100,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'rekening_bank' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 100,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'agama' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 15,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'status' => array(
 				'type' => 'ENUM("kawin","tidak_kawin")',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'anak' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 10,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'photo' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'thumbnail' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
+			),
+			'tech_support' => array(
+				'type' => 'INT',
+				'constraint' => 1,
+				'null' => FALSE,
 			),
 
 		);
@@ -105,45 +110,45 @@ class Migration_Improvement_database_supplier extends CI_Migration
 			'id' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'telepon_sekunder' => array(
 				'type' => 'INT',
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'telepon_pin' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 30,
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'telepon_whatsapp' => array(
 				'type' => 'INT',
 				'constraint' => 30,
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'npwp_no' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 100,
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'npwp_img' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'created_at' => array(
 				'type' => 'DATE',
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'edited_at' => array(
 				'type' => 'DATE',
-				'null' => TRUE
+				'null' => TRUE,
 			),
 			'deleted_at' => array(
 				'type' => 'DATE',
-				'null' => TRUE
+				'null' => TRUE,
 			),
-			);
+		);
 		$this->dbforge->add_field($details_fields);
 		$this->dbforge->create_table('users_details',TRUE);
 
@@ -154,272 +159,272 @@ class Migration_Improvement_database_supplier extends CI_Migration
 			'id' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'privileges_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'privileges_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'privileges_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'users_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'users_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'users_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'users_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'users_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'standard_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'standard_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'standard_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'standard_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'standard_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'contract_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'contract_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'contract_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'contract_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'contract_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ring_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ring_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ring_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ring_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ring_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ts_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ts_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ts_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ts_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'ts_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_prod_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_prod_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_prod_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_prod_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'supplier_prod_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'buyer_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'buyer_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'buyer_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'buyer_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'buyer_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_score_browse' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_score_read' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_score_edit' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_score_add' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'breeder_score_delete' => array(
 				'type' => 'INT',
 				'constraint' => 1,
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'edited_at' => array(
 				'type' => 'DATE',
@@ -445,31 +450,31 @@ class Migration_Improvement_database_supplier extends CI_Migration
 			),
 			'berat_badan' => array(
 				'type' => 'float',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'fcr' => array(
 				'type' => 'float',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'mortalitas' => array(
 				'type' => 'float',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'feed_intake' => array(
 				'type' => 'float',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'age' => array(
 				'type' => 'float',
-				'null' => FALSE
+				'null' => FALSE,
 			),
 			'created_at' => array(
 				'type' => 'DATE',
-				'null' => TRUE
+				'null' => TRUE,
 				),
 			'edited_at' => array(
 				'type' => 'DATE',
-				'null' => TRUE
+				'null' => TRUE,
 				),
 			'created_by' => array(
 				'type' => 'VARCHAR',
@@ -498,11 +503,11 @@ class Migration_Improvement_database_supplier extends CI_Migration
 			'jenis' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => false,
+				'null' => FALSE,
 				),
 			'harga' => array(
 				'type' => 'INT',
-				'null' => false,
+				'null' => FALSE,
 				),
 		);
 		$this->dbforge->add_field($doc);
@@ -775,6 +780,112 @@ class Migration_Improvement_database_supplier extends CI_Migration
 		$this->dbforge->add_field($supplier_product);
 		$this->dbforge->add_key('id', TRUE);
 		$this->dbforge->create_table('supplier_product', TRUE);
+
+		/**
+		 * create tech_support table
+		 */
+		$tech_support = array(
+			'ts_id' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'breeder_id' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+		);
+		$this->dbforge->add_field($tech_support);
+		$this->dbforge->create_table('tech_support', TRUE);
+
+		 /**
+		 * create breeder table
+		 */
+		 $breeder = array(
+			'id' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'nama' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'alamat' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'kampung' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'kelurahan' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'kecamatan' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'kabupaten' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'provinsi' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'telepon_primer' => array(
+				'type' => 'INT',
+				'constraint' => 50,
+				'null' => FALSE,
+			),
+			'telepon_sekunder' => array(
+				'type' => 'INT',
+				'constraint' => 50,
+				'null' => TRUE,
+			),
+			'populasi' => array(
+				'type' => 'INT',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'ring' => array(
+				'type' => 'INT',
+				'null' => FALSE,
+			),
+			'jalur' => array(
+				'type' => 'INT',
+				'null' => FALSE,
+			),
+			'created_at' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'edited_at' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'deleted_at' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+		 );
+		$this->dbforge->add_field($breeder);
+		$this->dbforge->add_key('id', TRUE);
+		$this->dbforge->create_table('breeder', TRUE);
+
 	}
 
 	public function down()

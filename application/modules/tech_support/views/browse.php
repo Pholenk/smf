@@ -18,15 +18,15 @@
 									<th>Nama</th>
 									<th>Action</th>
 								</tr>
-								<?php //foreach ($production_data as $data) { ?>
-								<tr id="edit_source_<?php echo 'IU0002' ?>">
-									<td id='ts_email_<?php echo 'IU0002' ?>'><?php echo '$data->berat_badan2' ?></td>
-									<td id='ts_name_<?php echo 'IU0002' ?>'><?php echo '$data->fcr' ?></td>
+								<?php foreach ($users_data as $user) { ?>
+								<tr id="edit_source">
+									<td id='ts_email'><?php echo $user->email ?></td>
+									<td id='ts_name'><?php echo $user->name_full ?></td>
 									<td>
-										<button type="submit" class="btn btn-success" id="add_tech_support_<?php echo 'IU0002' ?>"><i class="fa fa-plus"></i> ADD</button>
+										<a href="/tech_support/add/<?php echo $user->id ?>"><button type="button" class="btn btn-success" id="add_tech_support"><i class="fa fa-plus"></i> ADD</button>
 									</td>
 								</tr>
-								<?php //}?>
+								<?php }?>
 							</table>
 							</form>
 						</div>
@@ -40,19 +40,24 @@
 									<th>Populasi</th>
 									<th>Action</th>
 								</tr>
-								<?php //foreach ($production_data as $data) { ?>
-								<tr id="edit_source_<?php echo '$data->id' ?>">
-									<td><?php echo '$data->berat_badan' ?></td>
-									<td><?php echo '$data->fcr' ?></td>
-									<td><?php echo '$data->mortalitas' ?></td>
-									<td><?php echo '$data->feed_intake' ?></td>
+								<?php foreach ($ts_data as $ts) { ?>
+								<tr id="edit_source">
+									<td><?php echo $ts->email?></td>
+									<td><?php echo $ts->name_full?></td>
+									<?php echo "<pre>";
+										var_dump($tech_support_data);
+										echo "</pre>";
+									foreach ($tech_support_data as $total => $val)
+									{
+										echo ($ts_id === $ts->id ? "<td>".$total->breeder_count."</td><td>".$total->populasi."</td>" : "<td>0</td><td>0</td>");
+									} ?>
 									<td>
-										<a href="/std_production/delete/<?php echo '$data->id' ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button></a>
+										<a href="/tech_support/delete/<?php echo $ts->id ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button></a>
 									</td>
 								</tr>
 								<tr>
 								</tr>
-								<?php //}?>
+								<?php }?>
 							</table>
 						</div>
 
