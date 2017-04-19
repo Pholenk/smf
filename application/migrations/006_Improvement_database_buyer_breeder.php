@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No Direct Script Access Allowed');
 
-class Migration_Improvement_database_supplier extends CI_Migration 
+class Migration_Improvement_database_buyer_breeder extends CI_Migration 
 {
 	public function __construct()
 	{
@@ -870,6 +870,56 @@ class Migration_Improvement_database_supplier extends CI_Migration
 		$this->dbforge->add_key('id', TRUE);
 		$this->dbforge->create_table('breeder', TRUE);
 
+		/**
+		 * create buyer table
+		 */
+		$buyer = array(
+			'id' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'Nama buyer' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'Alamat buyer' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+			),
+			'No HP1' => array(
+				'type' => 'INT',
+				'constraint' => 50,
+				'null' => FALSE,
+			),
+			'No HP2' => array(
+				'type' => 'INT',
+				'constraint' => 50,
+				'null' => TRUE,
+			),
+			'No HP3' => array(
+				'type' => 'INT',
+				'constraint' => 50,
+				'null' => TRUE,
+			),
+			'created_at' => array(
+				'type' => 'DATE',
+				'null' => FALSE,
+			),
+			'edited_at' => array(
+				'type' => 'DATE',
+				'null' => TRUE,
+			),
+			'deleted_at' => array(
+				'type' => 'DATE',
+				'null' => TRUE,
+			),
+		);
+		$this->dbforge->add_field($buyer);
+		$this->dbforge->add_key('id',TRUE);
+		$this->dbforge->create_table('buyer', TRUE);
 	}
 
 	public function down()

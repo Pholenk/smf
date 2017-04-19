@@ -40,22 +40,18 @@
 									<th>Populasi</th>
 									<th>Action</th>
 								</tr>
-								<?php foreach ($ts_data as $ts) { ?>
+								<?php foreach ($ts_data as $ts) {?>
 								<tr id="edit_source">
-									<td><?php echo $ts->email?></td>
-									<td><?php echo $ts->name_full?></td>
-									<?php echo "<pre>";
-										var_dump($tech_support_data);
-										echo "</pre>";
-									foreach ($tech_support_data as $total => $val)
+									<td><?php echo $ts->email; ?></td>
+									<td><?php echo $ts->name_full; ?></td>
+									<?php 
+									foreach ($tech_support_data as $total)
 									{
-										echo ($ts_id === $ts->id ? "<td>".$total->breeder_count."</td><td>".$total->populasi."</td>" : "<td>0</td><td>0</td>");
+										echo ($total->ts_id !== $ts->id ? '<td>0</td><td>0</td>' : '<td>'.$total->breeder_count.'</td><td>'.$total->populasi.'</td>');
 									} ?>
 									<td>
 										<a href="/tech_support/delete/<?php echo $ts->id ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button></a>
 									</td>
-								</tr>
-								<tr>
 								</tr>
 								<?php }?>
 							</table>
