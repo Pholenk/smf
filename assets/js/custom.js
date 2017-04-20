@@ -411,3 +411,72 @@ $(document).ready(function() {
 		})
 	})
 })
+
+//=========================//
+//  breeder page  //
+//=========================//
+$(document).ready(function() {
+	var id
+
+	$("button[id^='edit_breeder_']").click(function() {
+		id = this.id.replace('edit_breeder_','');
+		$.ajax({
+			url: 'breeder/read/'+id,
+			success: function (response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
+
+	$('body').on('change', "select[id^='kelurahan_']", function() {
+		id_route = $("select[id^=kelurahan_']").val()
+		$.ajax({
+			url: 'breeder/read_route/'+id_route,
+			success: function (result) {
+				result !== '!LOGIN' ? $("label[id^='#ring_'").html(result) && $("label[id^='route_']").html(result) : window.location = '/auth'
+			}
+		})
+	})
+
+	$('body').on('click', "button[id^='edit_breeder_']", function() {
+		id = this.id.replace('edit_breeder_', '')
+		console.log(id)
+		$.ajax({
+			url: 'breeder/read/'+id,
+			success: function (response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
+
+	$("button[id^='add_breeder']").click(function() {
+		$.ajax({
+			url: 'breeder/add/',
+			success: function (response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
+
+	$('body').on('submit', '#add_form_breeder', function() {
+		$.ajax({
+			type: 'post',
+			url: 'breeder/add/',
+			data: $('#add_form_breeder').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/breeder/' : window.location = '/users'
+			},
+		})
+	})
+
+	$('body').on('submit', '#edit_form_breeder', function() {
+		$.ajax({
+			type: 'post',
+			url: 'breeder/edit/'+id,
+			data: $('#edit_form_breeder').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/breeder/' : window.location = '/users'
+			},
+		})
+	})
+})
