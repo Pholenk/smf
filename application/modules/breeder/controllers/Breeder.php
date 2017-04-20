@@ -92,7 +92,8 @@ class Breeder extends MX_Controller
 					<div class='form-group'>
 					<label class='col-xs-4 control-label'>Kelurahan</label>
 					<div class='col-xs-7'>
-					<select name='kelurahan' id='kelurahan_edit' class='form-control' required>".$data->kelurahan;
+					<select name='kelurahan' id='kelurahan_edit' class='form-control' required>".$data->kelurahan."
+					<option> </option>";
 					foreach ($browse_route_ring_data as $route)
 					{
 						echo "<option value='".$route->id."'>".$route->desa."</option>";
@@ -140,7 +141,8 @@ class Breeder extends MX_Controller
 					<div class='form-group'>
 					<label class='col-xs-4 control-label'>Technical Support</label>
 					<div class='col-xs-7'>
-					<select name='ts_id' id='ts_id_edit' type='' class='form-control' value='".$data->ts_id."' required>";
+					<select name='ts_id' id='ts_id_edit' type='' class='form-control' value='".$data->ts_id."' required>
+					<option> </option>";
 					foreach ($browse_ts_data as $ts) {
 						echo "<option value='".$ts->id."'>".$ts->name_full."</option>";						
 					}
@@ -187,9 +189,22 @@ class Breeder extends MX_Controller
 	/**
 	 * read_route_ring method
 	 */
-	public function read_route_ring($id)
+	public function read_route($id = '')
 	{
-		
+		if (!empty($id))
+		{
+			$result = [];
+			$route_data = $this->BreederModel->read_route_ring($id);
+			foreach ($route_data as $key)
+			{
+				$result = array(
+					'route' => $key->jalur,
+					'ring' => $key->ring,
+				);
+			}
+			header('Content-Type: application/json');
+			echo json_encode($result);
+		}
 	}
 
 	/**
@@ -294,11 +309,14 @@ class Breeder extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-4 control-label'>Kelurahan</label>
 				<div class='col-xs-7'>
-				<select name='kelurahan' id='kelurahan_add' class='form-control' required>";
+				<select name='kelurahan' id='kelurahan_add' class='form-control' required>
+				<option> </option>";
+				
 				foreach ($browse_route_ring_data as $route)
 				{
 					echo "<option value='".$route->id."'>".$route->desa."</option>";
 				}
+				
 				echo "
 				</select>
 				</div>
@@ -342,11 +360,13 @@ class Breeder extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-4 control-label'>Technical Support</label>
 				<div class='col-xs-7'>
-				<select name='ts_id' id='ts_id_add' class='form-control' required>"
-				;
+				<select name='ts_id' id='ts_id_add' class='form-control' required>
+				<option> </option>";
+				
 				foreach ($browse_ts_data as $ts) {
 					echo "<option value='".$ts->id."'>".$ts->name_full."</option>";						
 				}
+
 				echo "
 				<select>
 				</div>

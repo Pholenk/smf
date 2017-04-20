@@ -429,13 +429,19 @@ $(document).ready(function() {
 	})
 
 	$('body').on('change', "select[id^='kelurahan_']", function() {
-		id_route = $("select[id^=kelurahan_']").val()
-		$.ajax({
-			url: 'breeder/read_route/'+id_route,
-			success: function (result) {
-				result !== '!LOGIN' ? $("label[id^='#ring_'").html(result) && $("label[id^='route_']").html(result) : window.location = '/auth'
-			}
-		})
+		id_route = $("select[id^='kelurahan_']").val()
+		if (id_route === ''){
+			$("label[id^='ring_'").html(0) && $("label[id^='route_']").html(0)
+		} else{
+			$.ajax({
+				dataType: 'json',
+				url: 'breeder/read_route/'+id_route,
+				success: function (result) {
+					console.log(result)
+					result !== '!LOGIN' ? $("label[id^='ring_'").html(result.ring) && $("label[id^='route_']").html(result.route) : window.location = '/auth'
+				}
+			})
+		}
 	})
 
 	$('body').on('click', "button[id^='edit_breeder_']", function() {

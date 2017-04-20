@@ -56,6 +56,16 @@ class BreederModel extends CI_Model
 	}
 
 	/**
+	 * read_route_ring method
+	 */
+	public function read_route_ring($id)
+	{
+		$this->db->where('id', $id);
+		$query = $this->db->get('route_ring');
+		return $query->result();
+	}
+
+	/**
 	 * edit method
 	 */
 	public function edit($id, $breeder_data)
