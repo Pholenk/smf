@@ -80,7 +80,7 @@ class Auth extends MX_Controller
 		{
 			return TRUE;
 		}
-		elseif ($this->_is_login() && $query !== 0)
+		elseif ($this->_is_login() && $query === 0)
 		{
 			$this->load->view('head');
 			$this->load->view('navbar');
