@@ -29,7 +29,7 @@ class AuthModel extends CI_Model
  		$this->db->join('users_details','users.id = users_details.id');
  		$this->db->where($data);
  		$query = $this->db->get();
- 		return $query->num_rows();
+ 		return $query->row();
  	}
 
  	/**
@@ -42,6 +42,6 @@ class AuthModel extends CI_Model
  				);
  		$this->db->select($column);
  		$query = $this->db->get_where('users_priv',$data);
- 		return $query->row();
+ 		return $query->num_rows();
  	}
 }
