@@ -51,7 +51,7 @@ class Buyer extends MX_Controller
 	/**
 	 * read method
 	 */
-	public function read($id)
+	public function read($id = '')
 	{
 		if ($this->is_login)
 		{
