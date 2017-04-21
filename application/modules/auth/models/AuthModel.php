@@ -42,6 +42,6 @@ class AuthModel extends CI_Model
  				);
  		$this->db->select($column);
  		$query = $this->db->get_where('users_priv',$data);
- 		return $query->row();
+ 		return $query->num_rows();
  	}
 }

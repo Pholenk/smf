@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No Direct Script Access Allowed');
 
-class Migration_Improvement_database_buyer_breeder extends CI_Migration 
+class Migration_Improvement_database_privileges extends CI_Migration 
 {
 	public function __construct()
 	{
@@ -161,267 +161,57 @@ class Migration_Improvement_database_buyer_breeder extends CI_Migration
 				'constraint' => 255,
 				'null' => FALSE,
 			),
-			'privileges_browse' => array(
+			'privileges' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'privileges_read' => array(
+			'users' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'privileges_edit' => array(
+			'standard' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'users_browse' => array(
+			'contract' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'users_read' => array(
+			'ring' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'users_edit' => array(
+			'ts' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'users_add' => array(
+			'breeder' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'users_delete' => array(
+			'supplier' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'standard_browse' => array(
+			'supplier_prod' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'standard_browse' => array(
+			'buyer' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
 			),
-			'standard_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'standard_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'standard_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'contract_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'contract_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'contract_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'contract_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'contract_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ring_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ring_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ring_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ring_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ring_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ts_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ts_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ts_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ts_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'ts_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_prod_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_prod_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_prod_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_prod_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'supplier_prod_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'buyer_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'buyer_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'buyer_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'buyer_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'buyer_delete' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_score_browse' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_score_read' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_score_edit' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_score_add' => array(
-				'type' => 'INT',
-				'constraint' => 1,
-				'null' => FALSE,
-			),
-			'breeder_score_delete' => array(
+			'breeder_score' => array(
 				'type' => 'INT',
 				'constraint' => 1,
 				'null' => FALSE,
@@ -429,12 +219,12 @@ class Migration_Improvement_database_buyer_breeder extends CI_Migration
 			'edited_at' => array(
 				'type' => 'DATE',
 				'null' => TRUE
-				),
+			),
 			'edited_by' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 				'null' => FALSE,
-				),
+			),
 		);
 		$this->dbforge->add_field($priv_fields);
 		$this->dbforge->create_table('users_priv',TRUE);

@@ -12,20 +12,12 @@ class Auth extends MX_Controller
 	{
 		parent::__construct();
 		$this->load->model('AuthModel');
-		$this->load->module('users');
 		$this->load->helper('url');
 	}
 
 	public function index()
 	{
-		if($this->is_login() === FALSE)
-		{
-			$this->load->view('login');
-		}
-		else
-		{
-			redirect(base_url('users/'));
-		}
+		($this->_is_login() === FALSE ? $this->load->view('login') : redirect(base_url('users/')));
 	}
 
 	/**
@@ -37,7 +29,6 @@ class Auth extends MX_Controller
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 		$query = $this->AuthModel->login($email, $password);
-		// $this->load->view('test',$query);
 		if(!empty($query))
 		{
 			$id = $query->id;
@@ -61,10 +52,9 @@ class Auth extends MX_Controller
 	 * is_login method
 	 * check that user is currently logged in
 	 */
-	public function is_login()
+	function _is_login()
 	{
-		return ($this->session->userdata('logged_in') ? TRUE : FALSE);
-		echo($this->session->userdata('logged_in'));
+		return (!empty($this->session->userdata('logged_in')) ? TRUE : FALSE);
 	}
 
 	/**
@@ -84,15 +74,23 @@ class Auth extends MX_Controller
 	 */
 	public function privileges_read($column)
 	{
-		if(!empty($this->session->id))
+		$id = $this->session->id;
+		$query = $this->AuthModel->privileges_read($id, $column);
+		if($this->_is_login() && $query === 1)
 		{
-			$id = $this->session->id;
-			$query = $this->AuthModel->privileges_read($id, $column);
-			return ($query->$column == 1 ? TRUE : FALSE);
+			return TRUE;
+		}
+		elseif ($this->_is_login() && $query === 0)
+		{
+			$this->load->view('head');
+			$this->load->view('navbar');
+			$this->load->view('Unauthorize');
+			$this->load->view('sidebar');
+			$this->load->view('foot');
 		}
 		else
 		{
-			redirect(base_url());
+			return FALSE;
 		}
 	}
 
