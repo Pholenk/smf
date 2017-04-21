@@ -39,10 +39,6 @@ class Users extends MX_Controller
 			$data['users_data'] = $this->UsersModel->browse();
 			$this->_show_interface('browse', $data);
 		}
-		else
-		{
-			redirect(base_url());
-		}
 	}
 
 	/**
@@ -55,10 +51,6 @@ class Users extends MX_Controller
 		{
 			$data['user_data'] = $this->UsersModel->read($email);
 			$this->_show_interface('read', $data);
-		}
-		else
-		{
-			redirect(base_url());
 		}
 	}
 
@@ -106,10 +98,6 @@ class Users extends MX_Controller
 					);
 				($this->UsersModel->edit($id, $data['users'], $data['details']) ? redirect(base_url("/users/read/".$data['users']['email'])) : redirect(base_url()));
 			}
-		}
-		else
-		{
-			redirect(base_url());
 		}
 	}
 
@@ -214,31 +202,9 @@ class Users extends MX_Controller
 						
 							($this->UsersModel->add($data['users'], $data['details'], $data['privileges'])) ? redirect(base_url('/users/read/'.$this->input->post('email'))) : redirect(base_url('/users/add')) ;
 						}
-						else
-						{
-							$data['error'] = $this->image_lib->display_errors();
-							$this->load->view('test',$data);
-						}
 					}
 				}
-				
-				else
-				{
-					$error = $this->upload->display_error();
-					$this->load->view('test',$error);
-				}
 			}
-
-			else
-			{
-				$data['id'] = $this->UsersModel->idGen();
-				$this->_show_interface('add', $data);
-			}
-		}
-
-		else
-		{
-			redirect(base_url());
 		}
 	}
 
@@ -259,11 +225,6 @@ class Users extends MX_Controller
 				redirect(base_url());
 			}
 		}
-		else
-		{
-			redirect(base_url());
-		}
-
 	}
 
 	/**
@@ -277,14 +238,6 @@ class Users extends MX_Controller
 			$this->load->view('head');
 			$this->load->view('navbar');
 			$this->load->view($page, $data);
-			$this->load->view('sidebar');
-			$this->load->view('foot');
-		}
-		elseif(empty($data))
-		{
-			$this->load->view('head');
-			$this->load->view('navbar');
-			$this->load->view($page);
 			$this->load->view('sidebar');
 			$this->load->view('foot');
 		}
