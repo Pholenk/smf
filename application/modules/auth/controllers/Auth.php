@@ -62,7 +62,6 @@ class Auth extends MX_Controller
 	function _is_login()
 	{
 		return (!empty($this->session->userdata('logged_in')) ? TRUE : FALSE);
-		echo($this->session->userdata('logged_in'));
 	}
 
 	/**
@@ -82,11 +81,19 @@ class Auth extends MX_Controller
 	 */
 	public function privileges_read($column)
 	{
-		if($this->_is_login())
+		$id = $this->session->id;
+		$query = $this->AuthModel->privileges_read($id, $column);
+		if($this->_is_login() && $query->$column == 1)
 		{
-			$id = $this->session->id;
-			$query = $this->AuthModel->privileges_read($id, $column);
-			return ($query->$column == 1 ? TRUE : FALSE);
+			return TRUE;
+		}
+		elseif ($this->_is_login() && $query->column == 0)
+		{
+			$this->load->view('head');
+			$this->load->view('navbar');
+			$this->load->view('Unauthorize');
+			$this->load->view('sidebar');
+			$this->load->view('foot');
 		}
 		else
 		{
