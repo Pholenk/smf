@@ -17,7 +17,7 @@ class Users extends MX_Controller
 		$this->load->module('auth');
 		$this->load->model('UsersModel');
 		$this->load->helper('date');
-		$this->_access = $this->auth->privileges_read('users_browse');
+		$this->_access = $this->auth->privileges_read('users');
 	}
 
 	/**
@@ -51,7 +51,6 @@ class Users extends MX_Controller
 	 */
 	public function read($email)
 	{
-		$this->_access = $this->auth->privileges_read('users_read');
 		if($this->_access)
 		{
 			$data['user_data'] = $this->UsersModel->read($email);
@@ -69,7 +68,6 @@ class Users extends MX_Controller
 	 */
 	public function edit($id)
 	{
-		$this->_access = $this->auth->privileges_read('users_edit');
 		if($this->_access)
 		{
 			$datestring = '%Y-%m-%d %H:%i:%s';
@@ -121,7 +119,6 @@ class Users extends MX_Controller
 	 */
 	public function add()
 	{
-		$this->_access =$this->auth->privileges_read('users_add');
 		if($this->_access)
 		{
 			$datestring = '%Y-%m-%d %H:%i:%s';
@@ -201,58 +198,17 @@ class Users extends MX_Controller
 									),
 							'privileges' => array(
 										'id' => $id,
-										'privileges_browse' => 0,
-										'privileges_read' => 0,
-										'privileges_edit' => 0,
-										'users_browse' => 0,
-										'users_read' => 0,
-										'users_edit' => 0,
-										'users_add' => 0,
-										'users_delete' => 0,
-										'standard_browse' => 0,
-										'standard_edit' => 0,
-										'standard_add' => 0,
-										'standard_delete' => 0,
-										'contract_browse' => 0,
-										'contract_read' => 0,
-										'contract_edit' => 0,
-										'contract_add' => 0,
-										'contract_delete' => 0,
-										'ring_browse' => 0,
-										'ring_read' => 0,
-										'ring_edit' => 0,
-										'ring_add' => 0,
-										'ring_delete' => 0,
-										'ts_browse' => 0,
-										'ts_read' => 0,
-										'ts_edit' => 0,
-										'ts_add' => 0,
-										'ts_delete' => 0,
-										'breeder_browse' => 0,
-										'breeder_read' => 0,
-										'breeder_edit' => 0,
-										'breeder_add' => 0,
-										'breeder_delete' => 0,
-										'supplier_browse' => 0,
-										'supplier_read' => 0,
-										'supplier_edit' => 0,
-										'supplier_add' => 0,
-										'supplier_delete' => 0,
-										'supplier_prod_browse' => 0,
-										'supplier_prod_read' => 0,
-										'supplier_prod_edit' => 0,
-										'supplier_prod_add' => 0,
-										'supplier_prod_delete' => 0,
-										'buyer_browse' => 0,
-										'buyer_read' => 0,
-										'buyer_edit' => 0,
-										'buyer_add' => 0,
-										'buyer_delete' => 0,
-										'breeder_score_browse' => 0,
-										'breeder_score_read' => 0,
-										'breeder_score_edit' => 0,
-										'breeder_score_add' => 0,
-										'breeder_score_delete' => 0
+										'privileges' => 0,
+										'users' => 0,
+										'standard' => 0,
+										'contract' => 0,
+										'ring' => 0,
+										'ts' => 0,
+										'breeder' => 0,
+										'supplier' => 0,
+										'supplier_prod' => 0,
+										'buyer' => 0,
+										'breeder_score' => 0,
 									)
 								);
 						
@@ -292,7 +248,6 @@ class Users extends MX_Controller
 	 */
 	public function delete($id)
 	{
-		$this->_access = $this->auth->privileges_read('users_delete');
 		if($this->_access && !empty($id))
 		{
 			if($this->UsersModel->delete($id, FALSE))
