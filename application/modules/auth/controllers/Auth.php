@@ -12,13 +12,12 @@ class Auth extends MX_Controller
 	{
 		parent::__construct();
 		$this->load->model('AuthModel');
-		$this->load->module('users');
 		$this->load->helper('url');
 	}
 
 	public function index()
 	{
-		if($this->is_login() === FALSE)
+		if($this->_is_login() === FALSE)
 		{
 			$this->load->view('login');
 		}
@@ -37,7 +36,6 @@ class Auth extends MX_Controller
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 		$query = $this->AuthModel->login($email, $password);
-		// $this->load->view('test',$query);
 		if(!empty($query))
 		{
 			$id = $query->id;
@@ -61,9 +59,9 @@ class Auth extends MX_Controller
 	 * is_login method
 	 * check that user is currently logged in
 	 */
-	public function is_login()
+	function _is_login()
 	{
-		return ($this->session->userdata('logged_in') ? TRUE : FALSE);
+		return (!empty($this->session->userdata('logged_in')) ? TRUE : FALSE);
 		echo($this->session->userdata('logged_in'));
 	}
 
@@ -84,7 +82,7 @@ class Auth extends MX_Controller
 	 */
 	public function privileges_read($column)
 	{
-		if(!empty($this->session->id))
+		if($this->_is_login())
 		{
 			$id = $this->session->id;
 			$query = $this->AuthModel->privileges_read($id, $column);
