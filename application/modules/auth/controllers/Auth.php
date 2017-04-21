@@ -17,14 +17,7 @@ class Auth extends MX_Controller
 
 	public function index()
 	{
-		if($this->_is_login() === FALSE)
-		{
-			$this->load->view('login');
-		}
-		else
-		{
-			redirect(base_url('users/'));
-		}
+		($this->_is_login() === FALSE ? $this->load->view('login') : redirect(base_url('users/')));
 	}
 
 	/**
@@ -97,7 +90,7 @@ class Auth extends MX_Controller
 		}
 		else
 		{
-			redirect(base_url());
+			return FALSE;
 		}
 	}
 
