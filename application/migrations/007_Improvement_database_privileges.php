@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No Direct Script Access Allowed');
 
-class Migration_Improvement_database_buyer_breeder extends CI_Migration 
+class Migration_Improvement_database_privileges extends CI_Migration 
 {
 	public function __construct()
 	{
