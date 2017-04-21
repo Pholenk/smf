@@ -47,7 +47,7 @@ class Users extends MX_Controller
 	 */
 	public function read($email)
 	{
-		if($this->_access)
+		if($this->_access && !empty($email))
 		{
 			$data['user_data'] = $this->UsersModel->read($email);
 			$this->_show_interface('read', $data);
@@ -58,16 +58,17 @@ class Users extends MX_Controller
 	 * edit method
 	 * edit the user data in persistence storage
 	 */
-	public function edit($id)
+	public function edit($id = '')
 	{
 		if($this->_access)
 		{
 			$datestring = '%Y-%m-%d %H:%i:%s';
-			if (substr($id, 0, 2) !== 'IU') {
+			if (substr($id, 0, 2) !== 'IU')
+			{
 				$data['user_data'] = $this->UsersModel->read($id);
 				$this->_show_interface('edit', $data);
 			}
-			else
+			elseif(substr($id, 0, 2) === 'IU')
 			{
 				$data = array(
 						'users' => array(
@@ -97,6 +98,10 @@ class Users extends MX_Controller
 							)
 					);
 				($this->UsersModel->edit($id, $data['users'], $data['details']) ? redirect(base_url("/users/read/".$data['users']['email'])) : redirect(base_url()));
+			}
+			else
+			{
+				redirect(base_url('users'));
 			}
 		}
 	}
@@ -173,7 +178,7 @@ class Users extends MX_Controller
 										'anak' => $this->input->post('anak'),
 										'photo' => $img,
 										'thumbnail' => $img_thumb,
-									),
+								),
 							'details' => array(
 										'id' => $id,
 										'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
@@ -183,7 +188,7 @@ class Users extends MX_Controller
 										'npwp_img' => ($npwp === '' ? 'null' : $npwp),
 										'created_at' => mdate($datestring, time()),
 										'edited_at' => mdate($datestring, time())
-									),
+								),
 							'privileges' => array(
 										'id' => $id,
 										'privileges' => 0,
@@ -197,13 +202,18 @@ class Users extends MX_Controller
 										'supplier_prod' => 0,
 										'buyer' => 0,
 										'breeder_score' => 0,
-									)
-								);
+								)
+							);
 						
 							($this->UsersModel->add($data['users'], $data['details'], $data['privileges'])) ? redirect(base_url('/users/read/'.$this->input->post('email'))) : redirect(base_url('/users/add')) ;
 						}
 					}
 				}
+			}
+			else
+			{
+				$data['id'] = $id;
+				$this->_show_interface('add', $data);
 			}
 		}
 	}
@@ -224,6 +234,10 @@ class Users extends MX_Controller
 			{
 				redirect(base_url());
 			}
+		}
+		elseif ($this->_access && empty($id))
+		{
+			redirect(base_url('users'));
 		}
 	}
 
