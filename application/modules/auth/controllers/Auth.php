@@ -76,11 +76,11 @@ class Auth extends MX_Controller
 	{
 		$id = $this->session->id;
 		$query = $this->AuthModel->privileges_read($id, $column);
-		if($this->_is_login() && $query->$column == 1)
+		if($this->_is_login() && $query === 1)
 		{
 			return TRUE;
 		}
-		elseif ($this->_is_login() && $query->column == 0)
+		elseif ($this->_is_login() && $query !== 0)
 		{
 			$this->load->view('head');
 			$this->load->view('navbar');
