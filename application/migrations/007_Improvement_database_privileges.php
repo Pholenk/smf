@@ -219,12 +219,12 @@ class Migration_Improvement_database_privileges extends CI_Migration
 			'edited_at' => array(
 				'type' => 'DATE',
 				'null' => TRUE
-				),
+			),
 			'edited_by' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 				'null' => FALSE,
-				),
+			),
 		);
 		$this->dbforge->add_field($priv_fields);
 		$this->dbforge->create_table('users_priv',TRUE);
