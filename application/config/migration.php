@@ -69,11 +69,8 @@ $config['migration_auto_latest'] = TRUE;
 | be upgraded / downgraded to.
 |
 */
-<<<<<<< HEAD
-$config['migration_version'] = 006;
-=======
+
 $config['migration_version'] = 007;
->>>>>>> origin/master
 
 /*
 |--------------------------------------------------------------------------
