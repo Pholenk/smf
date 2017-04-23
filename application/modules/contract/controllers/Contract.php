@@ -54,16 +54,17 @@ class Contract extends MX_Controller
 	 */
 	public function read($type_contract, $id)
 	{
-		if ($this->_access && !empty($type_contract) && !empty($id))
+		$typeContract = str_replace('-', '_', $type_contract);
+		if ($this->_access && !empty($typeContract) && !empty($id))
 		{
-			if ($type_contract == 'doc' || $type_contract == 'pakan' || $type_contract == 'ovk' )
+			if ($typeContract == 'doc' || $typeContract == 'pakan' || $typeContract == 'ovk' )
 			{
-				$contract_detail = $this->ContractModel->read($type_contract, $id);
+				$contract_detail = $this->ContractModel->read($typeContract, $id);
 				foreach ($contract_detail as $data)
 				{
 					echo "
 						<div class='modal-header'>
-						<h1 class='modal-title'>Edit ".str_replace('-', ' ', $type_contract)." contract</h1>
+						<h1 class='modal-title'>Edit contract ".str_replace('_', ' ', $typeContract)."</h1>
 						</div>
 						<form class='form-horizontal' method='post' id='edit_form_contract'>
 						<div class='modal-body'>
@@ -91,32 +92,72 @@ class Contract extends MX_Controller
 						</form>";
 				}
 			}
-
-			else
+			
+			elseif ($typeContract == 'selisih_fcr' || $typeContract == 'harga_beli')
 			{
-				$contract_detail = $this->ContractModel->read($type_contract, $id);
+				$contract_detail = $this->ContractModel->read($typeContract, $id);
 				foreach ($contract_detail as $data)
 				{
 					echo "
 						<div class='modal-header'>
-						<h1 class='modal-title'>Edit ".str_replace('-', ' ', $type_contract)." contract</h1>
+						<h1 class='modal-title'>Edit contract ".str_replace('_', ' ', $typeContract)."</h1>
 						</div>
 						<form class='form-horizontal' method='post' id='edit_form_contract'>
 						<div class='modal-body'>
 						<div class='form-group'>
-						<label class='col-xs-4 control-label'>Range / Bobot</label>
-						<div class='col-xs-2'>
-						<input name='bobot_from' id='bobot_from' type='text' class='form-control' value='".$data->from."' required>
+						<label class='col-xs-3 control-label'>Range / Bobot</label>
+						<div class='col-xs-3'>
+						<input name='bobot_from' id='bobot_from' type='number' step=0.001 min=0 class='form-control' value='".$data->from."' required>
 						</div>
 						<label class='col-xs-3 control-label' style='text-align:center;'>sampai dengan</label>
-						<div class='col-xs-2'>
-						<input name='bobot_to' id='bobot_to' type='text' class='form-control' value='".$data->to."' required>
+						<div class='col-xs-3'>
+						<input name='bobot_to' id='bobot_to' type='number' step=0.001 min=0 class='form-control' value='".$data->to."' required>
 						</div>
 						</div>
 						<div class='form-group'>
-						<label class='col-xs-4 control-label'>Mortalitas</label>
-						<div class='col-xs-7'>
+						<label class='col-xs-3 control-label'>Harga</label>
+						<div class='col-xs-9'>
 						<input name='harga' id='harga_edit' type='number' step=1 min=0 class='form-control' value='".$data->harga."' required>
+						</div>
+						</div>
+						<div class='modal-footer'>
+						<div class='col-xs-6'>
+						<button class='btn btn-success' type='submit' id='save_edit_contract'><i class='fa fa-save'></i> Save</button>
+						</div>
+						<div class='col-xs-6 push-left'>
+						<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+						</div>
+						</div>
+						</div>
+						</form>";
+				}
+			}
+
+			elseif ($typeContract == 'bonus_pasar' )
+			{
+				$contract_detail = $this->ContractModel->read($typeContract, $id);
+				foreach ($contract_detail as $data)
+				{
+					echo "
+						<div class='modal-header'>
+						<h1 class='modal-title'>Edit contract ".str_replace('_', ' ', $typeContract)."</h1>
+						</div>
+						<form class='form-horizontal' method='post' id='edit_form_contract'>
+						<div class='modal-body'>
+						<div class='form-group'>
+						<label class='col-xs-3 control-label'>Range / Bobot</label>
+						<div class='col-xs-3'>
+						<input name='bobot_from' id='bobot_from' type='number' step=0.001 min=0 class='form-control' value='".$data->from."' required>
+						</div>
+						<label class='col-xs-3 control-label' style='text-align:center;'>sampai dengan</label>
+						<div class='col-xs-3'>
+						<input name='bobot_to' id='bobot_to' type='number' step=0.001 min=0 class='form-control' value='".$data->to."' required>
+						</div>
+						</div>
+						<div class='form-group'>
+						<label class='col-xs-3 control-label'>Mortalitas</label>
+						<div class='col-xs-9'>
+						<input name='bonus' id='bonus_edit' type='number' step=1 min=0 class='form-control' value='".$data->bonus."' required>
 						</div>
 						</div>
 						<div class='modal-footer'>
@@ -146,6 +187,7 @@ class Contract extends MX_Controller
 		if ($this->_access && !empty($type_contract) && !empty($id))
 		{
 			$save_data = '';
+
 			if ($type_contract == 'doc' || $type_contract == 'pakan' || $type_contract == 'ovk' )
 			{
 				$save_data = array(
@@ -154,13 +196,22 @@ class Contract extends MX_Controller
 						'harga' => $this->input->post('harga'),
 					);
 			}
-			else
+			elseif ($typeContract == 'selisih_fcr' || $typeContract == 'harga_beli')
 			{
 				$save_data = array(
 						'id' => $id,
 						'from' => $this->input->post('bobot_from'),
 						'to' => $this->input->post('bobot_to'),
 						'harga' => $this->input->post('harga'),
+					);
+			}
+			elseif ($typeContract == 'bonus_pasar' )
+			{
+				$save_data = array(
+						'id' => $id,
+						'from' => $this->input->post('bobot_from'),
+						'to' => $this->input->post('bobot_to'),
+						'bonus' => $this->input->post('bonus'),
 					);
 			}
 			echo($this->ContractModel->edit(str_replace('-', '_', $type_contract), $save_data) ? 'success' : '!success');
@@ -174,17 +225,20 @@ class Contract extends MX_Controller
 	/**
 	 * add method
 	 */
-	public function add($type_contract)
+	public function add($typeContract = '')
 	{
-		if ($this->_access && !empty($type_contract))
+		$type_contract = str_replace('-', '_', $typeContract);
+		if ($this->_access && !empty($typeContract))
 		{
-			if (empty($this->input->post('harga')))
+			$saveData = '';
+			
+			if ($type_contract == 'doc' || $type_contract == 'pakan' || $type_contract == 'ovk')
 			{
-				if ($type_contract == 'doc' || $type_contract == 'pakan' || $type_contract == 'ovk' )
+				if (empty($this->input->post('harga')))
 				{
 					echo "
 						<div class='modal-header'>
-						<h1 class='modal-title'>Add ".str_replace('-', ' ', $type_contract)." contract</h1>
+						<h1 class='modal-title'>Add contract ".str_replace('_',' ',$type_contract)."</h1>
 						</div>
 						<form class='form-horizontal' method='post' id='add_form_contract'>
 						<div class='modal-body'>
@@ -210,68 +264,118 @@ class Contract extends MX_Controller
 						</div>
 						</div>
 						</form>";
-					
 				}
 				else
+				{
+					$saveData = array(
+						'jenis' => $this->input->post('jenis'),
+						'harga' => $this->input->post('harga'),
+					);
+					$result = $this->ContractModel->add($type_contract, $saveData);
+					echo ($result ? 'success' : '!success');
+				}
+				
+			}
+			elseif ($type_contract == 'selisih_fcr' || $type_contract == 'harga_beli')
+			{
+				if (empty($this->input->post('harga')))
+				{					
+					echo "
+					<div class='modal-header'>
+					<h1 class='modal-title'>Add contract ".str_replace('_', ' ', $type_contract)."</h1>
+					</div>
+					<form class='form-horizontal' method='post' id='add_form_contract'>
+					<div class='modal-body'>
+					<div class='form-group'>
+					<label class='col-xs-3 control-label'>Range / Bobot</label>
+					<div class='col-xs-3'>
+					<input name='bobot_from' id='bobot_from_add' type='number' step=0.001 min=0 class='form-control' required>
+					</div>
+					<label class='col-xs-3 control-label' style='text-align:center;'>sampai dengan</label>
+					<div class='col-xs-3'>
+					<input name='bobot_to' id='bobot_to_add' type='number' step=0.001 min=0 class='form-control' required>
+					</div>
+					</div>
+					<div class='form-group'>
+					<label class='col-xs-3 control-label'>Harga</label>
+					<div class='col-xs-9'>
+					<input name='harga' id='harga_add' type='number' step=1 min=0 class='form-control' required>
+					</div>
+					</div>
+					<div class='modal-footer'>
+					<div class='col-xs-6'>
+					<button class='btn btn-success' type='submit' id='save_add_contract'><i class='fa fa-save'></i> Save</button>
+					</div>
+					<div class='col-xs-6 push-left'>
+					<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+					</div>
+					</div>
+					</div>
+					</form>";
+				}
+				else
+				{
+					$saveData = array(
+						'from' => $this->input->post('bobot_from'),
+						'to' => $this->input->post('bobot_to'),
+						'harga' => $this->input->post('harga'),
+					);
+					$result = $this->ContractModel->add($type_contract, $saveData);
+					echo ($result ? 'success' : '!success');
+				}
+			}
+			elseif ($type_contract == 'bonus_pasar')
+			{
+				if (empty($this->input->post('bonus')))
 				{
 					echo "
-						<div class='modal-header'>
-						<h1 class='modal-title'>Add ".str_replace('-', ' ', $type_contract)." contract</h1>
-						</div>
-						<form class='form-horizontal' method='post' id='add_form_contract'>
-						<div class='modal-body'>
-						<div class='form-group'>
-						<label class='col-xs-4 control-label'>Range / Bobot</label>
-						<div class='col-xs-2'>
-						<input name='bobot_from' id='bobot_from' type='text' class='form-control' required>
-						</div>
-						<label class='col-xs-3 control-label' style='text-align:center;'>sampai dengan</label>
-						<div class='col-xs-2'>
-						<input name='bobot_to' id='bobot_to' type='text' class='form-control' required>
-						</div>
-						</div>
-						<div class='form-group'>
-						<label class='col-xs-4 control-label'>Mortalitas</label>
-						<div class='col-xs-7'>
-						<input name='harga' id='harga_add' type='number' step=1 min=0 class='form-control' required>
-						</div>
-						</div>
-						<div class='modal-footer'>
-						<div class='col-xs-6'>
-						<button class='btn btn-success' type='submit' id='save_add_contract'><i class='fa fa-save'></i> Save</button>
-						</div>
-						<div class='col-xs-6 push-left'>
-						<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
-						</div>
-						</div>
-						</div>
-						</form>";	
-				}
-			}
-			else
-			{
-				$save_data = '';
-				if ($type_contract == 'doc' || $type_contract == 'pakan' || $type_contract == 'ovk' )
-				{
-					$save_data = array(
-							'jenis' => $this->input->post('jenis'),
-							'harga' => $this->input->post('harga'),
-						);
+					<div class='modal-header'>
+					<h1 class='modal-title'>Add contract ".str_replace('_', ' ', $type_contract)."</h1>
+					</div>
+					<form class='form-horizontal' method='post' id='add_form_contract'>
+					<div class='modal-body'>
+					<div class='form-group'>
+					<label class='col-xs-3 control-label'>Range / Bobot</label>
+					<div class='col-xs-3'>
+					<input name='bobot_from' id='bobot_from_add' type='number' step=0.001 min=0 class='form-control' required>
+					</div>
+					<label class='col-xs-3 control-label' style='text-align:center;'>sampai dengan</label>
+					<div class='col-xs-3'>
+					<input name='bobot_to' id='bobot_to_add' type='number' step=0.001 min=0 class='form-control' required>
+					</div>
+					</div>
+					<div class='form-group'>
+					<label class='col-xs-3 control-label'>Bonus</label>
+					<div class='col-xs-9'>
+					<input name='bonus' id='bonus_add' type='number' step=1 min=0 class='form-control' required>
+					</div>
+					</div>
+					<div class='modal-footer'>
+					<div class='col-xs-6'>
+					<button class='btn btn-success' type='submit' id='save_add_contract'><i class='fa fa-save'></i> Save</button>
+					</div>
+					<div class='col-xs-6 push-left'>
+					<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+					</div>
+					</div>
+					</div>
+					</form>";
 				}
 				else
 				{
-					$save_data = array(
-							'from' => $this->input->post('bobot_from'),
-							'to' => $this->input->post('bobot_to'),
-							'harga' => $this->input->post('harga'),
-						);
+					$saveData = array(
+						'from' => $this->input->post('bobot_from'),
+						'to' => $this->input->post('bobot_to'),
+						'bonus' => $this->input->post('bonus'),
+					);
+					$result = $this->ContractModel->add($type_contract, $saveData);
+					echo ($result ? 'success' : '!success');
 				}
-				echo($this->ContractModel->add(str_replace('-', '_', $type_contract), $save_data) ? 'success' : '!success');
 			}
 		}
-		else
+		elseif ($this->_access && empty($type_contract))
 		{
-			redirect(base_url('contract/'));
+			redirect(base_url('/contract'));
 		}
 	}
 
