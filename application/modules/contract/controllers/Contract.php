@@ -27,7 +27,7 @@ class Contract extends MX_Controller
 	 * browse method
 	 */
 	public function browse()
-	{		
+	{
 		if ($this->_access)
 		{
 			$type_contract = array(
@@ -41,11 +41,11 @@ class Contract extends MX_Controller
 			foreach ($type_contract as $table) {
 				$data[$table] = $this->ContractModel->browse($table);
 			}
-			$this->show_interface('browse', $data);
+			$this->_show_interface('browse', $data);
 		}
 		else
 		{
-			$this->show_interface('Unauthorize', '');
+			$this->_show_interface('Unauthorize', '');
 		}
 	}
 
@@ -53,7 +53,7 @@ class Contract extends MX_Controller
 	 * read method
 	 */
 	public function read($type_contract, $id)
-	{		
+	{
 		if ($this->_access && !empty($type_contract) && !empty($id))
 		{
 			if ($type_contract == 'doc' || $type_contract == 'pakan' || $type_contract == 'ovk' )
@@ -134,7 +134,7 @@ class Contract extends MX_Controller
 		}
 		else
 		{
-			$this->show_interface('Unauthorize', '');
+			$this->_show_interface('Unauthorize', '');
 		}		
 	}
 
@@ -142,7 +142,7 @@ class Contract extends MX_Controller
 	 * edit method
 	 */
 	public function edit($type_contract, $id)
-	{	
+	{
 		if ($this->_access && !empty($type_contract) && !empty($id))
 		{
 			$save_data = '';
@@ -175,7 +175,7 @@ class Contract extends MX_Controller
 	 * add method
 	 */
 	public function add($type_contract)
-	{	
+	{
 		if ($this->_access && !empty($type_contract))
 		{
 			if (empty($this->input->post('harga')))
@@ -279,7 +279,7 @@ class Contract extends MX_Controller
 	 * delete method
 	 */
 	public function delete($type_contract, $id)
-	{	
+	{
 		if ($this->_access && !empty($type_contract) && !empty($id))
 		{
 			echo($this->ContractModel->delete(str_replace('-', '_', $type_contract), $id) ? redirect(base_url('contract')) : redirect(base_url()));
@@ -291,23 +291,15 @@ class Contract extends MX_Controller
 	}
 
 	/**
-	 * show_interface method
+	 * _show_interface method
 	 */
-	private function show_interface($page, $data)
+	function _show_interface($page = 'Unauthorize', $data = '')
 	{
 		if(!empty($page && $data))
 		{
 			$this->load->view('head');
 			$this->load->view('navbar');
 			$this->load->view($page, $data);
-			$this->load->view('sidebar');
-			$this->load->view('foot');
-		}
-		elseif(empty($data))
-		{
-			$this->load->view('head');
-			$this->load->view('navbar');
-			$this->load->view($page);
 			$this->load->view('sidebar');
 			$this->load->view('foot');
 		}

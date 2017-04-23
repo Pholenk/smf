@@ -34,10 +34,7 @@ class ContractModel extends CI_Model
 	 */
 	public function edit($type_contract, $payload)
 	{
-		if ($this->db->update($type_contract, $payload, array('id' => $payload['id'])))
-		{
-			return true;
-		}
+		return ($this->db->update($type_contract, $payload, array('id' => $payload['id'])) ? true : false);
 	}
 
 	/**
@@ -45,9 +42,7 @@ class ContractModel extends CI_Model
 	 */
 	public function add($type_contract, $payload)
 	{
-		if ($this->db->insert($type_contract, $payload)) {
-			return true;
-		}
+		return ($this->db->insert($type_contract, $payload) ? true : false);
 	}
 
 
@@ -56,8 +51,6 @@ class ContractModel extends CI_Model
 	 */
 	public function delete($type_contract, $id)
 	{
-		if($this->db->delete($type_contract, array('id' => $id))){
-			return true;
-		}
+		return ($this->db->delete($type_contract, array('id' => $id)) ? true : false);
 	}
 }
