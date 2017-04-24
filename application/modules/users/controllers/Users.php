@@ -45,12 +45,173 @@ class Users extends MX_Controller
 	 * read method
 	 * get a row user's data from persistence storage
 	 */
-	public function read($email)
+	public function read($email = '')
 	{
 		if($this->_access && !empty($email))
 		{
-			$data['user_data'] = $this->UsersModel->read($email);
-			$this->_show_interface('read', $data);
+			$user_data = $this->UsersModel->read($email);
+			// $this->_show_interface('read', $data);
+			foreach ($user_data as $data)
+			{
+				echo "
+				<div class='modal-header'>
+				<h1 class='modal-title'>Edit Breeder</h1>
+				</div>
+				<form class='form-horizontal' method='post' id='user_edit_form_".$data->id."' enctype='multipart/form-data'>
+				<div class='modal-body'>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>ID</label>
+							<div class='col-xs-9'>
+								<label class='control-label'>".$data->id."</label>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
+							<div class='col-xs-9'>
+								<input name='nama' type='text' class='form-control' value='".$data->name_full."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
+							<div class='col-xs-9'>
+								<input name='email' type='email' class='form-control' value='".$data->email."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
+							<div class='col-xs-9'>
+								<input name='ktp_no' type='number' class='form-control' value='".$data->ktp_no."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
+							<div class='col-xs-9'>
+								<input name='ktp_img' type='file' class='form-control' value='".$data->ktp_img."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
+							<div class='col-xs-9'>
+								<input name='alamat' type='text' class='form-control' value='".$data->alamat."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
+							<div class='col-xs-9'>
+								<input name='telepon_primer' type='number' class='form-control' value='".$data->telepon_primer."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
+							<div class='col-xs-9'>
+								<input name='telepon_sekunder' type='number' class='form-control' value='".$data->telepon_sekunder."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
+							<div class='col-xs-9'>
+								<input name='telepon_pin' type='text' class='form-control' value='".$data->telepon_pin."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
+							<div class='col-xs-9'>
+								<input name='telpon_whatsapp' type='number' class='form-control' value='".$data->telepon_whatsapp."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
+							<div class='col-xs-9'>
+								<input name='rekening_no' type='text' class='form-control' value='".$data->rekening_no."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
+							<div class='col-xs-9'>
+								<select name='rekening_bank' class='form-control'>".$data->rekening_bank."
+									<option>BRI</option>
+									<option>BNI</option>
+									<option>BCA</option>
+									<option>Mandiri</option>
+								</select>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
+							<div class='col-xs-9'>
+								<input name='agama' type='text' class='form-control' value='".$data->agama."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
+							<div class='col-xs-9'>
+								<input name='npwp_no' type='text' class='form-control' value='".$data->npwp_no."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
+							<div class='col-xs-9'>
+								<input name='npwp_img' type='file' class='form-control' value='".$data->npwp_img."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Status</label>
+							<div class='col-xs-9'>
+								<div class='radio'>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+									<input name='status' type='radio' value='kawin' ".($data->status === 'kawin' ? 'checked' : '')."> Kawin
+									</label>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+									<input name='status' type='radio' value='tidak_kawin' ".($data->status === 'tidak_kawin' ? 'checked' : '')."> Tidak / Belum Kawin
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
+							<div class='col-xs-9'>
+								<div class='radio'>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1' ".($data->anak === '1' ? 'checked' : '')."> 1</label>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2' ".($data->anak === '2' ? 'checked' : '')."> 2</label>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3' ".($data->anak === '3' ? 'checked' : '')."> 3</label>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4' ".($data->anak === '4' ? 'checked' : '')."> 4</label>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5' ".($data->anak === '5' ? 'checked' : '')."> 5</label>
+									<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5' ".($data->anak === '>5' ? 'checked' : '')."> > 5 </label>
+								</div>
+							</div>  
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
+							<div class='col-xs-9'>
+								<input name='photo' type='file' class='form-control' value='".$data->photo."'>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
+							<div class='col-xs-9'>
+							<select name='jabatan' class='form-control'>".$data->jabatan."
+								<option>Admin</option>
+								<option>Logistik</option>
+							</select>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-xs-3 control-label' style='text-align: left;'>Tanggal gabung</label>
+							<div class='col-xs-3'>
+								<label class='control-label' style='text-align: left;'>".mdate('%d %F %Y', time($data->created_at))."</label>
+							</div>
+						</div>
+				</div>
+				<div class='modal-footer'>
+					<div class='col-xs-6'>
+						<button class='btn btn-success' type='submit' id='save_edit_supplier'><i class='fa fa-save'></i> Save</button>
+					</div>
+					<div class='col-xs-6 push-left'>
+						<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+					</div>
+				</div>
+				</form>";
+			}
 		}
 	}
 

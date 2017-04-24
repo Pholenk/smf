@@ -18,6 +18,55 @@ $(document).ready(
 	})
 	)
 
+//==============//
+//  users page  //
+//==============//
+$(document).ready(function() {
+	var id
+
+	$("button[id^='edit_user_']").on('click', function() {
+		id = this.id.replace("edit_user_", "")
+		$.ajax({
+			url: 'users/read/'+id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
+
+	$('body').on('submit', '#edit_form_user', function() {
+		id = this.id.replace("edit_form_user_", "")
+		$.ajax({
+			type: 'post',
+			url: 'users/edit/'+id,
+			data: $('#edit_form_user_'+id).serialize(),
+			success: function(response) {
+				response === 'SUCCESS' ? window.location = '/users/' : window.location = '/users'
+			}
+		})
+	})
+
+	$('#add_user').on('click',function() {
+		$.ajax({
+			url: 'users/add',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
+	
+	$('body').on('submit', '#add_form_user', function() {
+		$.ajax({
+			type: 'post',
+			url: 'users/add/',
+			data: $('#add_form_user').serialize(),
+			success: function(response) {
+				response === 'SUCCESS' ? window.location = '/users/' : window.location = 'users/'
+			}
+		})
+	})
+})
+
 //===================//
 //  privileges page  //
 //===================//
