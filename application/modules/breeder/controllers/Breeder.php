@@ -44,9 +44,8 @@ class Breeder extends MX_Controller
 	 */
 	public function read($id = '')
 	{
-		if ($this->_access)
+		if ($this->_access && !empty($id))
 		{
-			$datestring = '%d - %m - %Y';
 			$breeder_read_data = $this->BreederModel->read($id);
 			$browse_ts_data = $this->BreederModel->browse_ts();
 			$browse_route_ring_data = $this->BreederModel->browse_route_ring();
@@ -128,7 +127,7 @@ class Breeder extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-4 control-label'>Technical Support</label>
 				<div class='col-xs-7'>
-				<select name='ts_id' id='ts_id_edit' type='' class='form-control' value='".$data->ts_id."' required>
+				<select name='ts_id' id='ts_id_edit' class='form-control' value='".$data->ts_id."' required>
 				<option> </option>";
 				foreach ($browse_ts_data as $ts) {
 					echo "<option value='".$ts->id."'>".$ts->name_full."</option>";						
@@ -148,7 +147,7 @@ class Breeder extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-4 control-label'>Tanggal Gabung</label>
 				<div class=''>
-				<label class='col-xs-7 control-label' style='text-align:left;'>".mdate($datestring, time($data->created_at))."</label>
+				<label class='col-xs-7 control-label' style='text-align:left;'>".mdate('%d %F %Y', time($data->created_at))."</label>
 				</div>
 				</div>
 				<div class='modal-footer'>
