@@ -123,7 +123,7 @@ $(document).ready(function() {
 
 	$("button[id^='add_contract_']").click(function() {
 		type_contract = this.id.replace('add_contract_', '')
-
+		console.log(type_contract)
 		$.ajax({
 			url: 'contract/add/'+type_contract,
 			success: function (response) {
