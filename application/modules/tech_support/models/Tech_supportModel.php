@@ -62,19 +62,22 @@ class Tech_supportModel extends CI_Model
 	 */
 	public function delete($id, $tech_support_data)
 	{
-		$this->db->select('(COUNT(tech_support.breeder_id)) as breeder_count')->from('tech_support');
+		$this->db->select('(COUNT(breeder.id)) as breeder_count')->from('breeder');
 		$this->db->where('ts_id', $id);
 		$count = $this->db->get();
-
-		if ($count->result > 0)
+		$number = $count->result();
+		foreach ($number as $key)
 		{
-			return false;
+			if ($key->breeder_count > 0)
+			{
+				return false;
+			}
+			else
+			{
+				$this->db->where('id', $id);
+				$this->db->update('users', $tech_support_data);
+				return true;
+			}	
 		}
-		else
-		{
-			$this->db->where('id', $id);
-			$this->db->update('users', $tech_support_data);
-			return true;
-		}	
 	}
 }
