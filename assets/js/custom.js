@@ -461,9 +461,9 @@ $(document).ready(function() {
 	})
 })
 
-//=========================//
+//================//
 //  breeder page  //
-//=========================//
+//================//
 $(document).ready(function() {
 	var id
 
@@ -486,7 +486,6 @@ $(document).ready(function() {
 				dataType: 'json',
 				url: 'breeder/read_route/'+id_route,
 				success: function (result) {
-					console.log(result)
 					result !== '!LOGIN' ? $("label[id^='ring_'").html(result.ring) && $("label[id^='route_']").html(result.route) : window.location = '/auth'
 				}
 			})
@@ -495,7 +494,6 @@ $(document).ready(function() {
 
 	$('body').on('click', "button[id^='edit_breeder_']", function() {
 		id = this.id.replace('edit_breeder_', '')
-		console.log(id)
 		$.ajax({
 			url: 'breeder/read/'+id,
 			success: function (response) {
@@ -506,9 +504,9 @@ $(document).ready(function() {
 
 	$("button[id^='add_breeder']").click(function() {
 		$.ajax({
-			url: 'breeder/add/',
+			url: 'breeder/add',
 			success: function (response) {
-				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+				response === '' ? window.location = '/auth' : $('.modal-content').html(response)
 			}
 		})
 	})
