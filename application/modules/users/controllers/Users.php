@@ -503,7 +503,7 @@ class Users extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
 				<div class='col-xs-9'>
-				<input name='photo' type='file' class='form-control' value='>
+				<input name='photo' type='file' class='form-control'>
 				</div>
 				</div>
 				<div class='form-group'>

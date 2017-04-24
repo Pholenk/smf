@@ -48,7 +48,9 @@
 					</div>
 					<!-- /.box-body -->
 					<div class="box-footer">
-							<button class="btn btn-success"><i class="fa fa-plus"></i> ADD</button>
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal" id="add_user"><i class="fa fa-plus"></i> ADD</button>
+						</div>
 					</div>
 				</div>
 				<!-- /.box -->
