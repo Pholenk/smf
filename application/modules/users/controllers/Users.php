@@ -9,7 +9,7 @@
 
 class Users extends MX_Controller
 {
-	private $is_login;
+	private $_access;
 
 	function __construct()
 	{
@@ -17,7 +17,7 @@ class Users extends MX_Controller
 		$this->load->module('auth');
 		$this->load->model('UsersModel');
 		$this->load->helper('date');
-		$this->is_login = $this->auth->is_login();
+		$this->_access = $this->auth->privileges_read('users');
 	}
 
 	/**
@@ -25,40 +25,19 @@ class Users extends MX_Controller
 	 */
 	public function index()
 	{
-		$this->browse();
-	}
-
-	public function test()
-	{
-		/**
-		 * this function must be delete before deploy
-		 */
-		$this->show_interface('test','');
-
+		$this->_browse();
 	}
 
 	/**
 	 * browse method
 	 * get all user's data from persistence storage
 	 */
-	public function browse()
+	public function _browse()
 	{
-		if($this->is_login)
+		if($this->_access)
 		{
-			$access = $this->auth->privileges_read('users_browse');
-			if($access)
-			{
-				$data['users_data'] = $this->UsersModel->browse();
-				$this->show_interface('browse', $data);
-			}
-			else
-			{
-				$this->show_interface('Unauthorize', '');
-			}
-		}
-		else
-		{
-			redirect(base_url());
+			$data['users_data'] = $this->UsersModel->browse();
+			$this->_show_interface('browse', $data);
 		}
 	}
 
@@ -66,25 +45,173 @@ class Users extends MX_Controller
 	 * read method
 	 * get a row user's data from persistence storage
 	 */
-	public function read($email)
+	public function read($email = '')
 	{
-		if($this->is_login)
+		if($this->_access && !empty($email))
 		{
-			$access = $this->auth->privileges_read('users_read');
-			if($access)
+			$user_data = $this->UsersModel->read($email);
+			// $this->_show_interface('read', $data);
+			foreach ($user_data as $data)
 			{
-				$data['user_data'] = $this->UsersModel->read($email);
-				$this->show_interface('read', $data);
+				echo "
+				<div class='modal-header'>
+				<h1 class='modal-title'>Edit Breeder</h1>
+				</div>
+				<form class='form-horizontal' method='post' id='user_edit_form_".$data->id."' enctype='multipart/form-data'>
+				<div class='modal-body'>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>ID</label>
+				<div class='col-xs-9'>
+				<label class='control-label'>".$data->id."</label>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
+				<div class='col-xs-9'>
+				<input name='nama' type='text' class='form-control' value='".$data->name_full."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
+				<div class='col-xs-9'>
+				<input name='email' type='email' class='form-control' value='".$data->email."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
+				<div class='col-xs-9'>
+				<input name='ktp_no' type='number' class='form-control' value='".$data->ktp_no."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
+				<div class='col-xs-9'>
+				<input name='ktp_img' type='file' class='form-control' value='".$data->ktp_img."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
+				<div class='col-xs-9'>
+				<input name='alamat' type='text' class='form-control' value='".$data->alamat."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
+				<div class='col-xs-9'>
+				<input name='telepon_primer' type='number' class='form-control' value='".$data->telepon_primer."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
+				<div class='col-xs-9'>
+				<input name='telepon_sekunder' type='number' class='form-control' value='".$data->telepon_sekunder."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
+				<div class='col-xs-9'>
+				<input name='telepon_pin' type='text' class='form-control' value='".$data->telepon_pin."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
+				<div class='col-xs-9'>
+				<input name='telpon_whatsapp' type='number' class='form-control' value='".$data->telepon_whatsapp."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
+				<div class='col-xs-9'>
+				<input name='rekening_no' type='text' class='form-control' value='".$data->rekening_no."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
+				<div class='col-xs-9'>
+				<select name='rekening_bank' class='form-control'>".$data->rekening_bank."
+				<option>BRI</option>
+				<option>BNI</option>
+				<option>BCA</option>
+				<option>Mandiri</option>
+				</select>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
+				<div class='col-xs-9'>
+				<input name='agama' type='text' class='form-control' value='".$data->agama."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
+				<div class='col-xs-9'>
+				<input name='npwp_no' type='text' class='form-control' value='".$data->npwp_no."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
+				<div class='col-xs-9'>
+				<input name='npwp_img' type='file' class='form-control' value='".$data->npwp_img."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Status</label>
+				<div class='col-xs-9'>
+				<div class='radio'>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+				<input name='status' type='radio' value='kawin' ".($data->status === 'kawin' ? 'checked' : '')."> Kawin
+				</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+				<input name='status' type='radio' value='tidak_kawin' ".($data->status === 'tidak_kawin' ? 'checked' : '')."> Tidak / Belum Kawin
+				</label>
+				</div>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
+				<div class='col-xs-9'>
+				<div class='radio'>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1' ".($data->anak === '1' ? 'checked' : '')."> 1</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2' ".($data->anak === '2' ? 'checked' : '')."> 2</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3' ".($data->anak === '3' ? 'checked' : '')."> 3</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4' ".($data->anak === '4' ? 'checked' : '')."> 4</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5' ".($data->anak === '5' ? 'checked' : '')."> 5</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5' ".($data->anak === '>5' ? 'checked' : '')."> > 5 </label>
+				</div>
+				</div>  
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
+				<div class='col-xs-9'>
+				<input name='photo' type='file' class='form-control' value='".$data->photo."'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
+				<div class='col-xs-9'>
+				<select name='jabatan' class='form-control'>".$data->jabatan."
+				<option>Admin</option>
+				<option>Logistik</option>
+				</select>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Tanggal gabung</label>
+				<div class='col-xs-3'>
+				<label class='control-label' style='text-align: left;'>".mdate('%d %F %Y', time($data->created_at))."</label>
+				</div>
+				</div>
+				</div>
+				<div class='modal-footer'>
+				<div class='col-xs-6'>
+				<button class='btn btn-success' type='submit' id='save_edit_supplier'><i class='fa fa-save'></i> Save</button>
+				</div>
+				<div class='col-xs-6 push-left'>
+				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+				</div>
+				</div>
+				</form>";
 			}
-			else
-			{
-				$this->show_interface('Unauthorize', '');
-			}
-
-		}
-		else
-		{
-			redirect(base_url());
 		}
 	}
 
@@ -92,59 +219,51 @@ class Users extends MX_Controller
 	 * edit method
 	 * edit the user data in persistence storage
 	 */
-	public function edit($id)
+	public function edit($id = '')
 	{
-		if($this->is_login)
+		if($this->_access)
 		{
-			$access = $this->auth->privileges_read('users_edit');
-			if($access)
+			$datestring = '%Y-%m-%d %H:%i:%s';
+			if (substr($id, 0, 2) !== 'IU')
 			{
-				$datestring = '%Y-%m-%d %H:%i:%s';
-				if (substr($id, 0, 2) !== 'IU') {
-					$data['user_data'] = $this->UsersModel->read($id);
-					$this->show_interface('edit', $data);
-				}
-				else
-				{
-					$data = array(
-							'users' => array(
-									'email' => $this->input->post('email'), 
-									'password' => $this->input->post('password'),
-									'jabatan' => $this->input->post('jabatan'),
-									'name_full' => $this->input->post('nama'),
-									'ktp_no' => $this->input->post('ktp_no'),
-									'ktp_img' => $this->input->post('ktp_img'),
-									'alamat' => $this->input->post('alamat'),
-									'telepon_primer' => $this->input->post('telepon_primer'),
-									'rekening_no' => $this->input->post('rekening_no'),
-									'rekening_bank' => $this->input->post('rekening_bank'),
-									'agama' => $this->input->post('agama'), 
-									'status' => $this->input->post('status'),
-									'anak' => $this->input->post('anak'),
-									'photo' => $this->input->post('photo')
-								),
-							'details' => array(
-									'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
-									'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
-									'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
-									'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
-									'npwp_img' => ($this->input->post('npwp_img') === '' ? 'null' : $this->input->post('npwp_img')),
-									'created_at' => mdate($datestring, time()),
-									'edited_at' => mdate($datestring, time())
-								)
-						);
-					$this->UsersModel->edit($id, $data['users'], $data['details']);
-					redirect(base_url("/users/read/".$data['users']['email']));
-				}
+				$data['user_data'] = $this->UsersModel->read($id);
+				$this->_show_interface('edit', $data);
+			}
+			elseif(substr($id, 0, 2) === 'IU')
+			{
+				$data = array(
+						'users' => array(
+								'email' => $this->input->post('email'), 
+								'password' => $this->input->post('password'),
+								'jabatan' => $this->input->post('jabatan'),
+								'name_full' => $this->input->post('nama'),
+								'ktp_no' => $this->input->post('ktp_no'),
+								'ktp_img' => $this->input->post('ktp_img'),
+								'alamat' => $this->input->post('alamat'),
+								'telepon_primer' => $this->input->post('telepon_primer'),
+								'rekening_no' => $this->input->post('rekening_no'),
+								'rekening_bank' => $this->input->post('rekening_bank'),
+								'agama' => $this->input->post('agama'), 
+								'status' => $this->input->post('status'),
+								'anak' => $this->input->post('anak'),
+								'photo' => $this->input->post('photo')
+							),
+						'details' => array(
+								'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
+								'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
+								'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
+								'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
+								'npwp_img' => ($this->input->post('npwp_img') === '' ? 'null' : $this->input->post('npwp_img')),
+								'created_at' => mdate($datestring, time()),
+								'edited_at' => mdate($datestring, time())
+							)
+					);
+				($this->UsersModel->edit($id, $data['users'], $data['details']) ? redirect(base_url("/users/read/".$data['users']['email'])) : redirect(base_url()));
 			}
 			else
 			{
-				$this->show_interface('Unauthorize', '');
+				redirect(base_url('users'));
 			}
-		}
-		else
-		{
-			redirect(base_url());
 		}
 	}
 
@@ -154,176 +273,265 @@ class Users extends MX_Controller
 	 */
 	public function add()
 	{
-		if($this->is_login)
+		if($this->_access)
 		{
-			$access =$this->auth->privileges_read('users_add');
 			$datestring = '%Y-%m-%d %H:%i:%s';
 			$id = $this->UsersModel->idGen();
-			if($access)
+			$upload_conf = array(
+				'allowed_types' => 'jpg|png|jpeg',
+				'max_size' => '10000',
+				'file_name' => $id,
+				'overwrite' => TRUE,
+			);
+			$resize_conf = array(
+				'image_library' => 'gd2',
+				'create_thumb' => TRUE,
+				'maintain_ratio' => TRUE,
+				'width' => 600,
+			);
+
+			if(!empty($this->input->post('email')))
 			{
-				$upload_conf = array(
-					'allowed_types' => 'jpg|png|jpeg',
-					'max_size' => '10000',
-					'file_name' => $id,
-					'overwrite' => TRUE,
-					);
-				$resize_conf = array(
-						'image_library' => 'gd2',
-						'create_thumb' => TRUE,
-						'maintain_ratio' => TRUE,
-						'width' => 600,
-					);
+				$upload_conf['upload_path'] = './assets/ktp';
+				$this->load->library('upload', $upload_conf);
+				$this->load->library('image_lib',$resize_conf);
 
-				if(!empty($this->input->post('email')))
+				if($this->upload->do_upload('ktp_img'))
 				{
-					$upload_conf['upload_path'] = './assets/ktp';
-					$this->load->library('upload', $upload_conf);
-					$this->load->library('image_lib',$resize_conf);
+					$ktp = ''.$id.''.$this->upload->data('file_ext');
+					chmod($this->upload->data('full_path'), 0777);
 
-					if($this->upload->do_upload('ktp_img'))
+					$upload_conf['upload_path'] = './assets/photo/';
+					$this->upload->initialize($upload_conf);
+					if($this->upload->do_upload('user_img'))
 					{
-						$ktp = ''.$id.''.$this->upload->data('file_ext');
 						chmod($this->upload->data('full_path'), 0777);
 
-						$upload_conf['upload_path'] = './assets/photo/';
-						$this->upload->initialize($upload_conf);
-						if($this->upload->do_upload('user_img'))
+						$resize_conf['source_image'] = $this->upload->data('full_path');
+						$this->image_lib->initialize($resize_conf);
+						if($this->image_lib->resize())
 						{
-							chmod($this->upload->data('full_path'), 0777);
-
-							$resize_conf['source_image'] = $this->upload->data('full_path');
-							$this->image_lib->initialize($resize_conf);
-							if($this->image_lib->resize())
+							$img = $this->upload->data('file_name');
+							$img_thumb = ''.$id.'_thumb'.$this->upload->data('file_ext');
+							if(!empty($this->input->post('npwp_img')))
 							{
-								$img = $this->upload->data('file_name');
-								$img_thumb = ''.$id.'_thumb'.$this->upload->data('file_ext');
-								if(!empty($this->input->post('npwp_img')))
-								{
-									$upload_conf['upload_path'] = './assets/npwp';
-									$this->upload->initialize($upload_conf);
-									$this->upload->do_upload('npwp_img');
-									$npwp = ''.$id.''.$this->upload->data('file_ext');
-								}
+								$upload_conf['upload_path'] = './assets/npwp';
+								$this->upload->initialize($upload_conf);
+								$this->upload->do_upload('npwp_img');
+								$npwp = ''.$id.''.$this->upload->data('file_ext');
+							}
 
-								$data = array(
-								'users' => array(
-											'id' => $id,
-											'email' => $this->input->post('email'),
-											'password' => $this->input->post('password'),
-											'jabatan' => $this->input->post('jabatan'),
-											'name_full' => $this->input->post('nama'),
-											'ktp_no' => $this->input->post('ktp_no'),
-											'ktp_img' => $ktp,
-											'alamat' => $this->input->post('alamat'),
-											'telepon_primer' => $this->input->post('telepon_primer'),
-											'rekening_no' => $this->input->post('rekening_no'),
-											'rekening_bank' => $this->input->post('rekening_bank'),
-											'agama' => $this->input->post('agama'),
-											'status' => $this->input->post('status'),
-											'anak' => $this->input->post('anak'),
-											'photo' => $img,
-											'thumbnail' => $img_thumb,
-										),
-								'details' => array(
-											'id' => $id,
-											'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
-											'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
-											'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
-											'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
-											'npwp_img' => ($npwp === '' ? 'null' : $npwp),
-											'created_at' => mdate($datestring, time()),
-											'edited_at' => mdate($datestring, time())
-										),
-								'privileges' => array(
-											'id' => $id,
-											'privileges_browse' => 0,
-											'privileges_read' => 0,
-											'privileges_edit' => 0,
-											'users_browse' => 0,
-											'users_read' => 0,
-											'users_edit' => 0,
-											'users_add' => 0,
-											'users_delete' => 0,
-											'standard_browse' => 0,
-											'standard_edit' => 0,
-											'standard_add' => 0,
-											'standard_delete' => 0,
-											'contract_browse' => 0,
-											'contract_read' => 0,
-											'contract_edit' => 0,
-											'contract_add' => 0,
-											'contract_delete' => 0,
-											'ring_browse' => 0,
-											'ring_read' => 0,
-											'ring_edit' => 0,
-											'ring_add' => 0,
-											'ring_delete' => 0,
-											'ts_browse' => 0,
-											'ts_read' => 0,
-											'ts_edit' => 0,
-											'ts_add' => 0,
-											'ts_delete' => 0,
-											'breeder_browse' => 0,
-											'breeder_read' => 0,
-											'breeder_edit' => 0,
-											'breeder_add' => 0,
-											'breeder_delete' => 0,
-											'supplier_browse' => 0,
-											'supplier_read' => 0,
-											'supplier_edit' => 0,
-											'supplier_add' => 0,
-											'supplier_delete' => 0,
-											'supplier_prod_browse' => 0,
-											'supplier_prod_read' => 0,
-											'supplier_prod_edit' => 0,
-											'supplier_prod_add' => 0,
-											'supplier_prod_delete' => 0,
-											'buyer_browse' => 0,
-											'buyer_read' => 0,
-											'buyer_edit' => 0,
-											'buyer_add' => 0,
-											'buyer_delete' => 0,
-											'breeder_score_browse' => 0,
-											'breeder_score_read' => 0,
-											'breeder_score_edit' => 0,
-											'breeder_score_add' => 0,
-											'breeder_score_delete' => 0
-										)
-									);
-							
-								($this->UsersModel->add($data['users'], $data['details'], $data['privileges'])) ? redirect(base_url('/users/read/'.$this->input->post('email'))) : redirect(base_url('/users/add')) ;
-							}
-							else
-							{
-								$data['error'] = $this->image_lib->display_errors();
-								$this->load->view('test',$data);
-							}
+							$data = array(
+							'users' => array(
+										'id' => $id,
+										'email' => $this->input->post('email'),
+										'password' => $this->input->post('password'),
+										'jabatan' => $this->input->post('jabatan'),
+										'name_full' => $this->input->post('nama'),
+										'ktp_no' => $this->input->post('ktp_no'),
+										'ktp_img' => $ktp,
+										'alamat' => $this->input->post('alamat'),
+										'telepon_primer' => $this->input->post('telepon_primer'),
+										'rekening_no' => $this->input->post('rekening_no'),
+										'rekening_bank' => $this->input->post('rekening_bank'),
+										'agama' => $this->input->post('agama'),
+										'status' => $this->input->post('status'),
+										'anak' => $this->input->post('anak'),
+										'photo' => $img,
+										'thumbnail' => $img_thumb,
+								),
+							'details' => array(
+										'id' => $id,
+										'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
+										'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
+										'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
+										'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
+										'npwp_img' => ($npwp === '' ? 'null' : $npwp),
+										'created_at' => mdate($datestring, time()),
+										'edited_at' => mdate($datestring, time())
+								),
+							'privileges' => array(
+										'id' => $id,
+										'privileges' => 0,
+										'users' => 0,
+										'standard' => 0,
+										'contract' => 0,
+										'ring' => 0,
+										'ts' => 0,
+										'breeder' => 0,
+										'supplier' => 0,
+										'supplier_prod' => 0,
+										'buyer' => 0,
+										'breeder_score' => 0,
+								)
+							);
+						
+							($this->UsersModel->add($data['users'], $data['details'], $data['privileges'])) ? redirect(base_url('/users/read/'.$this->input->post('email'))) : redirect(base_url('/users/add')) ;
 						}
 					}
-					
-					else
-					{
-						$error = $this->upload->display_error();
-						$this->load->view('test',$error);
-					}
-				}
-
-				else
-				{
-					$data['id'] = $this->UsersModel->idGen();
-					$this->show_interface('add', $data);
 				}
 			}
-
 			else
 			{
-				$this->show_interface('Unauthorize', '');
+				echo "
+				<div class='modal-header'>
+				<h1 class='modal-title'>Edit Breeder</h1>
+				</div>
+				<form class='form-horizontal' method='post' id='user_add_form' enctype='multipart/form-data'>
+				<div class='modal-body'>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>ID</label>
+				<div class='col-xs-9'>
+				<label class='control-label'>".$id."</label>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
+				<div class='col-xs-9'>
+				<input name='nama' type='text' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
+				<div class='col-xs-9'>
+				<input name='email' type='email' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
+				<div class='col-xs-9'>
+				<input name='ktp_no' type='number' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
+				<div class='col-xs-9'>
+				<input name='ktp_img' type='file' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
+				<div class='col-xs-9'>
+				<input name='alamat' type='text' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
+				<div class='col-xs-9'>
+				<input name='telepon_primer' type='number' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
+				<div class='col-xs-9'>
+				<input name='telepon_sekunder' type='number' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
+				<div class='col-xs-9'>
+				<input name='telepon_pin' type='text' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
+				<div class='col-xs-9'>
+				<input name='telpon_whatsapp' type='number' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
+				<div class='col-xs-9'>
+				<input name='rekening_no' type='text' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
+				<div class='col-xs-9'>
+				<select name='rekening_bank' class='form-control'>
+				<option>BRI</option>
+				<option>BNI</option>
+				<option>BCA</option>
+				<option>Mandiri</option>
+				</select>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
+				<div class='col-xs-9'>
+				<input name='agama' type='text' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
+				<div class='col-xs-9'>
+				<input name='npwp_no' type='text' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
+				<div class='col-xs-9'>
+				<input name='npwp_img' type='file' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Status</label>
+				<div class='col-xs-9'>
+				<div class='radio'>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+				<input name='status' type='radio' value='kawin'> Kawin
+				</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+				<input name='status' type='radio' value='tidak_kawin'> Tidak / Belum Kawin
+				</label>
+				</div>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
+				<div class='col-xs-9'>
+				<div class='radio'>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1'> 1</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2'> 2</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3'> 3</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4'> 4</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5'> 5</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5'> > 5 </label>
+				</div>
+				</div>  
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
+				<div class='col-xs-9'>
+				<input name='photo' type='file' class='form-control'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
+				<div class='col-xs-9'>
+				<select name='jabatan' class='form-control'>
+				<option>Admin</option>
+				<option>Logistik</option>
+				</select>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Tanggal gabung</label>
+				<div class='col-xs-3'>
+				<label class='control-label' style='text-align: left;'>".mdate('%d %F %Y', time())."</label>
+				</div>
+				</div>
+				</div>
+				<div class='modal-footer'>
+				<div class='col-xs-6'>
+				<button class='btn btn-success' type='submit' id='save_edit_supplier'><i class='fa fa-save'></i> Save</button>
+				</div>
+				<div class='col-xs-6 push-left'>
+				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+				</div>
+				</div>
+				</form>";
 			}
-		}
-
-		else
-		{
-			redirect(base_url());
 		}
 	}
 
@@ -333,54 +541,34 @@ class Users extends MX_Controller
 	 */
 	public function delete($id)
 	{
-		if($this->is_login)
+		if($this->_access && !empty($id))
 		{
-			$access = $this->auth->privileges_read('users_delete');
-			if($access)
+			if($this->UsersModel->delete($id, FALSE))
 			{
-				if (!empty($id))
-				{
-					if($this->UsersModel->delete($id, FALSE))
-					{
-						$id === $this->session->userdata ? redirect(base_url()) : redirect(base_url('/users'));
-					}
-				}
-				else
-				{
-					redirect(base_url('/users'));
-				}
+				($id === $this->session->userdata ? redirect(base_url('auth/logout')) : redirect(base_url('/users')));
 			}
 			else
 			{
-				$this->show_interface('Unauthorize', '');
+				redirect(base_url());
 			}
 		}
-		else
+		elseif ($this->_access && empty($id))
 		{
-			redirect(base_url());
+			redirect(base_url('users'));
 		}
-
 	}
 
 	/**
-	 * show_interface method
+	 * _show_interface method
 	 * load user interface page which contain the $data
 	 */
-	private function show_interface($page, $data)
+	function _show_interface($page, $data)
 	{
 		if(!empty($page && $data))
 		{
 			$this->load->view('head');
 			$this->load->view('navbar');
 			$this->load->view($page, $data);
-			$this->load->view('sidebar');
-			$this->load->view('foot');
-		}
-		elseif(empty($data))
-		{
-			$this->load->view('head');
-			$this->load->view('navbar');
-			$this->load->view($page);
 			$this->load->view('sidebar');
 			$this->load->view('foot');
 		}

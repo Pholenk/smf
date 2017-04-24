@@ -601,8 +601,8 @@ class Migration_Improvement_database_privileges extends CI_Migration
 				'null' => FALSE,
 			),
 			'kelurahan' => array(
-				'type' => 'VARCHAR',
-				'constraint' => 255,
+				'type' => 'INT',
+				'constraint' => 11,
 				'null' => FALSE,
 			),
 			'kecamatan' => array(
@@ -635,14 +635,6 @@ class Migration_Improvement_database_privileges extends CI_Migration
 				'constraint' => 255,
 				'null' => FALSE,
 			),
-			'ring' => array(
-				'type' => 'INT',
-				'null' => FALSE,
-			),
-			'jalur' => array(
-				'type' => 'INT',
-				'null' => FALSE,
-			),
 			'created_at' => array(
 				'type' => 'DATE',
 				'null' => FALSE,
@@ -669,27 +661,27 @@ class Migration_Improvement_database_privileges extends CI_Migration
 				'constraint' => 255,
 				'null' => FALSE,
 			),
-			'Nama buyer' => array(
+			'nama' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 				'null' => FALSE,
 			),
-			'Alamat buyer' => array(
+			'alamat' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 				'null' => FALSE,
 			),
-			'No HP1' => array(
+			'telepon_primer' => array(
 				'type' => 'INT',
 				'constraint' => 50,
 				'null' => FALSE,
 			),
-			'No HP2' => array(
+			'telepon_sekunder' => array(
 				'type' => 'INT',
 				'constraint' => 50,
 				'null' => TRUE,
 			),
-			'No HP3' => array(
+			'telepon_tersier' => array(
 				'type' => 'INT',
 				'constraint' => 50,
 				'null' => TRUE,
