@@ -47,6 +47,9 @@
 						</div>
 					</div>
 					<!-- /.box-body -->
+					<div class="box-footer">
+							<button class="btn btn-success"><i class="fa fa-plus"></i> ADD</button>
+					</div>
 				</div>
 				<!-- /.box -->
 				<div class="modal fade" id="modal" tab-index="-1" role="dialog">
