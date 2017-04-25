@@ -123,6 +123,7 @@ class Breeder_score extends MX_Controller
 				'selisih' => $this->input->post('selisih'),
 				'score' => $this->input->post('score'),
 			);
+			echo($this->Breeder_scoreModel->add($breeder_score_data) ? 'success' : '!succes');
 		}
 		elseif ($this->_access && empty($this->input->post('selisih')))
 		{

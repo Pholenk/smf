@@ -24,7 +24,7 @@
 					<td style="text-align:center;">
 					  <?php echo $data->score ?>
 					</td>
-					<td style="align-item:center;">
+					<td style="text-align:center;">
 					  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal" id="edit_breeder_score_<?php echo $data->id ?>"><i class="fa fa-edit"></i> EDIT</button>
 					  <a href="/breeder_score/delete/<?php echo $data->id ?>">
 						<button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button>
