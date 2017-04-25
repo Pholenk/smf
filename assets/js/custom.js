@@ -46,6 +46,25 @@ $(document).ready(function() {
 		})
 	})
 
+	$('#table_search').on('keyup', function() {
+		if ($('#table_search').val() !== '') {
+			$.ajax({
+				url: '/users/search/'+ $('#table_search').val(),
+				success: function(result) {
+					$("tbody[id^='user-data']").html(result)
+				}
+			})
+
+		} else {
+			$.ajax({
+				url: '/users/search/',
+				success: function(result) {
+					$('#user-data').html(result)
+				}
+			})
+		}
+	})
+
 	$('#add_user').on('click',function() {
 		$.ajax({
 			url: 'users/add',
@@ -67,7 +86,7 @@ $(document).ready(function() {
 	})
 
 	$('body').on('click', '#show_password', function(){
-		($("input[id^='password_']").attr('type') === 'password' ? $("input[id^='password_']").attr('type', 'text') : $("input[id^='password_']").attr('type', 'password'))
+		($("input[id^='password_']").attr('type') === 'password' ? $("input[id^='password_']").attr('type', 'text') && $('i').removeClass('fa-eye') && $('i').addClass('fa-eye-slash') : $("input[id^='password_']").attr('type', 'password') && $('i').removeClass('fa-eye-slash') && $('i').addClass('fa-eye'))
 	})
 })
 

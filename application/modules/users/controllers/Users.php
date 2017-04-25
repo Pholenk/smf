@@ -80,7 +80,9 @@ class Users extends MX_Controller
 				<label class='col-xs-3 control-label' style='text-align: left;'>Password</label>
 				<div class='col-xs-9'>
 				<div class='input-group'>
-				<span class='input-group-addon'><a href='#'><i class='fa fa-eye' id='show_password'></i></a></span>
+				<div class='input-group-btn'>
+				<button type='button' class='btn btn-info' id='show_password'><i class='fa fa-eye'></i></button>
+				</div>
 				<input name='password' type='password' class='form-control' value='".$data->password."' id='password_edit'>
 				</div>
 				</div>
@@ -228,6 +230,54 @@ class Users extends MX_Controller
 		else
 		{
 			redirect(base_url());
+		}
+	}
+
+	public function search($email = '')
+	{
+		if ($this->_access && !empty($email))
+		{
+			$search_result = $this->UsersModel->search($email);
+			$i = 1;
+			foreach ($search_result as $data)
+			{
+				echo"
+				<tr>
+				<td>".$i."</td>
+				<td>".$data->id."</td>
+				<td>".$data->name_full."</td>
+				<td>".$data->email."</td>
+				<td>".$data->jabatan."</td>
+				<td>
+					<button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal' id='edit_user_".$data->email."'><i class='fa fa-edit'></i> EDIT</button>
+					<a href='".base_url('/users/delete/'.$data->id)."'><button type='button' class='btn btn-danger'><i class='fa fa-trash'></i> DELETE</button></a>
+				</td>
+				</tr>
+				";
+				$i++;
+			}
+		}
+		elseif ($this->_access && empty($email))
+		{
+			$data_result = $this->UsersModel->browse();
+			$i = 1;
+			foreach ($data_result as $data)
+			{
+				echo"
+				<tr>
+				<td>".$i."</td>
+				<td>".$data->id."</td>
+				<td>".$data->name_full."</td>
+				<td>".$data->email."</td>
+				<td>".$data->jabatan."</td>
+				<td>
+					<button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal' id='edit_user_".$data->email."'><i class='fa fa-edit'></i> EDIT</button>
+					<a href='".base_url('/users/delete/'.$data->id)."'><button type='button' class='btn btn-danger'><i class='fa fa-trash'></i> DELETE</button></a>
+				</td>
+				</tr>
+				";
+				$i++;
+			}
 		}
 	}
 
@@ -469,7 +519,9 @@ class Users extends MX_Controller
 				<label class='col-xs-3 control-label' style='text-align: left;'>Password</label>
 				<div class='col-xs-9'>
 				<div class='input-group'>
-				<span class='input-group-addon'><a href='#'><i class='fa fa-eye' id='show_password'></i></a></span>
+				<div class='input-group-btn'>
+				<button type='button' class='btn btn-info' id='show_password'><i class='fa fa-eye'></i></button>
+				</div>
 				<input name='password' type='password' class='form-control' id='password_add'>
 				</div>
 				</div>

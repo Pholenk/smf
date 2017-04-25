@@ -7,11 +7,9 @@
 					<div class="box-header with-border">
 						<h3 class="box-title">Users List</h3>
 						<div class="box-tools">
-							<div class="input-group input-group-sm" style="width: 150px;">
-								<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-								<div class="input-group-btn">
-									<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-								</div>
+							<div class="input-group pull-right" style="width: 23%;">
+								<input type="text" id="table_search" class="form-control" placeholder="Search">
+								<span class="input-group-addon" style='color:white;background-color:grey;'><i class="fa fa-search"></i></span>
 							</div>
 						</div>
 					</div>
@@ -19,14 +17,17 @@
 					<div class="box-body table-responsive no-padding">
 						<div class="col-sm-12">
 							<table class="table table-hover" style="margin-top:1%;border:none;">
+								<thead>
 								<tr>
 									<th>No</th>
 									<th>ID</th>
 									<th>Name</th>
 									<th>Email</th>
 									<th>Jabatan</th>
-									<th> </th>
+									<th>Action</th>
 								</tr>
+								</thead>
+								<tbody id="user-data">
 								<?php
 									$i=1;
 									foreach ($users_data as $key) { 
@@ -38,11 +39,12 @@
 									<td><?php echo $key->email; ?></td>
 									<td><?php echo $key->jabatan; ?></td>
 									<td>
-										<button type="button" class="btn btn-success" data-toggle="modal" data-target='#modal' id="edit_user_<?php echo $key->email ?>"><i class="fa fa-edit"></i> EDIT</button>
+										<button type="button" class="btn btn-info" data-toggle="modal" data-target='#modal' id="edit_user_<?php echo $key->email ?>"><i class="fa fa-edit"></i> EDIT</button>
 										<a href="<?php echo base_url('/users/delete/'.$key->id)?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button></a>
 									</td>
 								</tr>
 								<?php $i++;}?>
+								</tbody>
 							</table>
 						</div>
 					</div>
