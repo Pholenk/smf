@@ -38,8 +38,7 @@ class Breeder_scoreModel extends CI_Model
 	public function edit($id, $breeder_score_data)
 	{
 		$this->db->where('id', $id);
-		$this->db->update('breeder_score', $breeder_score_data);
-		return TRUE;
+		return ($this->db->update('breeder_score', $breeder_score_data) ? TRUE : FALSE);
 	}
 
 	/**
@@ -47,8 +46,7 @@ class Breeder_scoreModel extends CI_Model
 	 */
 	public function add($breeder_score_data)
 	{
-		$this->db->insert('breeder_score', $breeder_score_data);
-		return TRUE;
+		return ($this->db->insert('breeder_score', $breeder_score_data) ? TRUE : FALSE);
 	}
 
 	/**
@@ -57,9 +55,6 @@ class Breeder_scoreModel extends CI_Model
 	public function delete($id)
 	{
 		$this->db->where('id', $id);
-		if($this->db->delete('breeder_score'))
-		{
-			return TRUE;
-		}
+		return ($this->db->delete('breeder_score') ? TRUE : FALSE);
 	}
 }
