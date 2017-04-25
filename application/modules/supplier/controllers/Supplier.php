@@ -12,7 +12,7 @@ class Supplier extends MX_Controller
 		parent::__construct();
 		$this->load->model('SupplierModel');
 		$this->load->module('auth');
-		$this->_access = $this->auth->privileges_read();
+		$this->_access = $this->auth->privileges_read('supplier');
 	}
 
 	public function index()
@@ -102,6 +102,52 @@ class Supplier extends MX_Controller
 		elseif ($this->_access && empty($id))
 		{
 			redirect(base_url('/supplier'));
+		}
+		else
+		{
+			redirect(base_url());
+		}
+	}
+
+	public function search($supplierCompany = '')
+	{
+		if ($this->_access && !empty($supplierCompany))
+		{
+			$companyData = $this->SupplierModel->search($supplierCompany);
+			foreach ($companyData as $data)
+			{
+				echo "
+				<tr id='edit_source_".$data->id."'>
+				<td style='text-align:center;'>".$data->id."</td>
+				<td style='text-align:center;'>".$data->nama_perusahaan."</td>
+				<td style='text-align:center;'>
+				<button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal' id='edit_supplier_".$data->id."'><i class='fa fa-edit'></i> EDIT</button>
+				<a href='".base_url('/supplier/delete/$data->id')."'>
+				<button type='button' class='btn btn-danger'><i class='fa fa-trash'></i> DELETE</button>
+				</a>
+				</td>
+				</tr>
+				";
+			}
+		}
+		elseif ($this->_access && empty($supplierCompany)) 
+		{
+			$companyData = $this->SupplierModel->browse();
+			foreach ($companyData as $data)
+			{
+				echo "
+				<tr id='edit_source_".$data->id."'>
+				<td style='text-align:center;'>".$data->id."</td>
+				<td style='text-align:center;'>".$data->nama_perusahaan."</td>
+				<td style='text-align:center;'>
+				<button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal' id='edit_supplier_".$data->id."'><i class='fa fa-edit'></i> EDIT</button>
+				<a href='".base_url('/supplier/delete/$data->id')."'>
+				<button type='button' class='btn btn-danger'><i class='fa fa-trash'></i> DELETE</button>
+				</a>
+				</td>
+				</tr>
+				";
+			}
 		}
 		else
 		{

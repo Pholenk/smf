@@ -396,6 +396,15 @@ $(document).ready(function() {
 			},
 		})
 	})
+
+	$('#supplier_search').keyup(function() {
+		$.ajax({
+			url: 'supplier/search/' + $('#supplier_search').val(),
+			success: function(result) {
+				$('#supplier-result').html(result)
+			}
+		})
+	})
 })
 
 //=========================//

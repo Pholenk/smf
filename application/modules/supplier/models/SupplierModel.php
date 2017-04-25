@@ -33,6 +33,19 @@ class SupplierModel extends CI_Model
 	}
 
 	/**
+	 * search method
+	 */
+	public function search($supplierCompany)
+	{
+		$this->db->select('*');
+		$this->db->from('supplier');
+		$this->db->like('nama_perusahaan', $supplierCompany);
+		$this->db->where('deleted_at is null');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	/**
 	 * edit method
 	 */
 	public function edit($id, $supplier_data)

@@ -6,25 +6,30 @@
 		<div class="box box-success">
 		  <div class="box-header with-border">
 			<h3 class="box-title">Suppliers List</h3>
+			<div class='box-tools'>
+			  <div class="input-group input-group-sm">
+				<input class="form-control pull-right" type="text" style="width:23%;" id="supplier_search">
+				<span class="input-group-addon" style="color:white;background-color:grey;"><i class="fa fa-search"></i></span>
+			  </div>
+			</div>
 		  </div>
 		  <!-- /.box-header -->
 		  <div class="box-body table-responsive no-padding">
 			<div class="col-xs-12" style="padding: 0 5%;">
 			  <table class="table table-hover" style="margin-top:1%;border:none;" id="table_supplier">
-				<tr style="text-align:center;">
-				  <th>ID</th>
-				  <th>Supplier Company</th>
-				  <th>Action</th>
+			  	<thead>
+				<tr>
+				  <th style="text-align:center;">ID</th>
+				  <th style="text-align:center;">Supplier Company</th>
+				  <th style="text-align:center;">Action</th>
 				</tr>
+			  	</thead>
+			  	<tbody id="supplier-result">
 				<?php foreach ($supplier_data as $data) { ?>
 				<tr id="edit_source_<?php echo $data->id ?>">
-				  <td>
-					<?php echo $data->id ?>
-				  </td>
-				  <td>
-					<?php echo $data->nama_perusahaan ?>
-				  </td>
-				  <td>
+				  <td style="text-align:center;"><?php echo $data->id ?></td>
+				  <td style="text-align:center;"><?php echo $data->nama_perusahaan ?></td>
+				  <td style="text-align:center;">
 					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal" id="edit_supplier_<?php echo $data->id ?>"><i class="fa fa-edit"></i> EDIT</button>
 					<a href="/supplier/delete/<?php echo $data->id ?>">
 					  <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button>
@@ -32,6 +37,7 @@
 				  </td>
 				</tr>
 				<?php }?>
+			  	</tbody>
 			  </table>
 			</div>
 		  </div>
