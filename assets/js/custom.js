@@ -65,6 +65,10 @@ $(document).ready(function() {
 			}
 		})
 	})
+
+	$('body').on('click', '#show_password', function(){
+		($("input[id^='password_']").attr('type') === 'password' ? $("input[id^='password_']").attr('type', 'text') : $("input[id^='password_']").attr('type', 'password'))
+	})
 })
 
 //===================//

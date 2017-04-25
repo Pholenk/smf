@@ -54,7 +54,7 @@ class Users extends MX_Controller
 			{
 				echo "
 				<div class='modal-header'>
-				<h1 class='modal-title'>Edit Breeder</h1>
+				<h1 class='modal-title'>Edit User</h1>
 				</div>
 				<form class='form-horizontal' method='post' id='user_edit_form_".$data->id."' enctype='multipart/form-data'>
 				<div class='modal-body'>
@@ -67,67 +67,76 @@ class Users extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
 				<div class='col-xs-9'>
-				<input name='nama' type='text' class='form-control' value='".$data->name_full."'>
+				<input name='nama' type='text' class='form-control' value='".$data->name_full."' id='nama_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
 				<div class='col-xs-9'>
-				<input name='email' type='email' class='form-control' value='".$data->email."'>
+				<input name='email' type='email' class='form-control' value='".$data->email."' id='email_edit'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Password</label>
+				<div class='col-xs-9'>
+				<div class='input-group'>
+				<span class='input-group-addon'><a href='#'><i class='fa fa-eye' id='show_password'></i></a></span>
+				<input name='password' type='password' class='form-control' value='".$data->password."' id='password_edit'>
+				</div>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
 				<div class='col-xs-9'>
-				<input name='ktp_no' type='number' class='form-control' value='".$data->ktp_no."'>
+				<input name='ktp_no' type='number' class='form-control' value='".$data->ktp_no."' id='ktp_no_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
 				<div class='col-xs-9'>
-				<input name='ktp_img' type='file' class='form-control' value='".$data->ktp_img."'>
+				<input name='ktp_img' type='file' class='form-control' value='".$data->ktp_img."' id='ktp_img_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
 				<div class='col-xs-9'>
-				<input name='alamat' type='text' class='form-control' value='".$data->alamat."'>
+				<input name='alamat' type='text' class='form-control' value='".$data->alamat."' id='alamat_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
 				<div class='col-xs-9'>
-				<input name='telepon_primer' type='number' class='form-control' value='".$data->telepon_primer."'>
+				<input name='telepon_primer' type='number' class='form-control' value='".$data->telepon_primer."' id='telepon_primer_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
 				<div class='col-xs-9'>
-				<input name='telepon_sekunder' type='number' class='form-control' value='".$data->telepon_sekunder."'>
+				<input name='telepon_sekunder' type='number' class='form-control' value='".$data->telepon_sekunder."' id='telepon_sekunder_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
 				<div class='col-xs-9'>
-				<input name='telepon_pin' type='text' class='form-control' value='".$data->telepon_pin."'>
+				<input name='telepon_pin' type='text' class='form-control' value='".$data->telepon_pin."' id='telepon_pin_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
 				<div class='col-xs-9'>
-				<input name='telpon_whatsapp' type='number' class='form-control' value='".$data->telepon_whatsapp."'>
+				<input name='telpon_whatsapp' type='number' class='form-control' value='".$data->telepon_whatsapp."' id='telpon_whatsapp_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
 				<div class='col-xs-9'>
-				<input name='rekening_no' type='text' class='form-control' value='".$data->rekening_no."'>
+				<input name='rekening_no' type='text' class='form-control' value='".$data->rekening_no."' id='rekening_no_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
 				<div class='col-xs-9'>
-				<select name='rekening_bank' class='form-control'>".$data->rekening_bank."
+				<select name='rekening_bank' class='form-control' id='rekening_bank'>".$data->rekening_bank."
 				<option>BRI</option>
 				<option>BNI</option>
 				<option>BCA</option>
@@ -138,19 +147,19 @@ class Users extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
 				<div class='col-xs-9'>
-				<input name='agama' type='text' class='form-control' value='".$data->agama."'>
+				<input name='agama' type='text' class='form-control' value='".$data->agama."' id='agama_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
 				<div class='col-xs-9'>
-				<input name='npwp_no' type='text' class='form-control' value='".$data->npwp_no."'>
+				<input name='npwp_no' type='text' class='form-control' value='".$data->npwp_no."' id='npwp_no_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
 				<div class='col-xs-9'>
-				<input name='npwp_img' type='file' class='form-control' value='".$data->npwp_img."'>
+				<input name='npwp_img' type='file' class='form-control' value='".$data->npwp_img."' id='npwp_img_edit'>
 				</div>
 				</div>
 				<div class='form-group'>
@@ -158,10 +167,10 @@ class Users extends MX_Controller
 				<div class='col-xs-9'>
 				<div class='radio'>
 				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='kawin' ".($data->status === 'kawin' ? 'checked' : '')."> Kawin
+				<input name='status' type='radio' value='kawin' ".($data->status === 'kawin' ? 'checked' : '')." id='status_edit'> Kawin
 				</label>
 				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='tidak_kawin' ".($data->status === 'tidak_kawin' ? 'checked' : '')."> Tidak / Belum Kawin
+				<input name='status' type='radio' value='tidak_kawin' ".($data->status === 'tidak_kawin' ? 'checked' : '')." id='status_edit'> Tidak / Belum Kawin
 				</label>
 				</div>
 				</div>
@@ -170,25 +179,25 @@ class Users extends MX_Controller
 				<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
 				<div class='col-xs-9'>
 				<div class='radio'>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1' ".($data->anak === '1' ? 'checked' : '')."> 1</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2' ".($data->anak === '2' ? 'checked' : '')."> 2</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3' ".($data->anak === '3' ? 'checked' : '')."> 3</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4' ".($data->anak === '4' ? 'checked' : '')."> 4</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5' ".($data->anak === '5' ? 'checked' : '')."> 5</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5' ".($data->anak === '>5' ? 'checked' : '')."> > 5 </label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1' ".($data->anak === '1' ? 'checked' : '')." id='anak_edit'> 1</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2' ".($data->anak === '2' ? 'checked' : '')." id='anak_edit'> 2</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3' ".($data->anak === '3' ? 'checked' : '')." id='anak_edit'> 3</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4' ".($data->anak === '4' ? 'checked' : '')." id='anak_edit'> 4</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5' ".($data->anak === '5' ? 'checked' : '')." id='anak_edit'> 5</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5' ".($data->anak === '>5' ? 'checked' : '')." id='anak_edit'> >5 </label>
 				</div>
 				</div>  
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
 				<div class='col-xs-9'>
-				<input name='photo' type='file' class='form-control' value='".$data->photo."'>
+				<input name='photo' type='file' class='form-control' value='".$data->photo."' id='photo'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
 				<div class='col-xs-9'>
-				<select name='jabatan' class='form-control'>".$data->jabatan."
+				<select name='jabatan' class='form-control' id='jabatan'>".$data->jabatan."
 				<option>Admin</option>
 				<option>Logistik</option>
 				</select>
@@ -203,7 +212,7 @@ class Users extends MX_Controller
 				</div>
 				<div class='modal-footer'>
 				<div class='col-xs-6'>
-				<button class='btn btn-success' type='submit' id='save_edit_supplier'><i class='fa fa-save'></i> Save</button>
+				<button class='btn btn-success' type='submit' id='save_edit_user'><i class='fa fa-save'></i> Save</button>
 				</div>
 				<div class='col-xs-6 push-left'>
 				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
@@ -233,6 +242,59 @@ class Users extends MX_Controller
 			$datestring = '%Y-%m-%d %H:%i:%s';
 			if(substr($id, 0, 2) === 'IU')
 			{
+				$upload_conf = array(
+					'allowed_types' => 'jpg|png|jpeg',
+					'max_size' => '10000',
+					'file_name' => $id,
+					'overwrite' => TRUE,
+					'upload_path' => './assets/',
+				);
+				$resize_conf = array(
+					'image_library' => 'gd2',
+					'create_thumb' => TRUE,
+					'maintain_ratio' => TRUE,
+					'width' => 600,
+				);
+				$this->load->library('upload', $upload_conf);
+				$this->load->library('image_lib',$resize_conf);
+
+				if (!empty($this->input->post('ktp_img')))
+				{
+					$upload_conf['upload_path'] = './assets/ktp/';
+					$this->upload->initialize($upload_conf);
+					if($this->upload->do_upload('ktp_img'))
+					{
+						$ktp = ''.$id.''.$this->upload->data('file_ext');
+						chmod($this->upload->data('full_path'), 0777);
+					}
+				}
+
+				if (!empty($this->input->post('user_img')))
+				{
+					$upload_conf['upload_path'] = './assets/photo/';
+					$this->upload->initialize($upload_conf);
+					if($this->upload->do_upload('user_img'))
+					{
+						chmod($this->upload->data('full_path'), 0777);
+
+						$resize_conf['source_image'] = $this->upload->data('full_path');
+						$this->image_lib->initialize($resize_conf);
+						if($this->image_lib->resize())
+						{
+							$img = $this->upload->data('file_name');
+							$img_thumb = ''.$id.'_thumb'.$this->upload->data('file_ext');
+						}
+					}
+				}
+
+				if(!empty($this->input->post('npwp_img')))
+				{
+					$upload_conf['upload_path'] = './assets/npwp';
+					$this->upload->initialize($upload_conf);
+					$this->upload->do_upload('npwp_img');
+					$npwp = ''.$id.''.$this->upload->data('file_ext');
+				}
+
 				$data = array(
 						'users' => array(
 								'email' => $this->input->post('email'), 
@@ -249,7 +311,7 @@ class Users extends MX_Controller
 								'status' => $this->input->post('status'),
 								'anak' => $this->input->post('anak'),
 								'photo' => $this->input->post('photo')
-							),
+						),
 						'details' => array(
 								'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
 								'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
@@ -258,18 +320,14 @@ class Users extends MX_Controller
 								'npwp_img' => ($this->input->post('npwp_img') === '' ? 'null' : $this->input->post('npwp_img')),
 								'created_at' => mdate($datestring, time()),
 								'edited_at' => mdate($datestring, time())
-							)
+						),
 					);
-				($this->UsersModel->edit($id, $data['users'], $data['details']) ? redirect(base_url("/users/read/".$data['users']['email'])) : redirect(base_url()));
+				echo($this->UsersModel->edit($id, $data['users'], $data['details']) ? 'success' : '!success');
 			}
 			else
 			{
-				redirect(base_url('/users'));
+				redirect(base_url());
 			}
-		}
-		elseif ($this->_access && empty($id))
-		{
-			redirect(base_url('/users'));
 		}
 		else
 		{
@@ -385,7 +443,7 @@ class Users extends MX_Controller
 			{
 				echo "
 				<div class='modal-header'>
-				<h1 class='modal-title'>Edit Breeder</h1>
+				<h1 class='modal-title'>Edit User</h1>
 				</div>
 				<form class='form-horizontal' method='post' id='user_add_form' enctype='multipart/form-data'>
 				<div class='modal-body'>
@@ -398,67 +456,76 @@ class Users extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
 				<div class='col-xs-9'>
-				<input name='nama' type='text' class='form-control'>
+				<input name='nama' type='text' class='form-control' id='nama_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
 				<div class='col-xs-9'>
-				<input name='email' type='email' class='form-control'>
+				<input name='email' type='email' class='form-control' id='email_add'>
+				</div>
+				</div>
+				<div class='form-group'>
+				<label class='col-xs-3 control-label' style='text-align: left;'>Password</label>
+				<div class='col-xs-9'>
+				<div class='input-group'>
+				<span class='input-group-addon'><a href='#'><i class='fa fa-eye' id='show_password'></i></a></span>
+				<input name='password' type='password' class='form-control' id='password_add'>
+				</div>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
 				<div class='col-xs-9'>
-				<input name='ktp_no' type='number' class='form-control'>
+				<input name='ktp_no' type='number' class='form-control' id='ktp_no_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
 				<div class='col-xs-9'>
-				<input name='ktp_img' type='file' class='form-control'>
+				<input name='ktp_img' type='file' class='form-control' id='ktp_img_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
 				<div class='col-xs-9'>
-				<input name='alamat' type='text' class='form-control'>
+				<input name='alamat' type='text' class='form-control' id='alamat_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
 				<div class='col-xs-9'>
-				<input name='telepon_primer' type='number' class='form-control'>
+				<input name='telepon_primer' type='number' class='form-control' id='telepon_primer_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
 				<div class='col-xs-9'>
-				<input name='telepon_sekunder' type='number' class='form-control'>
+				<input name='telepon_sekunder' type='number' class='form-control' id='telepon_sekunder_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
 				<div class='col-xs-9'>
-				<input name='telepon_pin' type='text' class='form-control'>
+				<input name='telepon_pin' type='text' class='form-control' id='telepon_pin_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
 				<div class='col-xs-9'>
-				<input name='telpon_whatsapp' type='number' class='form-control'>
+				<input name='telpon_whatsapp' type='number' class='form-control' id='telpon_whatsapp_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
 				<div class='col-xs-9'>
-				<input name='rekening_no' type='text' class='form-control'>
+				<input name='rekening_no' type='text' class='form-control' id='rekening_no_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
 				<div class='col-xs-9'>
-				<select name='rekening_bank' class='form-control'>
+				<select name='rekening_bank' class='form-control' id='rekening_bank_add'>
 				<option>BRI</option>
 				<option>BNI</option>
 				<option>BCA</option>
@@ -469,19 +536,19 @@ class Users extends MX_Controller
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
 				<div class='col-xs-9'>
-				<input name='agama' type='text' class='form-control'>
+				<input name='agama' type='text' class='form-control' id='agama_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
 				<div class='col-xs-9'>
-				<input name='npwp_no' type='text' class='form-control'>
+				<input name='npwp_no' type='text' class='form-control' id='npwp_no_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
 				<div class='col-xs-9'>
-				<input name='npwp_img' type='file' class='form-control'>
+				<input name='npwp_img' type='file' class='form-control' id='npwp_img_add'>
 				</div>
 				</div>
 				<div class='form-group'>
@@ -489,10 +556,10 @@ class Users extends MX_Controller
 				<div class='col-xs-9'>
 				<div class='radio'>
 				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='kawin'> Kawin
+				<input name='status' type='radio' value='kawin' id='status_add'> Kawin
 				</label>
 				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='tidak_kawin'> Tidak / Belum Kawin
+				<input name='status' type='radio' value='tidak_kawin' id='status_add'> Tidak / Belum Kawin
 				</label>
 				</div>
 				</div>
@@ -501,25 +568,25 @@ class Users extends MX_Controller
 				<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
 				<div class='col-xs-9'>
 				<div class='radio'>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1'> 1</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2'> 2</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3'> 3</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4'> 4</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5'> 5</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5'> > 5 </label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='1'> 1</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='2'> 2</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='3'> 3</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='4'> 4</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='5'> 5</label>
+				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='>5'> > 5 </label>
 				</div>
 				</div>  
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
 				<div class='col-xs-9'>
-				<input name='photo' type='file' class='form-control'>
+				<input name='photo' type='file' class='form-control' id='photo_add'>
 				</div>
 				</div>
 				<div class='form-group'>
 				<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
 				<div class='col-xs-9'>
-				<select name='jabatan' class='form-control'>
+				<select name='jabatan' class='form-control' id='jabatan_add'>
 				<option>Admin</option>
 				<option>Logistik</option>
 				</select>
@@ -534,7 +601,7 @@ class Users extends MX_Controller
 				</div>
 				<div class='modal-footer'>
 				<div class='col-xs-6'>
-				<button class='btn btn-success' type='submit' id='save_edit_supplier'><i class='fa fa-save'></i> Save</button>
+				<button class='btn btn-success' type='submit' id='save_add_user'><i class='fa fa-save'></i> Save</button>
 				</div>
 				<div class='col-xs-6 push-left'>
 				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
