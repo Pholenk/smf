@@ -50,7 +50,6 @@ class Users extends MX_Controller
 		if($this->_access && !empty($email))
 		{
 			$user_data = $this->UsersModel->read($email);
-			// $this->_show_interface('read', $data);
 			foreach ($user_data as $data)
 			{
 				echo "
@@ -213,6 +212,14 @@ class Users extends MX_Controller
 				</form>";
 			}
 		}
+		elseif ($this->_access && empty($email))
+		{
+			redirect(base_url('/users'));
+		}
+		else
+		{
+			redirect(base_url());
+		}
 	}
 
 	/**
@@ -221,15 +228,10 @@ class Users extends MX_Controller
 	 */
 	public function edit($id = '')
 	{
-		if($this->_access)
+		if($this->_access && !empty($id))
 		{
 			$datestring = '%Y-%m-%d %H:%i:%s';
-			if (substr($id, 0, 2) !== 'IU')
-			{
-				$data['user_data'] = $this->UsersModel->read($id);
-				$this->_show_interface('edit', $data);
-			}
-			elseif(substr($id, 0, 2) === 'IU')
+			if(substr($id, 0, 2) === 'IU')
 			{
 				$data = array(
 						'users' => array(
@@ -262,8 +264,16 @@ class Users extends MX_Controller
 			}
 			else
 			{
-				redirect(base_url('users'));
+				redirect(base_url('/users'));
 			}
+		}
+		elseif ($this->_access && empty($id))
+		{
+			redirect(base_url('/users'));
+		}
+		else
+		{
+			redirect(base_url());
 		}
 	}
 
@@ -322,51 +332,51 @@ class Users extends MX_Controller
 							}
 
 							$data = array(
-							'users' => array(
-										'id' => $id,
-										'email' => $this->input->post('email'),
-										'password' => $this->input->post('password'),
-										'jabatan' => $this->input->post('jabatan'),
-										'name_full' => $this->input->post('nama'),
-										'ktp_no' => $this->input->post('ktp_no'),
-										'ktp_img' => $ktp,
-										'alamat' => $this->input->post('alamat'),
-										'telepon_primer' => $this->input->post('telepon_primer'),
-										'rekening_no' => $this->input->post('rekening_no'),
-										'rekening_bank' => $this->input->post('rekening_bank'),
-										'agama' => $this->input->post('agama'),
-										'status' => $this->input->post('status'),
-										'anak' => $this->input->post('anak'),
-										'photo' => $img,
-										'thumbnail' => $img_thumb,
+								'users' => array(
+											'id' => $id,
+											'email' => $this->input->post('email'),
+											'password' => $this->input->post('password'),
+											'jabatan' => $this->input->post('jabatan'),
+											'name_full' => $this->input->post('nama'),
+											'ktp_no' => $this->input->post('ktp_no'),
+											'ktp_img' => $ktp,
+											'alamat' => $this->input->post('alamat'),
+											'telepon_primer' => $this->input->post('telepon_primer'),
+											'rekening_no' => $this->input->post('rekening_no'),
+											'rekening_bank' => $this->input->post('rekening_bank'),
+											'agama' => $this->input->post('agama'),
+											'status' => $this->input->post('status'),
+											'anak' => $this->input->post('anak'),
+											'photo' => $img,
+											'thumbnail' => $img_thumb,
 								),
-							'details' => array(
-										'id' => $id,
-										'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
-										'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
-										'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
-										'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
-										'npwp_img' => ($npwp === '' ? 'null' : $npwp),
-										'created_at' => mdate($datestring, time()),
-										'edited_at' => mdate($datestring, time())
+								'details' => array(
+											'id' => $id,
+											'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
+											'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
+											'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
+											'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
+											'npwp_img' => ($npwp === '' ? 'null' : $npwp),
+											'created_at' => mdate($datestring, time()),
+											'edited_at' => mdate($datestring, time())
 								),
-							'privileges' => array(
-										'id' => $id,
-										'privileges' => 0,
-										'users' => 0,
-										'standard' => 0,
-										'contract' => 0,
-										'ring' => 0,
-										'ts' => 0,
-										'breeder' => 0,
-										'supplier' => 0,
-										'supplier_prod' => 0,
-										'buyer' => 0,
-										'breeder_score' => 0,
+								'privileges' => array(
+											'id' => $id,
+											'privileges' => 0,
+											'users' => 0,
+											'standard' => 0,
+											'contract' => 0,
+											'ring' => 0,
+											'ts' => 0,
+											'breeder' => 0,
+											'supplier' => 0,
+											'supplier_prod' => 0,
+											'buyer' => 0,
+											'breeder_score' => 0,
 								)
 							);
 						
-							($this->UsersModel->add($data['users'], $data['details'], $data['privileges'])) ? redirect(base_url('/users/read/'.$this->input->post('email'))) : redirect(base_url('/users/add')) ;
+							echo($this->UsersModel->add($data['users'], $data['details'], $data['privileges']) ? 'success' : '!success') ;
 						}
 					}
 				}
@@ -533,13 +543,17 @@ class Users extends MX_Controller
 				</form>";
 			}
 		}
+		else
+		{
+			redirect(base_url());
+		}
 	}
 
 	/**
 	 * delete method
 	 * delete a user data from persistence storage
 	 */
-	public function delete($id)
+	public function delete($id = '')
 	{
 		if($this->_access && !empty($id))
 		{
@@ -554,7 +568,7 @@ class Users extends MX_Controller
 		}
 		elseif ($this->_access && empty($id))
 		{
-			redirect(base_url('users'));
+			redirect(base_url());
 		}
 	}
 
