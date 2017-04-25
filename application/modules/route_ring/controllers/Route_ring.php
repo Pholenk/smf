@@ -180,7 +180,7 @@ class Route_ring extends MX_Controller
 	{
 		if ($this->_access)
 		{
-			echo($this->Route_ringModel->delete($id) ? 'success' : '!success');
+			echo($this->Route_ringModel->delete($id) ? redirect(base_url('/route_ring')) : redirect(base_url()));
 		}
 		else
 		{
