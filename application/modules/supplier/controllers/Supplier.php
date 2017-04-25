@@ -188,7 +188,7 @@ class Supplier extends MX_Controller
 	 */
 	public function add()
 	{
-		if ($this->_access)
+		if ($this->_access && !empty($this->input->post('nama_perusahaan')))
 		{
 			$datestring = '%Y-%m-%d %H:%i:%s';
 			$id = $this->SupplierModel->idGen();
@@ -204,7 +204,7 @@ class Supplier extends MX_Controller
 			);
 			echo($this->SupplierModel->add($supplier_data) ? 'success' : '!success');
 		}
-		elseif ($acces && empty($this->input->post('nama_perusahaan')))
+		elseif ($this->_access && empty($this->input->post('nama_perusahaan')))
 		{
 			$datestring = '%d - %m - %Y';
 			echo "

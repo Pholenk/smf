@@ -356,7 +356,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	var id
 
-	$("button[id^='edit_supplier_']").click(function() {
+	$('body').on('click', "button[id^='edit_supplier_']", function() {
 		id = this.id.replace('edit_supplier_', '')
 		$.ajax({
 			url: 'supplier/read/'+id,
@@ -366,7 +366,7 @@ $(document).ready(function() {
 		})
 	})
 
-	$("button[id^='add_supplier']").click(function() {
+	$('body').on('click', "button[id^='add_supplier']", function() {
 		$.ajax({
 			url: 'supplier/add/',
 			success: function (response) {
