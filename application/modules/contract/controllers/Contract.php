@@ -20,13 +20,13 @@ class Contract extends MX_Controller
 	 */
 	public function index()
 	{
-		$this->browse();
+		$this->_browse();
 	}
 
 	/**
 	 * browse method
 	 */
-	public function browse()
+	function _browse()
 	{
 		if ($this->_access)
 		{
@@ -45,14 +45,14 @@ class Contract extends MX_Controller
 		}
 		else
 		{
-			$this->_show_interface('Unauthorize', '');
+			redirect(base_url());
 		}
 	}
 
 	/**
 	 * read method
 	 */
-	public function read($type_contract, $id)
+	public function read($type_contract = '' , $id = '')
 	{
 		$typeContract = str_replace('-', '_', $type_contract);
 		if ($this->_access && !empty($typeContract) && !empty($id))
@@ -175,14 +175,14 @@ class Contract extends MX_Controller
 		}
 		else
 		{
-			$this->_show_interface('Unauthorize', '');
+			redirect(base_url());
 		}		
 	}
 
 	/**
 	 * edit method
 	 */
-	public function edit($type_contract, $id)
+	public function edit($type_contract = '' , $id)
 	{
 		if ($this->_access && !empty($type_contract) && !empty($id))
 		{
@@ -218,7 +218,7 @@ class Contract extends MX_Controller
 		}
 		else
 		{
-			#code
+			redirect(base_url());
 		}
 	}
 
@@ -377,12 +377,16 @@ class Contract extends MX_Controller
 		{
 			redirect(base_url('/contract'));
 		}
+		else
+		{
+			redirect(base_url());
+		}
 	}
 
 	/**
 	 * delete method
 	 */
-	public function delete($type_contract, $id)
+	public function delete($type_contract = '', $id = '')
 	{
 		if ($this->_access && !empty($type_contract) && !empty($id))
 		{
