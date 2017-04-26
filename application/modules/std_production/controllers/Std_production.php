@@ -102,6 +102,7 @@ class Std_production extends MX_Controller
 		else
 		{
 			echo "!LOGIN";
+			redirect(base_url());
 		}
 	}
 
@@ -110,7 +111,7 @@ class Std_production extends MX_Controller
 	 */
 	public function edit($id = '')
 	{
-		if ($this->_access && !empty($id))
+		if ($this->_access && !empty($id) && !empty($this->input->post('berat_badan')))
 		{
 			$fcr = $this->input->post('feed') / ($this->input->post('berat_badan') * 1000);
 			$production_data_edit = array(
@@ -122,13 +123,14 @@ class Std_production extends MX_Controller
 				);
 			echo ($this->ProductionModel->edit($id, $production_data_edit) ? 'SUCCESS' : '!SUCCESS');
 		}
-		elseif ($this->_access && empty($id))
+		elseif ($this->_access && empty($id) && empty($this->input->post('berat_badan')))
 		{
 			redirect(base_url('/std_production'));
 		}
-		else
+		elseif (!$this->_access)
 		{
 			echo "!LOGIN";
+			redirect(base_url());
 		}
 	}
 
@@ -196,9 +198,10 @@ class Std_production extends MX_Controller
 				);
 			echo($this->ProductionModel->add($production_data_add) ? 'SUCCESS' : '!SUCCESS');
 		}
-		else
+		elseif(!$this->_access)
 		{
 			echo "!LOGIN";
+			redirect(base_url());
 		}
 	}
 
