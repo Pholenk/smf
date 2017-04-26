@@ -44,21 +44,29 @@ class Privileges extends MX_Controller
 		}
 	}
 
-	public function read($email = '')
+	public function read($id = '')
 	{
-		if ($this->_access && !empty($email))
+		if ($this->_access && !empty($id))
 		{
-			$user_privileges = $this->PrivilegesModel->read($email);
+			$user_privileges = $this->PrivilegesModel->read($id);
+			echo "
+			<table class='table table-bordered table-hover'>
+			<tbody>";
 			foreach ($this->headersColumn as $header => $headervalue)
 			{
-				echo "<tr><th style='width:25%;'>".$headervalue."</th>";
-				echo "<td align='center'>";
+				echo "
+				<tr><th style='width:25%;'>".$headervalue."</th>
+				<td align='center'>";
 				foreach ($user_privileges as $data) {
 					echo ($data->$header == 1 ? "<i class='fa fa-check' style='color:green;'></i>" : "<i class='fa fa-circle-o'></i>");
 				}
-				echo "</td>";
-				echo "</tr>";
+				echo "
+				</td>
+				</tr>";
 			}
+			echo "
+			</tbody>
+			</table>";
 		}
 		else
 		{
@@ -70,41 +78,37 @@ class Privileges extends MX_Controller
 	{
 		if ($this->_access && !empty($id))
 		{
-			if(substr($id, 0, 2) !== 'IU')
+			if(empty($this->input->post('privileges')))
 			{
+				$identifier='';
 				$old_data = $this->PrivilegesModel->read($id);
-
-				echo "
-				<div class='modal-header'>
-				<h1 class='modal-title'>Edit User Privileges</h1>
-				</div>
-				<form class='form-horizontal' method='post'  id='edit_form_user_privileges'>
-				<div class='modal-body'>";
-				foreach ($this->headersColumn as $header => $headerValue)
+				echo "<form class='form-horizontal' method='post' id='form_edit_privileges'>
+				<div class='row'>				
+				";
+				foreach ($this->headersColumn as $key => $value)
 				{
-					echo
-					"<div class='checkbox'>";
 					foreach ($old_data as $data)
 					{
 						echo "
-                  	<div class='col-xs-6'>
-					<label class='pull-right' style='padding-right:12px;padding-left=8px;font-weight:bold;'>".$headerValue."</label>
-					</div>
-                  	<div class='col-xs-6'>
-					<input name=".$header." type='checkbox' value = '1' ".($data->$header == 1 ? 'checked' : '').">
-                  	</div>";
+						<div class='checkbox'>
+						<div class='col-sm-4'>
+						<label style='font-weight:bold;'>".$value."</label>
+						</div>
+						<div class='col-sm-8' style='text-align:center;'>
+						<input name='".$key."' type='checkbox' value = '1' ".($data->$key == 1 ? 'checked' : '').">
+						</div>
+						</div>";
+						$identifier = $data->id;
 					}
-					echo"
-					</div>";
 				}
 				echo "
 				</div>
-				<div class='modal-footer'>
-				<div class='col-xs-6'>
-				<button class='btn btn-success' type='submit' id='save_edit_std_prod'><i class='fa fa-save'></i> Save</button>
+				<div class='row'>
+				<div class='col-sm-6'>
+				<button type='button' class='btn btn-success pull-right' id='save_edit_priv_".$identifier."'><i class='fa fa-save'></i> Save</button>
 				</div>
-				<div class='col-xs-6 push-left'>
-				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
+				<div class='col-sm-6'>
+				<button class='btn btn-danger'id='cancel_edit_priv'><i class='fa fa-time'></i> Cancel</button>
 				</div>
 				</div>
 				</form>";
@@ -112,61 +116,20 @@ class Privileges extends MX_Controller
 			else
 			{
 				$data['privileges'] = array(
-						'privileges_browse' => (empty($this->input->post('privileges_browse')) ? 0 : 1),
-						'privileges_read' => (empty($this->input->post('privileges_read')) ? 0 : 1),
-						'privileges_edit' => (empty($this->input->post('privileges_edit')) ? 0 : 1),
-						'users_browse' => (empty($this->input->post('users_browse')) ? 0 : 1),
-						'users_read' => (empty($this->input->post('users_read')) ? 0 : 1),
-						'users_edit' => (empty($this->input->post('users_edit')) ? 0 : 1),
-						'users_add' => (empty($this->input->post('users_add')) ? 0 : 1),
-						'users_delete' => (empty($this->input->post('users_delete')) ? 0 : 1),
-						'standard_browse' => (empty($this->input->post('standard_browse')) ? 0 : 1),
-						'standard_edit' => (empty($this->input->post('standard_edit')) ? 0 : 1),
-						'standard_add' => (empty($this->input->post('standard_add')) ? 0 : 1),
-						'standard_delete' => (empty($this->input->post('standard_delete')) ? 0 : 1),
-						'contract_browse' => (empty($this->input->post('contract_browse')) ? 0 : 1),
-						'contract_read' => (empty($this->input->post('contract_read')) ? 0 : 1),
-						'contract_edit' => (empty($this->input->post('contract_edit')) ? 0 : 1),
-						'contract_add' => (empty($this->input->post('contract_add')) ? 0 : 1),
-						'contract_delete' => (empty($this->input->post('contract_delete')) ? 0 : 1),
-						'ring_browse' => (empty($this->input->post('ring_browse')) ? 0 : 1),
-						'ring_read' => (empty($this->input->post('ring_read')) ? 0 : 1),
-						'ring_edit' => (empty($this->input->post('ring_edit')) ? 0 : 1),
-						'ring_add' => (empty($this->input->post('ring_add')) ? 0 : 1),
-						'ring_delete' => (empty($this->input->post('ring_delete')) ? 0 : 1),
-						'ts_browse' => (empty($this->input->post('ts_browse')) ? 0 : 1),
-						'ts_read' => (empty($this->input->post('ts_read')) ? 0 : 1),
-						'ts_edit' => (empty($this->input->post('ts_edit')) ? 0 : 1),
-						'ts_add' => (empty($this->input->post('ts_add')) ? 0 : 1),
-						'ts_delete' => (empty($this->input->post('ts_delete')) ? 0 : 1),
-						'breeder_browse' => (empty($this->input->post('breeder_browse')) ? 0 : 1),
-						'breeder_read' => (empty($this->input->post('breeder_read')) ? 0 : 1),
-						'breeder_edit' => (empty($this->input->post('breeder_edit')) ? 0 : 1),
-						'breeder_add' => (empty($this->input->post('breeder_add')) ? 0 : 1),
-						'breeder_delete' => (empty($this->input->post('breeder_delete')) ? 0 : 1),
-						'supplier_browse' => (empty($this->input->post('supplier_browse')) ? 0 : 1),
-						'supplier_read' => (empty($this->input->post('supplier_read')) ? 0 : 1),
-						'supplier_edit' => (empty($this->input->post('supplier_edit')) ? 0 : 1),
-						'supplier_add' => (empty($this->input->post('supplier_add')) ? 0 : 1),
-						'supplier_delete' => (empty($this->input->post('supplier_delete')) ? 0 : 1),
-						'supplier_prod_browse' => (empty($this->input->post('supplier_prod_browse')) ? 0 : 1),
-						'supplier_prod_read' => (empty($this->input->post('supplier_prod_read')) ? 0 : 1),
-						'supplier_prod_edit' => (empty($this->input->post('supplier_prod_edit')) ? 0 : 1),
-						'supplier_prod_add' => (empty($this->input->post('supplier_prod_add')) ? 0 : 1),
-						'supplier_prod_delete' => (empty($this->input->post('supplier_prod_delete')) ? 0 : 1),
-						'buyer_browse' => (empty($this->input->post('buyer_browse')) ? 0 : 1),
-						'buyer_read' => (empty($this->input->post('buyer_read')) ? 0 : 1),
-						'buyer_edit' => (empty($this->input->post('buyer_edit')) ? 0 : 1),
-						'buyer_add' => (empty($this->input->post('buyer_add')) ? 0 : 1),
-						'buyer_delete' => (empty($this->input->post('buyer_delete')) ? 0 : 1),
-						'breeder_score_browse' => (empty($this->input->post('breeder_score_browse')) ? 0 : 1),
-						'breeder_score_read' => (empty($this->input->post('breeder_score_read')) ? 0 : 1),
-						'breeder_score_edit' => (empty($this->input->post('breeder_score_edit')) ? 0 : 1),
-						'breeder_score_add' => (empty($this->input->post('breeder_score_add')) ? 0 : 1),
-						'breeder_score_delete' => (empty($this->input->post('breeder_score_delete')) ? 0 : 1),
+						'privileges' => (empty($this->input->post('privileges')) ? 0 : 1),
+						'users' => (empty($this->input->post('users')) ? 0 : 1),
+						'standard' => (empty($this->input->post('standard')) ? 0 : 1),
+						'contract' => (empty($this->input->post('contract')) ? 0 : 1),
+						'ring' => (empty($this->input->post('ring')) ? 0 : 1),
+						'ts' => (empty($this->input->post('ts')) ? 0 : 1),
+						'breeder' => (empty($this->input->post('breeder')) ? 0 : 1),
+						'supplier' => (empty($this->input->post('supplier')) ? 0 : 1),
+						'supplier_prod' => (empty($this->input->post('supplier_prod')) ? 0 : 1),
+						'buyer' => (empty($this->input->post('buyer')) ? 0 : 1),
+						'breeder_score' => (empty($this->input->post('breeder_score')) ? 0 : 1),
 				);
 
-				echo($this->PrivilegesModel->edit($id, $data['privileges']) ? 'success' : '!success');
+				echo($this->PrivilegesModel->edit($id, $data['privileges']) ? $this->read($id) : '!success');
 			}
 		}
 		else

@@ -16,7 +16,7 @@
 											<select name="user_priv" class="form-control" id="user_priv"> 
 												<option> </option>
 												<?php foreach ($users_data as $user) {?>
-												<option value=<?php echo $user->email ?> ><?php echo $user->name_full ?></option>
+												<option value=<?php echo $user->id ?> ><?php echo $user->name_full ?></option>
 												<?php } ?>
 											</select>
 										</div>
@@ -24,22 +24,14 @@
 								</form>
 							</div>
 						</div>
-	              		<button type='button' class="btn btn-info" style="margin:2% 30%;" data-toggle="modal" data-target="#modal" id="edit_priv"><i class="fa fa-edit"></i> EDIT</button>
+	              		<button type='button' class="btn btn-info" style="margin:2% 30%;" id="edit_priv"><i class="fa fa-edit"></i> EDIT</button>
 	            		
 						<div class="row">
-							<div class="col-xs-12" style="padding: 0 5%;">
-								<table class="table table-bordered table-hover">
-									<tbody id="result">
-									</tbody>
-								</table>
-							</div>
+							<div class="col-xs-12" style="padding: 0 5%;" id="result"></div>
 						</div>
 					</div>
-				</div>
-				<div class="modal fade" id="modal" tab-index="-1" role="dialog">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-						</div>
+					<div class='box-footer'>
+						
 					</div>
 				</div>
 			</div>

@@ -72,6 +72,7 @@ $(document).ready(function() {
 //===================//
 
 $(document).ready(function() {
+	id = ''
 	$('#user_priv').on('change', function() {
 		if ($('#user_priv').val() !== '') {
 			$.ajax({
@@ -92,11 +93,35 @@ $(document).ready(function() {
 				url: 'privileges/edit/'+$('#user_priv').val(),
 				type: 'POST',
 				success: function(response) {
-					response === '!allowed' ? window.location = '/privileges' : $('.modal-content').html(response)
+					response === '!allowed' ? window.location = '/privileges' : $('#result').html(response) && $('#footer-box').toggleClass('hidden')
 				}
 			})
 		}
 	})
+
+	$('body').on('click', "button[id^='save_edit_priv_']", function() {
+		id = this.id.replace('save_edit_priv_','')
+		$.ajax({
+				url: 'privileges/edit/'+id,
+				type: 'POST',
+				data: $('#form_edit_privileges').serialize(),
+				success: function(response) {
+					response !== '!success' ? $('#result').html(response) : window.location = '/privileges'
+				}
+		})	
+	})
+
+	$('body').on('click', "button[id^='cancel_edit_priv_']", function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/read/'+ $('#user_priv').val(),
+				success: function(response) {
+					response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
+				}
+			})
+		}
+	})
+
 })
 
 //=======================//

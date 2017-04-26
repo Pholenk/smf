@@ -21,12 +21,12 @@ class PrivilegesModel extends CI_Model
 		return $query->result();
 	}
 
-	public function read($email)
+	public function read($id)
 	{
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->join('users_priv', 'users.id = users_priv.id');
-		$this->db->where('users.email', $email);
+		$this->db->where('users.id', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}
