@@ -88,7 +88,13 @@ $(document).ready(function() {
 	
 	$('#edit_priv').on('click', function() {
 		if ($('#user_priv').val() !== '') {
-			window.location = 'privileges/edit/'+ $('#user_priv').val()
+			$.ajax({
+				url: 'privileges/edit/'+$('#user_priv').val(),
+				type: 'POST',
+				success: function(response) {
+					response === '!allowed' ? window.location = '/privileges' : $('.modal-content').html(response)
+				}
+			})
 		}
 	})
 })

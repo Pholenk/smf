@@ -4,14 +4,14 @@
 			<div class="col-xs-12">
 				<div class="box box-warning">
 					<div class="box-header with-border">
-						<h3 class="box-title" style="font-weight:bold;"><i class="fa fa-warning" style="color:orange;"></i> User's Privileges</h3>
+						<h3 class="box-title" style="font-weight:bold;"><i class="fa fa-warning" style="color:orange;"></i> Users Privileges</h3>
 					</div>
 					<div class="box-body">
 						<div class="row">
 							<div class="col-xs-12" style="padding: 0 5%;">
 								<form method="post">
 									<div class="form-group">
-										<label class="col-xs-3">User's Name</label>
+										<label class="col-xs-3">Users Name</label>
 										<div class="col-sm-9">
 											<select name="user_priv" class="form-control" id="user_priv"> 
 												<option> </option>
@@ -24,7 +24,7 @@
 								</form>
 							</div>
 						</div>
-	              		<button type='button' class='btn btn-success' style="margin: 2% 30%" id="edit_priv"><i class="fa fa-edit"></i> Edit Data</button>
+	              		<button type='button' class="btn btn-info" style="margin:2% 30%;" data-toggle="modal" data-target="#modal" id="edit_priv"><i class="fa fa-edit"></i> EDIT</button>
 	            		
 						<div class="row">
 							<div class="col-xs-12" style="padding: 0 5%;">
@@ -33,6 +33,12 @@
 									</tbody>
 								</table>
 							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="modal" tab-index="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
 						</div>
 					</div>
 				</div>

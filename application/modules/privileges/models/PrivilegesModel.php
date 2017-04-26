@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * 
+ */
 class PrivilegesModel extends CI_Model
 {
 	function __construct()
