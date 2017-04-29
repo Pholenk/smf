@@ -53,24 +53,56 @@ $(document).ready(function() {
 //===================//
 
 $(document).ready(function() {
-    $('#user_priv').on('change', function() {
-        if ($('#user_priv').val() !== '') {
-            $.ajax({
-                url: 'privileges/read/' + $('#user_priv').val(),
-                success: function(response) {
-                    response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
-                }
-            })
-        } else {
-            $('#result').addClass('hidden')
-        }
-    })
+	id = ''
+	$('#user_priv').on('change', function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/read/'+ $('#user_priv').val(),
+				success: function(response) {
+					response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
+				}
+			})
+		}
+		else{
+			$('#result').addClass('hidden')
+		}
+	})
+	
+	$('#edit_priv').on('click', function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/edit/'+$('#user_priv').val(),
+				type: 'POST',
+				success: function(response) {
+					response === '!allowed' ? window.location = '/privileges' : $('#result').html(response) && $('#footer-box').toggleClass('hidden')
+				}
+			})
+		}
+	})
 
-    $('#edit_priv').on('click', function() {
-        if ($('#user_priv').val() !== '') {
-            window.location = 'privileges/edit/' + $('#user_priv').val()
-        }
-    })
+	$('body').on('click', "button[id^='save_edit_priv_']", function() {
+		id = this.id.replace('save_edit_priv_','')
+		$.ajax({
+				url: 'privileges/edit/'+id,
+				type: 'POST',
+				data: $('#form_edit_privileges').serialize(),
+				success: function(response) {
+					response !== '!success' ? $('#result').html(response) : window.location = '/privileges'
+				}
+		})	
+	})
+
+	$('body').on('click', "button[id^='cancel_edit_priv_']", function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/read/'+ $('#user_priv').val(),
+				success: function(response) {
+					response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
+				}
+			})
+		}
+	})
+
 })
 
 //=======================//
@@ -353,6 +385,15 @@ $(document).ready(function() {
                 response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
             }
         })
+    })
+
+    $('#supplier_search').on('keyup', function() {
+      $.ajax({
+            url: 'supplier/search/'+$('#supplier_search').val(),
+            success: function(response) {
+                response === '!LOGIN' ? window.location = '/auth' : $('#supplier_result').html(response)
+            }
+        })  
     })
 
     $('body').on('submit', '#add_form_supplier', function() {
