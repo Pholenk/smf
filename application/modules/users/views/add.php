@@ -180,7 +180,7 @@
               <button class='btn btn-success pull-right' type='submit' id='save_add_user'><i class='fa fa-save'></i> Save</button>
             </div>
             <div class='col-xs-6'>
-              <button class='btn btn-danger' type='button'><i class='fa fa-times'></i> Cancel</button>
+              <a href="/users"><button class='btn btn-danger' type='button'><i class='fa fa-times'></i> Cancel</button></a>
             </div>
           </div>
           </form>
