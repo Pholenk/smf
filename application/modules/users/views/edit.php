@@ -22,13 +22,13 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
                   <div class='col-xs-9'>
-                    <input name='nama' type='text' class='form-control' value='<?php echo $data->name_full ?>' id='nama_edit'>
+                    <input name='nama' type='text' class='form-control' value='<?php echo $data->name_full ?>' id='nama_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
                   <div class='col-xs-9'>
-                    <input name='email' type='email' class='form-control' value='<?php echo $data->email ?>' id='email_edit'>
+                    <input name='email' type='email' class='form-control' value='<?php echo $data->email ?>' id='email_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -38,56 +38,56 @@
                       <div class='input-group-btn'>
                         <button type='button' class='btn btn-info' id='show_password'><i class='fa fa-eye'></i></button>
                       </div>
-                      <input name='password' type='password' class='form-control' value='<?php echo $data->password ?>' id='password_edit'>
+                      <input name='password' type='password' class='form-control' value='<?php echo $data->password ?>' id='password_edit' required>
                     </div>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
                   <div class='col-xs-9'>
-                    <input name='ktp_no' type='number' class='form-control' value='<?php echo $data->ktp_no ?>' id='ktp_no_edit'>
+                    <input name='ktp_no' type='number' min = 0 class='form-control' value='<?php echo $data->ktp_no ?>' id='ktp_no_edit' required>
                   </div>
                 </div>
                 <div class='form-group' id='fileupload'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>KTP Image</label>
                   <div class='col-xs-9'>
-                    <input name='ktp_img' type='file' class='form-control' value='<?php echo $data->ktp_img ?>' id='ktp_img_edit'>
+                    <input name='ktp_img' type='file' class='form-control' value='<?php echo $data->ktp_img ?>' id='ktp_img_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
                   <div class='col-xs-9'>
-                    <input name='alamat' type='text' class='form-control' value='<?php echo $data->alamat ?>' id='alamat_edit'>
+                    <input name='alamat' type='text' class='form-control' value='<?php echo $data->alamat ?>' id='alamat_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_primer' type='number' class='form-control' value='<?php echo $data->telepon_primer ?>' id='telepon_primer_edit'>
+                    <input name='telepon_primer' type='number' min = 0 class='form-control' value='<?php echo $data->telepon_primer ?>' id='telepon_primer_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_sekunder' type='number' class='form-control' value='<?php echo $data->telepon_sekunder ?>' id='telepon_sekunder_edit'>
+                    <input name='telepon_sekunder' type='number' min = 0 class='form-control' value='<?php echo $data->telepon_sekunder ?>' id='telepon_sekunder_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_pin' type='text' class='form-control' value='<?php echo $data->telepon_pin ?>' id='telepon_pin_edit'>
+                    <input name='telepon_pin' type='text' class='form-control' value='<?php echo $data->telepon_pin ?>' id='telepon_pin_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
                   <div class='col-xs-9'>
-                    <input name='telpon_whatsapp' type='number' class='form-control' value='<?php echo $data->telepon_whatsapp ?>' id='telpon_whatsapp_edit'>
+                    <input name='telpon_whatsapp' type='number' min = 0 class='form-control' value='<?php echo $data->telepon_whatsapp ?>' id='telpon_whatsapp_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
                   <div class='col-xs-9'>
-                    <input name='rekening_no' type='text' class='form-control' value='<?php echo $data->rekening_no ?>' id='rekening_no_edit'>
+                    <input name='rekening_no' type='text' class='form-control' value='<?php echo $data->rekening_no ?>' id='rekening_no_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -105,19 +105,19 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
                   <div class='col-xs-9'>
-                    <input name='agama' type='text' class='form-control' value='<?php echo $data->agama ?>' id='agama_edit'>
+                    <input name='agama' type='text' class='form-control' value='<?php echo $data->agama ?>' id='agama_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_no' type='text' class='form-control' value='<?php echo $data->npwp_no ?>' id='npwp_no_edit'>
+                    <input name='npwp_no' type='text' class='form-control' value='<?php echo $data->npwp_no ?>' id='npwp_no_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_img' type='file' class='form-control' value='<?php echo $data->npwp_img ?>' id='npwp_img_edit'>
+                    <input name='npwp_img' type='file' class='form-control' value='<?php echo $data->npwp_img ?>' id='npwp_img_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -125,10 +125,10 @@
                   <div class='col-xs-9'>
                     <div class='radio'>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='status' type='radio' value='kawin' <?php echo ($data->status === 'kawin' ? 'checked' : '') ?> id='status_edit'> Kawin
+                        <input name='status' type='radio' value='kawin' <?php echo ($data->status === 'kawin' ? 'checked' : '') ?> id='status_edit' required> Kawin
                       </label>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='status' type='radio' value='tidak_kawin' <?php echo ($data->status === 'tidak_kawin' ? 'checked' : '') ?> id='status_edit'> Tidak / Belum Kawin
+                        <input name='status' type='radio' value='tidak_kawin' <?php echo ($data->status === 'tidak_kawin' ? 'checked' : '') ?> id='status_edit' required> Tidak / Belum Kawin
                       </label>
                     </div>
                   </div>
@@ -138,24 +138,24 @@
                   <div class='col-xs-9'>
                     <div class='radio'>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='1' <?php echo ($data->anak === '1' ? 'checked' : '') ?> id='anak_edit'> 1</label>
+                        <input name='anak' type='radio' value='1' <?php echo ($data->anak === '1' ? 'checked' : '') ?> id='anak_edit'> 1</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='2' <?php echo ($data->anak === '2' ? 'checked' : '') ?> id='anak_edit'> 2</label>
+                        <input name='anak' type='radio' value='2' <?php echo ($data->anak === '2' ? 'checked' : '') ?> id='anak_edit'> 2</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='3' <?php echo ($data->anak === '3' ? 'checked' : '') ?> id='anak_edit'> 3</label>
+                        <input name='anak' type='radio' value='3' <?php echo ($data->anak === '3' ? 'checked' : '') ?> id='anak_edit'> 3</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='4' <?php echo ($data->anak === '4' ? 'checked' : '') ?> id='anak_edit'> 4</label>
+                        <input name='anak' type='radio' value='4' <?php echo ($data->anak === '4' ? 'checked' : '') ?> id='anak_edit'> 4</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='5' <?php echo ($data->anak === '5' ? 'checked' : '') ?> id='anak_edit'> 5</label>
+                        <input name='anak' type='radio' value='5' <?php echo ($data->anak === '5' ? 'checked' : '') ?> id='anak_edit'> 5</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='>5' <?php echo ($data->anak === '>5' ? 'checked' : '') ?> id='anak_edit'> >5 </label>
+                        <input name='anak' type='radio' value='>5' <?php echo ($data->anak === '>5' ? 'checked' : '') ?> id='anak_edit'> >5 </label required>
                     </div>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
                   <div class='col-xs-9'>
-                    <input name='photo' type='file' class='form-control' value='<?php echo $data->photo ?>' id='photo'>
+                    <input name='photo' type='file' class='form-control' value='<?php echo $data->photo ?>' id='photo' required>
                   </div>
                 </div>
                 <div class='form-group'>

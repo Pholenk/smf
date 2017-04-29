@@ -21,13 +21,13 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
                   <div class='col-xs-9'>
-                    <input name='nama' type='text' class='form-control' id='nama_add'>
+                    <input name='nama' type='text' class='form-control' id='nama_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
                   <div class='col-xs-9'>
-                    <input name='email' type='email' class='form-control' id='email_add'>
+                    <input name='email' type='email' class='form-control' id='email_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -37,56 +37,56 @@
                       <div class='input-group-btn'>
                         <button type='button' class='btn btn-info' id='show_password'><i class='fa fa-eye'></i></button>
                       </div>
-                      <input name='password' type='password' class='form-control' id='password_add'>
+                      <input name='password' type='password' class='form-control' id='password_add' required>
                     </div>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
                   <div class='col-xs-9'>
-                    <input name='ktp_no' type='number' class='form-control' id='ktp_no_add'>
+                    <input name='ktp_no' type='number' class='form-control' id='ktp_no_add' required>
                   </div>
                 </div>
                 <div class='form-group' id='fileupload'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>KTP Image</label>
                   <div class='col-xs-9'>
-                    <input name='ktp_img' type='file' class='form-control' id='ktp_img_add'>
+                    <input name='ktp_img' type='file' class='form-control' id='ktp_img_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
                   <div class='col-xs-9'>
-                    <input name='alamat' type='text' class='form-control' id='alamat_add'>
+                    <input name='alamat' type='text' class='form-control' id='alamat_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_primer' type='number' class='form-control' id='telepon_primer_add'>
+                    <input name='telepon_primer' type='number' class='form-control' id='telepon_primer_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_sekunder' type='number' class='form-control' id='telepon_sekunder_add'>
+                    <input name='telepon_sekunder' type='number' class='form-control' id='telepon_sekunder_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_pin' type='text' class='form-control' id='telepon_pin_add'>
+                    <input name='telepon_pin' type='text' class='form-control' id='telepon_pin_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
                   <div class='col-xs-9'>
-                    <input name='telpon_whatsapp' type='number' class='form-control' id='telpon_whatsapp_add'>
+                    <input name='telpon_whatsapp' type='number' class='form-control' id='telpon_whatsapp_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
                   <div class='col-xs-9'>
-                    <input name='rekening_no' type='text' class='form-control' id='rekening_no_add'>
+                    <input name='rekening_no' type='text' class='form-control' id='rekening_no_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -103,19 +103,19 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
                   <div class='col-xs-9'>
-                    <input name='agama' type='text' class='form-control' id='agama_add'>
+                    <input name='agama' type='text' class='form-control' id='agama_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_no' type='text' class='form-control' id='npwp_no_add'>
+                    <input name='npwp_no' type='text' class='form-control' id='npwp_no_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_img' type='file' class='form-control' id='npwp_img_add'>
+                    <input name='npwp_img' type='file' class='form-control' id='npwp_img_add' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -123,10 +123,10 @@
                   <div class='col-xs-9'>
                     <div class='radio'>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='status' type='radio' value='kawin' id='status_add'> Kawin
+                        <input name='status' type='radio' value='kawin' id='status_add' required> Kawin
                       </label>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='status' type='radio' value='tidak_kawin' id='status_add'> Tidak / Belum Kawin
+                        <input name='status' type='radio' value='tidak_kawin' id='status_add' required> Tidak / Belum Kawin
                       </label>
                     </div>
                   </div>
@@ -136,24 +136,24 @@
                   <div class='col-xs-9'>
                     <div class='radio'>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='1' id='anak_add'> 1</label>
+                        <input name='anak' type='radio' value='1' id='anak_add'> 1</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='2' id='anak_add'> 2</label>
+                        <input name='anak' type='radio' value='2' id='anak_add'> 2</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='3' id='anak_add'> 3</label>
+                        <input name='anak' type='radio' value='3' id='anak_add'> 3</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='4' id='anak_add'> 4</label>
+                        <input name='anak' type='radio' value='4' id='anak_add'> 4</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='5' id='anak_add'> 5</label>
+                        <input name='anak' type='radio' value='5' id='anak_add'> 5</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-                        <input name='anak' type='radio' value='>5' id='anak_add'> >5 </label>
+                        <input name='anak' type='radio' value='>5' id='anak_add'> >5 </label required>
                     </div>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
                   <div class='col-xs-9'>
-                    <input name='photo' type='file' class='form-control' id='photo'>
+                    <input name='photo' type='file' class='form-control' id='photo' required>
                   </div>
                 </div>
                 <div class='form-group'>
