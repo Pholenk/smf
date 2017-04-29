@@ -39,6 +39,10 @@ class Users extends MX_Controller
 			$data['users_data'] = $this->UsersModel->browse();
 			$this->_show_interface('browse', $data);
 		}
+		else
+		{
+			redirect(base_url());
+		}
 	}
 
 	/**
@@ -49,179 +53,8 @@ class Users extends MX_Controller
 	{
 		if($this->_access && !empty($email))
 		{
-			$user_data = $this->UsersModel->read($email);
-			foreach ($user_data as $data)
-			{
-				echo "
-				<div class='modal-header'>
-				<h1 class='modal-title'>Edit User</h1>
-				</div>
-				<form class='form-horizontal' method='post' id='user_edit_form_".$data->id."' enctype='multipart/form-data'>
-				<div class='modal-body'>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>ID</label>
-				<div class='col-xs-9'>
-				<label class='control-label'>".$data->id."</label>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
-				<div class='col-xs-9'>
-				<input name='nama' type='text' class='form-control' value='".$data->name_full."' id='nama_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
-				<div class='col-xs-9'>
-				<input name='email' type='email' class='form-control' value='".$data->email."' id='email_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Password</label>
-				<div class='col-xs-9'>
-				<div class='input-group'>
-				<div class='input-group-btn'>
-				<button type='button' class='btn btn-info' id='show_password'><i class='fa fa-eye'></i></button>
-				</div>
-				<input name='password' type='password' class='form-control' value='".$data->password."' id='password_edit'>
-				</div>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
-				<div class='col-xs-9'>
-				<input name='ktp_no' type='number' class='form-control' value='".$data->ktp_no."' id='ktp_no_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
-				<div class='col-xs-9'>
-				<input name='ktp_img' type='file' class='form-control' value='".$data->ktp_img."' id='ktp_img_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
-				<div class='col-xs-9'>
-				<input name='alamat' type='text' class='form-control' value='".$data->alamat."' id='alamat_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
-				<div class='col-xs-9'>
-				<input name='telepon_primer' type='number' class='form-control' value='".$data->telepon_primer."' id='telepon_primer_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
-				<div class='col-xs-9'>
-				<input name='telepon_sekunder' type='number' class='form-control' value='".$data->telepon_sekunder."' id='telepon_sekunder_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
-				<div class='col-xs-9'>
-				<input name='telepon_pin' type='text' class='form-control' value='".$data->telepon_pin."' id='telepon_pin_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
-				<div class='col-xs-9'>
-				<input name='telpon_whatsapp' type='number' class='form-control' value='".$data->telepon_whatsapp."' id='telpon_whatsapp_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
-				<div class='col-xs-9'>
-				<input name='rekening_no' type='text' class='form-control' value='".$data->rekening_no."' id='rekening_no_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
-				<div class='col-xs-9'>
-				<select name='rekening_bank' class='form-control' id='rekening_bank'>".$data->rekening_bank."
-				<option>BRI</option>
-				<option>BNI</option>
-				<option>BCA</option>
-				<option>Mandiri</option>
-				</select>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
-				<div class='col-xs-9'>
-				<input name='agama' type='text' class='form-control' value='".$data->agama."' id='agama_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
-				<div class='col-xs-9'>
-				<input name='npwp_no' type='text' class='form-control' value='".$data->npwp_no."' id='npwp_no_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
-				<div class='col-xs-9'>
-				<input name='npwp_img' type='file' class='form-control' value='".$data->npwp_img."' id='npwp_img_edit'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Status</label>
-				<div class='col-xs-9'>
-				<div class='radio'>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='kawin' ".($data->status === 'kawin' ? 'checked' : '')." id='status_edit'> Kawin
-				</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='tidak_kawin' ".($data->status === 'tidak_kawin' ? 'checked' : '')." id='status_edit'> Tidak / Belum Kawin
-				</label>
-				</div>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
-				<div class='col-xs-9'>
-				<div class='radio'>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='1' ".($data->anak === '1' ? 'checked' : '')." id='anak_edit'> 1</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='2' ".($data->anak === '2' ? 'checked' : '')." id='anak_edit'> 2</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='3' ".($data->anak === '3' ? 'checked' : '')." id='anak_edit'> 3</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='4' ".($data->anak === '4' ? 'checked' : '')." id='anak_edit'> 4</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='5' ".($data->anak === '5' ? 'checked' : '')." id='anak_edit'> 5</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' type='radio' value='>5' ".($data->anak === '>5' ? 'checked' : '')." id='anak_edit'> >5 </label>
-				</div>
-				</div>  
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
-				<div class='col-xs-9'>
-				<input name='photo' type='file' class='form-control' value='".$data->photo."' id='photo'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
-				<div class='col-xs-9'>
-				<select name='jabatan' class='form-control' id='jabatan'>".$data->jabatan."
-				<option>Admin</option>
-				<option>Logistik</option>
-				</select>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Tanggal gabung</label>
-				<div class='col-xs-3'>
-				<label class='control-label' style='text-align: left;'>".mdate('%d %F %Y', time($data->created_at))."</label>
-				</div>
-				</div>
-				</div>
-				<div class='modal-footer'>
-				<div class='col-xs-6'>
-				<button class='btn btn-success' type='submit' id='save_edit_user'><i class='fa fa-save'></i> Save</button>
-				</div>
-				<div class='col-xs-6 push-left'>
-				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
-				</div>
-				</div>
-				</form>";
-			}
+			$data["user_data"] = $this->UsersModel->read($email);
+			$this->_show_interface('edit', $data);
 		}
 		elseif ($this->_access && empty($email))
 		{
@@ -292,59 +125,9 @@ class Users extends MX_Controller
 			$datestring = '%Y-%m-%d %H:%i:%s';
 			if(substr($id, 0, 2) === 'IU')
 			{
-				$upload_conf = array(
-					'allowed_types' => 'jpg|png|jpeg',
-					'max_size' => '10000',
-					'file_name' => $id,
-					'overwrite' => TRUE,
-					'upload_path' => './assets/',
-				);
-				$resize_conf = array(
-					'image_library' => 'gd2',
-					'create_thumb' => TRUE,
-					'maintain_ratio' => TRUE,
-					'width' => 600,
-				);
-				$this->load->library('upload', $upload_conf);
-				$this->load->library('image_lib',$resize_conf);
-
-				if (!empty($this->input->post('ktp_img')))
-				{
-					$upload_conf['upload_path'] = './assets/ktp/';
-					$this->upload->initialize($upload_conf);
-					if($this->upload->do_upload('ktp_img'))
-					{
-						$ktp = ''.$id.''.$this->upload->data('file_ext');
-						chmod($this->upload->data('full_path'), 0777);
-					}
-				}
-
-				if (!empty($this->input->post('user_img')))
-				{
-					$upload_conf['upload_path'] = './assets/photo/';
-					$this->upload->initialize($upload_conf);
-					if($this->upload->do_upload('user_img'))
-					{
-						chmod($this->upload->data('full_path'), 0777);
-
-						$resize_conf['source_image'] = $this->upload->data('full_path');
-						$this->image_lib->initialize($resize_conf);
-						if($this->image_lib->resize())
-						{
-							$img = $this->upload->data('file_name');
-							$img_thumb = ''.$id.'_thumb'.$this->upload->data('file_ext');
-						}
-					}
-				}
-
-				if(!empty($this->input->post('npwp_img')))
-				{
-					$upload_conf['upload_path'] = './assets/npwp';
-					$this->upload->initialize($upload_conf);
-					$this->upload->do_upload('npwp_img');
-					$npwp = ''.$id.''.$this->upload->data('file_ext');
-				}
-
+				$ktp = $this->_uploadPhoto($id, './assets/ktp', 'ktp_img');
+				$photo = $this->_uploadPhoto($id, './assets/photo', 'photo');
+				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp', 'npwp_img') : '' );
 				$data = array(
 						'users' => array(
 								'email' => $this->input->post('email'), 
@@ -372,7 +155,10 @@ class Users extends MX_Controller
 								'edited_at' => mdate($datestring, time())
 						),
 					);
-				echo($this->UsersModel->edit($id, $data['users'], $data['details']) ? 'success' : '!success');
+				if($this->UsersModel->edit($id, $data['users'], $data['details']))
+				{
+					redirect(base_url());
+				}
 			}
 			else
 			{
@@ -395,271 +181,67 @@ class Users extends MX_Controller
 		{
 			$datestring = '%Y-%m-%d %H:%i:%s';
 			$id = $this->UsersModel->idGen();
-			$upload_conf = array(
-				'allowed_types' => 'jpg|png|jpeg',
-				'max_size' => '10000',
-				'file_name' => $id,
-				'overwrite' => TRUE,
-			);
-			$resize_conf = array(
-				'image_library' => 'gd2',
-				'create_thumb' => TRUE,
-				'maintain_ratio' => TRUE,
-				'width' => 600,
-			);
-
-			if(!empty($this->input->post('email')))
+			
+			if (!empty($this->input->post('email')))
 			{
-				$upload_conf['upload_path'] = './assets/ktp';
-				$this->load->library('upload', $upload_conf);
-				$this->load->library('image_lib',$resize_conf);
+				$ktp = $this->_uploadPhoto($id, './assets/ktp', 'ktp_img');
+				$photo = $this->_uploadPhoto($id, './assets/photo', 'photo');
+				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp', 'npwp_img') : '' );
 
-				if($this->upload->do_upload('ktp_img'))
+				$data = array(
+					'users' => array(
+								'id' => $id,
+								'email' => $this->input->post('email'),
+								'password' => $this->input->post('password'),
+								'jabatan' => $this->input->post('jabatan'),
+								'name_full' => $this->input->post('nama'),
+								'ktp_no' => $this->input->post('ktp_no'),
+								'ktp_img' => $ktp->_fileName,
+								'alamat' => $this->input->post('alamat'),
+								'telepon_primer' => $this->input->post('telepon_primer'),
+								'rekening_no' => $this->input->post('rekening_no'),
+								'rekening_bank' => $this->input->post('rekening_bank'),
+								'agama' => $this->input->post('agama'),
+								'status' => $this->input->post('status'),
+								'anak' => $this->input->post('anak'),
+								'photo' => $photo->_fileName,
+								'thumbnail' => $photo->_thumbName,
+					),
+					'details' => array(
+								'id' => $id,
+								'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
+								'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
+								'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
+								'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
+								'npwp_img' => ($npwp === '' ? 'null' : $npwp->_fileName),
+								'created_at' => mdate($datestring, time()),
+								'edited_at' => mdate($datestring, time())
+					),
+					'privileges' => array(
+								'id' => $id,
+								'privileges' => 0,
+								'users' => 0,
+								'standard' => 0,
+								'contract' => 0,
+								'ring' => 0,
+								'ts' => 0,
+								'breeder' => 0,
+								'supplier' => 0,
+								'supplier_prod' => 0,
+								'buyer' => 0,
+								'breeder_score' => 0,
+					)
+				);
+
+				if($this->UsersModel->add($data['users'], $data['details'], $data['privileges']))
 				{
-					$ktp = ''.$id.''.$this->upload->data('file_ext');
-					chmod($this->upload->data('full_path'), 0777);
-
-					$upload_conf['upload_path'] = './assets/photo/';
-					$this->upload->initialize($upload_conf);
-					if($this->upload->do_upload('user_img'))
-					{
-						chmod($this->upload->data('full_path'), 0777);
-
-						$resize_conf['source_image'] = $this->upload->data('full_path');
-						$this->image_lib->initialize($resize_conf);
-						if($this->image_lib->resize())
-						{
-							$img = $this->upload->data('file_name');
-							$img_thumb = ''.$id.'_thumb'.$this->upload->data('file_ext');
-							if(!empty($this->input->post('npwp_img')))
-							{
-								$upload_conf['upload_path'] = './assets/npwp';
-								$this->upload->initialize($upload_conf);
-								$this->upload->do_upload('npwp_img');
-								$npwp = ''.$id.''.$this->upload->data('file_ext');
-							}
-
-							$data = array(
-								'users' => array(
-											'id' => $id,
-											'email' => $this->input->post('email'),
-											'password' => $this->input->post('password'),
-											'jabatan' => $this->input->post('jabatan'),
-											'name_full' => $this->input->post('nama'),
-											'ktp_no' => $this->input->post('ktp_no'),
-											'ktp_img' => $ktp,
-											'alamat' => $this->input->post('alamat'),
-											'telepon_primer' => $this->input->post('telepon_primer'),
-											'rekening_no' => $this->input->post('rekening_no'),
-											'rekening_bank' => $this->input->post('rekening_bank'),
-											'agama' => $this->input->post('agama'),
-											'status' => $this->input->post('status'),
-											'anak' => $this->input->post('anak'),
-											'photo' => $img,
-											'thumbnail' => $img_thumb,
-								),
-								'details' => array(
-											'id' => $id,
-											'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
-											'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
-											'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
-											'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
-											'npwp_img' => ($npwp === '' ? 'null' : $npwp),
-											'created_at' => mdate($datestring, time()),
-											'edited_at' => mdate($datestring, time())
-								),
-								'privileges' => array(
-											'id' => $id,
-											'privileges' => 0,
-											'users' => 0,
-											'standard' => 0,
-											'contract' => 0,
-											'ring' => 0,
-											'ts' => 0,
-											'breeder' => 0,
-											'supplier' => 0,
-											'supplier_prod' => 0,
-											'buyer' => 0,
-											'breeder_score' => 0,
-								)
-							);
-						
-							echo($this->UsersModel->add($data['users'], $data['details'], $data['privileges']) ? 'success' : '!success') ;
-						}
-					}
+					redirect(base_url());
 				}
 			}
 			else
 			{
-				echo "
-				<div class='modal-header'>
-				<h1 class='modal-title'>Edit User</h1>
-				</div>
-				<form class='form-horizontal' method='post' id='user_add_form' enctype='multipart/form-data'>
-				<div class='modal-body'>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>ID</label>
-				<div class='col-xs-9'>
-				<label class='control-label'>".$id."</label>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Nama</label>
-				<div class='col-xs-9'>
-				<input name='nama' type='text' class='form-control' id='nama_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Email</label>
-				<div class='col-xs-9'>
-				<input name='email' type='email' class='form-control' id='email_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Password</label>
-				<div class='col-xs-9'>
-				<div class='input-group'>
-				<div class='input-group-btn'>
-				<button type='button' class='btn btn-info' id='show_password'><i class='fa fa-eye'></i></button>
-				</div>
-				<input name='password' type='password' class='form-control' id='password_add'>
-				</div>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
-				<div class='col-xs-9'>
-				<input name='ktp_no' type='number' class='form-control' id='ktp_no_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Scan KTP</label>
-				<div class='col-xs-9'>
-				<input name='ktp_img' type='file' class='form-control' id='ktp_img_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Alamat</label>
-				<div class='col-xs-9'>
-				<input name='alamat' type='text' class='form-control' id='alamat_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
-				<div class='col-xs-9'>
-				<input name='telepon_primer' type='number' class='form-control' id='telepon_primer_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
-				<div class='col-xs-9'>
-				<input name='telepon_sekunder' type='number' class='form-control' id='telepon_sekunder_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
-				<div class='col-xs-9'>
-				<input name='telepon_pin' type='text' class='form-control' id='telepon_pin_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
-				<div class='col-xs-9'>
-				<input name='telpon_whatsapp' type='number' class='form-control' id='telpon_whatsapp_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>No rekening</label>
-				<div class='col-xs-9'>
-				<input name='rekening_no' type='text' class='form-control' id='rekening_no_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
-				<div class='col-xs-9'>
-				<select name='rekening_bank' class='form-control' id='rekening_bank_add'>
-				<option>BRI</option>
-				<option>BNI</option>
-				<option>BCA</option>
-				<option>Mandiri</option>
-				</select>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Agama</label>
-				<div class='col-xs-9'>
-				<input name='agama' type='text' class='form-control' id='agama_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
-				<div class='col-xs-9'>
-				<input name='npwp_no' type='text' class='form-control' id='npwp_no_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
-				<div class='col-xs-9'>
-				<input name='npwp_img' type='file' class='form-control' id='npwp_img_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Status</label>
-				<div class='col-xs-9'>
-				<div class='radio'>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='kawin' id='status_add'> Kawin
-				</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
-				<input name='status' type='radio' value='tidak_kawin' id='status_add'> Tidak / Belum Kawin
-				</label>
-				</div>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
-				<div class='col-xs-9'>
-				<div class='radio'>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='1'> 1</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='2'> 2</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='3'> 3</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='4'> 4</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='5'> 5</label>
-				<label style='padding-right:12px;padding-left=8px;font-weight:bold;'><input name='anak' id='anak_add' type='radio' value='>5'> > 5 </label>
-				</div>
-				</div>  
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
-				<div class='col-xs-9'>
-				<input name='photo' type='file' class='form-control' id='photo_add'>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>
-				<div class='col-xs-9'>
-				<select name='jabatan' class='form-control' id='jabatan_add'>
-				<option>Admin</option>
-				<option>Logistik</option>
-				</select>
-				</div>
-				</div>
-				<div class='form-group'>
-				<label class='col-xs-3 control-label' style='text-align: left;'>Tanggal gabung</label>
-				<div class='col-xs-3'>
-				<label class='control-label' style='text-align: left;'>".mdate('%d %F %Y', time())."</label>
-				</div>
-				</div>
-				</div>
-				<div class='modal-footer'>
-				<div class='col-xs-6'>
-				<button class='btn btn-success' type='submit' id='save_add_user'><i class='fa fa-save'></i> Save</button>
-				</div>
-				<div class='col-xs-6 push-left'>
-				<button class='btn btn-danger push-left' type='button' data-dismiss='modal'><i class='fa fa-times'></i> Cancel</button>
-				</div>
-				</div>
-				</form>";
+				$data['user_id'] = $this->UsersModel->idGen();
+				$this->_show_interface('add', $data);
 			}
 		}
 		else
@@ -704,6 +286,66 @@ class Users extends MX_Controller
 			$this->load->view($page, $data);
 			$this->load->view('sidebar');
 			$this->load->view('foot');
+		}
+	}
+
+	/**
+	 * _uploadPhoto method
+	 * processing upload photo
+	 */
+	function _uploadPhoto($id = 'IU000', $path = './assets/', $input = '_img')
+	{
+		$_name = [];
+		/**
+		 * initialize config
+		 */
+		$uploadConfig = array(
+			'allowed_types' => 'jpg|png|jpeg',
+			'max_size' => '10000',
+			'file_name' => $id,
+			'overwrite' => TRUE,
+		);
+		$resizeConfig = array(
+			'image_library' => 'gd2',
+			'create_thumb' => TRUE,
+			'maintain_ratio' => TRUE,
+			'width' => 600,
+		);
+
+		/**
+		 * call library upload
+		 */
+		$this->load->library('upload', $uploadConfig);
+		$this->load->library('image_lib',$resizeConfig);
+
+		$uploadConfig['upload_path'] = $path;
+		$this->upload->initialize($uploadConfig);
+
+		/**
+		 * execute upload photo
+		 */
+		if($this->upload->do_upload($input))
+		{
+			/**
+			 * change file permission
+			 */
+			chmod($this->upload->data('full_path'), 0777);
+
+			$resize_conf['source_image'] = $this->upload->data('full_path');
+			$this->image_lib->initialize($resizeConfig);
+
+			/**
+			 * execute resize photo
+			 */
+			if ($this->image_lib->resize())
+			{
+				$name = array(
+					'_fileName' => $this->upload->data('file_name'),
+					'_thumbName' => ''.$id.'_thumb'.$this->upload->data('file_ext'),
+				);
+			}
+			
+			return $name ;
 		}
 	}
 }
