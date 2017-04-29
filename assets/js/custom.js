@@ -3,19 +3,19 @@
 //==============//
 
 $(document).ready(
-    $('#login').submit(function() {
-        $.ajax({
-            type: 'post',
-            url: '/auth/login',
-            data: {
-                email: $('#email').val(),
-                password: $('#password').val()
-            },
-            success: function(response) {
-                response === 'TRUE' ? window.location = '/users/' : window.location = '/auth'
-            }
-        })
-    })
+	$('#login').submit(function() {
+		$.ajax({
+			type: 'post',
+			url: '/auth/login',
+			data: {
+				email: $('#email').val(),
+				password: $('#password').val()
+			},
+			success: function(response) {
+				response === 'TRUE' ? window.location = '/users/' : window.location = '/auth'
+			}
+		})
+	})
 )
 
 //==============//
@@ -24,28 +24,28 @@ $(document).ready(
 $(document).ready(function() {
     var id
 
-    $('#table_search').on('keyup', function() {
-        if ($('#table_search').val() !== '') {
-            $.ajax({
-                url: '/users/search/' + $('#table_search').val(),
-                success: function(result) {
-                    $("tbody[id^='user-data']").html(result)
-                }
-            })
+	$('#table_search').on('keyup', function() {
+		if ($('#table_search').val() !== '') {
+			$.ajax({
+				url: '/users/search/' + $('#table_search').val(),
+				success: function(result) {
+					$("tbody[id^='user-data']").html(result)
+				}
+			})
 
-        } else {
-            $.ajax({
-                url: '/users/search/',
-                success: function(result) {
-                    $('#user-data').html(result)
-                }
-            })
-        }
-    })
+		} else {
+			$.ajax({
+				url: '/users/search/',
+				success: function(result) {
+					$('#user-data').html(result)
+				}
+			})
+		}
+	})
 
-    $('body').on('click', '#show_password', function() {
-        ($("input[id^='password_']").attr('type') === 'password' ? $("input[id^='password_']").attr('type', 'text') && $('i').removeClass('fa-eye') && $('i').addClass('fa-eye-slash') : $("input[id^='password_']").attr('type', 'password') && $('i').removeClass('fa-eye-slash') && $('i').addClass('fa-eye'))
-    })
+	$('body').on('click', '#show_password', function() {
+		($("input[id^='password_']").attr('type') === 'password' ? $("input[id^='password_']").attr('type', 'text') && $('i').removeClass('fa-eye') && $('i').addClass('fa-eye-slash') : $("input[id^='password_']").attr('type', 'password') && $('i').removeClass('fa-eye-slash') && $('i').addClass('fa-eye'))
+	})
 })
 
 //===================//
@@ -53,24 +53,55 @@ $(document).ready(function() {
 //===================//
 
 $(document).ready(function() {
-    $('#user_priv').on('change', function() {
-        if ($('#user_priv').val() !== '') {
-            $.ajax({
-                url: 'privileges/read/' + $('#user_priv').val(),
-                success: function(response) {
-                    response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
-                }
-            })
-        } else {
-            $('#result').addClass('hidden')
-        }
-    })
+	id = ''
+	$('#user_priv').on('change', function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/read/' + $('#user_priv').val(),
+				success: function(response) {
+					response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
+				}
+			})
+		} else {
+			$('#result').addClass('hidden')
+		}
+	})
 
-    $('#edit_priv').on('click', function() {
-        if ($('#user_priv').val() !== '') {
-            window.location = 'privileges/edit/' + $('#user_priv').val()
-        }
-    })
+	$('#edit_priv').on('click', function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/edit/' + $('#user_priv').val(),
+				type: 'POST',
+				success: function(response) {
+					response === '!allowed' ? window.location = '/privileges' : $('#result').html(response) && $('#footer-box').toggleClass('hidden')
+				}
+			})
+		}
+	})
+
+	$('body').on('click', "button[id^='save_edit_priv_']", function() {
+		id = this.id.replace('save_edit_priv_', '')
+		$.ajax({
+			url: 'privileges/edit/' + id,
+			type: 'POST',
+			data: $('#form_edit_privileges').serialize(),
+			success: function(response) {
+				response !== '!success' ? $('#result').html(response) : window.location = '/privileges'
+			}
+		})
+	})
+
+	$('body').on('click', "button[id^='cancel_edit_priv_']", function() {
+		if ($('#user_priv').val() !== '') {
+			$.ajax({
+				url: 'privileges/read/' + $('#user_priv').val(),
+				success: function(response) {
+					response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
+				}
+			})
+		}
+	})
+
 })
 
 //=======================//
@@ -80,54 +111,54 @@ $(document).ready(function() {
 $(document).ready(function() {
     var id
 
-    $("button[id^='edit_std_prod_']").on('click', function() {
-        id = this.id.replace("edit_std_prod_", "")
-        $.ajax({
-            url: 'std_production/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='edit_std_prod_']").on('click', function() {
+		id = this.id.replace("edit_std_prod_", "")
+		$.ajax({
+			url: 'std_production/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#edit_form_std_prod', function() {
-        $.ajax({
-            type: 'post',
-            url: 'std_production/edit/' + id,
-            data: $('#edit_form_std_prod').serialize(),
-            success: function(response) {
-                response === 'SUCCESS' ? window.location = '/std_production/' : window.location = '/users'
-            }
-        })
-    })
+	$('body').on('submit', '#edit_form_std_prod', function() {
+		$.ajax({
+			type: 'post',
+			url: 'std_production/edit/' + id,
+			data: $('#edit_form_std_prod').serialize(),
+			success: function(response) {
+				response === 'SUCCESS' ? window.location = '/std_production/' : window.location = '/users'
+			}
+		})
+	})
 
-    $('#add_std_prod').on('click', function() {
-        $.ajax({
-            url: 'std_production/add',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$('#add_std_prod').on('click', function() {
+		$.ajax({
+			url: 'std_production/add',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('keyup', "[id^='feed_']", function() {
-        var fi = $("[id^='feed_']").val()
-        var bb = $("[id^='berat_']").val()
-        var result = fi / (bb * 1000)
+	$('body').on('keyup', "[id^='feed_']", function() {
+		var fi = $("[id^='feed_']").val()
+		var bb = $("[id^='berat_']").val()
+		var result = fi / (bb * 1000)
 
-        result !== '' ? $('[id^=fcr_]').html(result) : $('[id^=fcr_]').html(0)
-    })
+		result !== '' ? $('[id^=fcr_]').html(result) : $('[id^=fcr_]').html(0)
+	})
 
-    $('body').on('submit', '#add_form_std_prod', function() {
-        $.ajax({
-            type: 'post',
-            url: 'std_production/add/',
-            data: $('#add_form_std_prod').serialize(),
-            success: function(response) {
-                response === 'SUCCESS' ? window.location = '/std_production/' : window.location = 'users/'
-            }
-        })
-    })
+	$('body').on('submit', '#add_form_std_prod', function() {
+		$.ajax({
+			type: 'post',
+			url: 'std_production/add/',
+			data: $('#add_form_std_prod').serialize(),
+			success: function(response) {
+				response === 'SUCCESS' ? window.location = '/std_production/' : window.location = 'users/'
+			}
+		})
+	})
 })
 
 //=================//
@@ -138,50 +169,48 @@ $(document).ready(function() {
     var id
     var type_contract
 
-    $("button[id^='edit_contract_']").click(function() {
-        type_contract = this.id.replace('edit_contract_', '')
-        id = type_contract.replace('_', '/')
-        console.log(id)
-        $.ajax({
-            url: 'contract/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='edit_contract_']").click(function() {
+		type_contract = this.id.replace('edit_contract_', '')
+		id = type_contract.replace('_', '/')
+		$.ajax({
+			url: 'contract/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $("button[id^='add_contract_']").click(function() {
-        type_contract = this.id.replace('add_contract_', '')
-        console.log(type_contract)
-        $.ajax({
-            url: 'contract/add/' + type_contract,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_contract_']").click(function() {
+		type_contract = this.id.replace('add_contract_', '')
+		$.ajax({
+			url: 'contract/add/' + type_contract,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#edit_form_contract', function() {
-        $.ajax({
-            type: 'post',
-            url: 'contract/edit/' + id,
-            data: $('#edit_form_contract').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/contract/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#edit_form_contract', function() {
+		$.ajax({
+			type: 'post',
+			url: 'contract/edit/' + id,
+			data: $('#edit_form_contract').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/contract/' : window.location = '/users'
+			},
+		})
+	})
 
-    $('body').on('submit', '#add_form_contract', function() {
-        $.ajax({
-            type: 'post',
-            url: 'contract/add/' + type_contract,
-            data: $('#add_form_contract').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/contract/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#add_form_contract', function() {
+		$.ajax({
+			type: 'post',
+			url: 'contract/add/' + type_contract,
+			data: $('#add_form_contract').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/contract/' : window.location = '/users'
+			},
+		})
+	})
 })
 
 //===================//
@@ -189,47 +218,47 @@ $(document).ready(function() {
 //===================//
 
 $(document).ready(function() {
-    var id
-    $("button[id^='edit_route_ring_']").click(function() {
-        id = this.id.replace('edit_route_ring_', '')
-        $.ajax({
-            url: 'route_ring/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	var id
+	$("button[id^='edit_route_ring_']").click(function() {
+		id = this.id.replace('edit_route_ring_', '')
+		$.ajax({
+			url: 'route_ring/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $("button[id^='add_route_ring']").click(function() {
-        $.ajax({
-            url: 'route_ring/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_route_ring']").click(function() {
+		$.ajax({
+			url: 'route_ring/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#add_form_route', function() {
-        $.ajax({
-            type: 'post',
-            url: 'route_ring/add/',
-            data: $('#add_form_route').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/contract/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#add_form_route', function() {
+		$.ajax({
+			type: 'post',
+			url: 'route_ring/add/',
+			data: $('#add_form_route').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/contract/' : window.location = '/users'
+			},
+		})
+	})
 
-    $('body').on('submit', '#edit_form_route', function() {
-        $.ajax({
-            type: 'post',
-            url: 'route_ring/edit/' + id,
-            data: $('#edit_form_route').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/contract/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#edit_form_route', function() {
+		$.ajax({
+			type: 'post',
+			url: 'route_ring/edit/' + id,
+			data: $('#edit_form_route').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/contract/' : window.location = '/users'
+			},
+		})
+	})
 })
 
 //======================//
@@ -237,47 +266,47 @@ $(document).ready(function() {
 //======================//
 
 $(document).ready(function() {
-    var id
-    $("button[id^='edit_breeder_score_']").click(function() {
-        id = this.id.replace('edit_breeder_score_', '')
-        $.ajax({
-            url: 'breeder_score/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	var id
+	$("button[id^='edit_breeder_score_']").click(function() {
+		id = this.id.replace('edit_breeder_score_', '')
+		$.ajax({
+			url: 'breeder_score/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $("button[id^='add_breeder_score']").click(function() {
-        $.ajax({
-            url: 'breeder_score/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_breeder_score']").click(function() {
+		$.ajax({
+			url: 'breeder_score/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#add_form_breeder_score', function() {
-        $.ajax({
-            type: 'post',
-            url: 'breeder_score/add/',
-            data: $('#add_form_breeder_score').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/breeder_score/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#add_form_breeder_score', function() {
+		$.ajax({
+			type: 'post',
+			url: 'breeder_score/add/',
+			data: $('#add_form_breeder_score').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/breeder_score/' : window.location = '/users'
+			},
+		})
+	})
 
-    $('body').on('submit', '#edit_form_breeder_score', function() {
-        $.ajax({
-            type: 'post',
-            url: 'breeder_score/edit/' + id,
-            data: $('#edit_form_breeder_score').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/breeder_score/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#edit_form_breeder_score', function() {
+		$.ajax({
+			type: 'post',
+			url: 'breeder_score/edit/' + id,
+			data: $('#edit_form_breeder_score').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/breeder_score/' : window.location = '/users'
+			},
+		})
+	})
 })
 
 
@@ -288,24 +317,24 @@ $(document).ready(function() {
 $(document).ready(function() {
     var id
 
-    $("button[id^='edit_tech_support_']").click(function() {
-        id = this.id.replace('edit_tech_support_', '')
-        $.ajax({
-            url: 'tech_support/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='edit_tech_support_']").click(function() {
+		id = this.id.replace('edit_tech_support_', '')
+		$.ajax({
+			url: 'tech_support/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $("button[id^='add_tech_support_']").click(function() {
-        $.ajax({
-            url: 'tech_support/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_tech_support_']").click(function() {
+		$.ajax({
+			url: 'tech_support/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
     $('body').on('submit', '#add_form_tech_support', function() {
         $.ajax({
@@ -318,16 +347,16 @@ $(document).ready(function() {
         })
     })
 
-    $('body').on('submit', '#edit_form_tech_support', function() {
-        $.ajax({
-            type: 'post',
-            url: 'tech_support/edit/' + id,
-            data: $('#edit_form_tech_support').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/tech_support/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#edit_form_tech_support', function() {
+		$.ajax({
+			type: 'post',
+			url: 'tech_support/edit/' + id,
+			data: $('#edit_form_tech_support').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/tech_support/' : window.location = '/users'
+			},
+		})
+	})
 })
 
 //=================//
@@ -336,46 +365,55 @@ $(document).ready(function() {
 $(document).ready(function() {
     var id
 
-    $("button[id^='edit_supplier_']").click(function() {
-        id = this.id.replace('edit_supplier_', '')
-        $.ajax({
-            url: 'supplier/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='edit_supplier_']").click(function() {
+		id = this.id.replace('edit_supplier_', '')
+		$.ajax({
+			url: 'supplier/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $("button[id^='add_supplier']").click(function() {
-        $.ajax({
-            url: 'supplier/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_supplier']").click(function() {
+		$.ajax({
+			url: 'supplier/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#add_form_supplier', function() {
-        $.ajax({
-            type: 'post',
-            url: 'supplier/add/',
-            data: $('#add_form_supplier').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/supplier/' : window.location = '/users'
-            },
-        })
-    })
+	$('#supplier_search').on('keyup', function() {
+		$.ajax({
+			url: 'supplier/search/' + $('#supplier_search').val(),
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('#supplier_result').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#edit_form_supplier', function() {
-        $.ajax({
-            type: 'post',
-            url: 'supplier/edit/' + id,
-            data: $('#edit_form_supplier').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/supplier/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#add_form_supplier', function() {
+		$.ajax({
+			type: 'post',
+			url: 'supplier/add/',
+			data: $('#add_form_supplier').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/supplier/' : window.location = '/users'
+			},
+		})
+	})
+
+	$('body').on('submit', '#edit_form_supplier', function() {
+		$.ajax({
+			type: 'post',
+			url: 'supplier/edit/' + id,
+			data: $('#edit_form_supplier').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/supplier/' : window.location = '/users'
+			},
+		})
+	})
 })
 
 //=========================//
@@ -384,38 +422,37 @@ $(document).ready(function() {
 $(document).ready(function() {
     var id
 
-    $('#supplier_data').on('change', function() {
-        if ($('#supplier_data').val() !== '') {
-            $.ajax({
-                url: 'supplier_product/read/' + $('#supplier_data').val(),
-                success: function(response) {
-                    response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
-                }
-            })
-        } else {
-            $('#result').addClass('hidden')
-        }
-    })
+	$('#supplier_data').on('change', function() {
+		if ($('#supplier_data').val() !== '') {
+			$.ajax({
+				url: 'supplier_product/read/' + $('#supplier_data').val(),
+				success: function(response) {
+					response === '!LOGIN' ? window.location = '/auth' : $('#result').removeClass('hidden') && $('#result').html(response)
+				}
+			})
+		} else {
+			$('#result').addClass('hidden')
+		}
+	})
 
-    $('body').on('click', "button[id^='edit_supplier_product_']", function() {
-        id = this.id.replace('edit_supplier_product_', '')
-        console.log(id)
-        $.ajax({
-            url: 'supplier_product/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$('body').on('click', "button[id^='edit_supplier_product_']", function() {
+		id = this.id.replace('edit_supplier_product_', '')
+		$.ajax({
+			url: 'supplier_product/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $("button[id^='add_supplier_product']").click(function() {
-        $.ajax({
-            url: 'supplier_product/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_supplier_product']").click(function() {
+		$.ajax({
+			url: 'supplier_product/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
     $('body').on('submit', '#add_form_supplier_product', function() {
         $.ajax({
@@ -428,16 +465,16 @@ $(document).ready(function() {
         })
     })
 
-    $('body').on('submit', '#edit_form_supplier_product', function() {
-        $.ajax({
-            type: 'post',
-            url: 'supplier_product/edit/' + id,
-            data: $('#edit_form_supplier_product').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/supplier_product/' : window.location = '/users'
-            },
-        })
-    })
+	$('body').on('submit', '#edit_form_supplier_product', function() {
+		$.ajax({
+			type: 'post',
+			url: 'supplier_product/edit/' + id,
+			data: $('#edit_form_supplier_product').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/supplier_product/' : window.location = '/users'
+			},
+		})
+	})
 })
 
 //=========================//
@@ -446,71 +483,71 @@ $(document).ready(function() {
 $(document).ready(function() {
     var id
 
-    $("button[id^='edit_breeder_']").click(function() {
-        id = this.id.replace('edit_breeder_', '');
-        $.ajax({
-            url: 'breeder/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='edit_breeder_']").click(function() {
+		id = this.id.replace('edit_breeder_', '');
+		$.ajax({
+			url: 'breeder/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('change', "select[id^='kelurahan_']", function() {
-        id_route = $("select[id^='kelurahan_']").val()
-        if (id_route === '') {
-            $("label[id^='ring_'").html(0) && $("label[id^='route_']").html(0)
-        } else {
-            $.ajax({
-                dataType: 'json',
-                url: 'breeder/read_route/' + id_route,
-                success: function(result) {
-                    console.log(result)
-                    result !== '!LOGIN' ? $("label[id^='ring_'").html(result.ring) && $("label[id^='route_']").html(result.route) : window.location = '/auth'
-                }
-            })
-        }
-    })
+	$('body').on('change', "select[id^='kelurahan_']", function() {
+		id_route = $("select[id^='kelurahan_']").val()
+		if (id_route === '') {
+			$("label[id^='ring_'").html(0) && $("label[id^='route_']").html(0)
+		} else {
+			$.ajax({
+				dataType: 'json',
+				url: 'breeder/read_route/' + id_route,
+				success: function(result) {
 
-    $('body').on('click', "button[id^='edit_breeder_']", function() {
-        id = this.id.replace('edit_breeder_', '')
-        console.log(id)
-        $.ajax({
-            url: 'breeder/read/' + id,
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+					result !== '!LOGIN' ? $("label[id^='ring_'").html(result.ring) && $("label[id^='route_']").html(result.route) : window.location = '/auth'
+				}
+			})
+		}
+	})
 
-    $("button[id^='add_breeder']").click(function() {
-        $.ajax({
-            url: 'breeder/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$('body').on('click', "button[id^='edit_breeder_']", function() {
+		id = this.id.replace('edit_breeder_', '')
 
-    $('body').on('submit', '#add_form_breeder', function() {
-        $.ajax({
-            type: 'post',
-            url: 'breeder/add/',
-            data: $('#add_form_breeder').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/breeder/' : window.location = '/users'
-            },
-        })
-    })
+		$.ajax({
+			url: 'breeder/read/' + id,
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
-    $('body').on('submit', '#edit_form_breeder', function() {
-        $.ajax({
-            type: 'post',
-            url: 'breeder/edit/' + id,
-            data: $('#edit_form_breeder').serialize(),
-            success: function(response) {
-                response === 'success' ? window.location = '/breeder/' : window.location = '/users'
-            },
-        })
-    })
+	$("button[id^='add_breeder']").click(function() {
+		$.ajax({
+			url: 'breeder/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
+
+	$('body').on('submit', '#add_form_breeder', function() {
+		$.ajax({
+			type: 'post',
+			url: 'breeder/add/',
+			data: $('#add_form_breeder').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/breeder/' : window.location = '/users'
+			},
+		})
+	})
+
+	$('body').on('submit', '#edit_form_breeder', function() {
+		$.ajax({
+			type: 'post',
+			url: 'breeder/edit/' + id,
+			data: $('#edit_form_breeder').serialize(),
+			success: function(response) {
+				response === 'success' ? window.location = '/breeder/' : window.location = '/users'
+			},
+		})
+	})
 })
