@@ -23,21 +23,6 @@ $(document).ready(
 //==============//
 $(document).ready(function() {
     var id
-    
-    $('body').on('submit', "form[id^='user_edit_form_']", function() {
-        id = this.id.replace("edit_form_user_", "")
-        $.ajax({
-            type: 'post',
-            url: 'users/edit/' + id,
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(response) {
-                response === 'SUCCESS' ? window.location = '/users/' : window.location = '/tech_support'
-            }
-        })
-    })
 
     $('#table_search').on('keyup', function() {
         if ($('#table_search').val() !== '') {
@@ -56,30 +41,6 @@ $(document).ready(function() {
                 }
             })
         }
-    })
-
-    $('#add_user').on('click', function() {
-        $.ajax({
-            url: 'users/add',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.box').html(response)
-            }
-        })
-    })
-
-    $('body').on('submit', '#add_form_user', function(event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'post',
-            url: 'users/add/',
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(response) {
-                response === 'success' ? window.location = '/users/' : window.location = 'tech_support/'
-            }
-        })
     })
 
     $('body').on('click', '#show_password', function() {

@@ -9,7 +9,7 @@
           </div>
           <div class='box-body'>
             <?php foreach ($user_data as $data) { ?>
-            <form class='form-horizontal' method='post' id='user_edit_form_<?php echo $data->id ?>' enctype='multipart/form-data'>
+            <form class='form-horizontal' method='post' id='user_edit_form_<?php echo $data->id ?>' action='<?php echo base_url('/users/edit/'.$data->id)?>' enctype='multipart/form-data'>
               <div class='col-sm-11 pull-right'>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>ID</label>
@@ -183,7 +183,7 @@
               <button class='btn btn-success pull-right' type='submit' id='save_edit_user'><i class='fa fa-save'></i> Save</button>
             </div>
             <div class='col-xs-6'>
-              <button class='btn btn-danger' type='button'><i class='fa fa-times'></i> Cancel</button>
+              <a href="/users"><button class='btn btn-danger' type='button'><i class='fa fa-times'></i> Cancel</button></a>
             </div>
           </div>
           </form>

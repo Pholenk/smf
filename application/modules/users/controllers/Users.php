@@ -130,31 +130,32 @@ class Users extends MX_Controller
 				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp', 'npwp_img') : '' );
 				$data = array(
 						'users' => array(
-								'email' => $this->input->post('email'), 
+								'email' => $this->input->post('email'),
 								'password' => $this->input->post('password'),
 								'jabatan' => $this->input->post('jabatan'),
 								'name_full' => $this->input->post('nama'),
 								'ktp_no' => $this->input->post('ktp_no'),
-								'ktp_img' => $this->input->post('ktp_img'),
+								'ktp_img' => $ktp['_fileName'],
 								'alamat' => $this->input->post('alamat'),
 								'telepon_primer' => $this->input->post('telepon_primer'),
 								'rekening_no' => $this->input->post('rekening_no'),
 								'rekening_bank' => $this->input->post('rekening_bank'),
-								'agama' => $this->input->post('agama'), 
+								'agama' => $this->input->post('agama'),
 								'status' => $this->input->post('status'),
 								'anak' => $this->input->post('anak'),
-								'photo' => $this->input->post('photo')
+								'photo' => $photo['_fileName'],
+								'thumbnail' => $photo['_thumbName'],
 						),
 						'details' => array(
 								'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
 								'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
 								'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
 								'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
-								'npwp_img' => ($this->input->post('npwp_img') === '' ? 'null' : $this->input->post('npwp_img')),
+								'npwp_img' => ($this->input->post('npwp_img') === '' ? 'null' : $npwp['_fileName']),
 								'created_at' => mdate($datestring, time()),
 								'edited_at' => mdate($datestring, time())
 						),
-					);
+					);				
 				if($this->UsersModel->edit($id, $data['users'], $data['details']))
 				{
 					redirect(base_url());
@@ -196,7 +197,7 @@ class Users extends MX_Controller
 								'jabatan' => $this->input->post('jabatan'),
 								'name_full' => $this->input->post('nama'),
 								'ktp_no' => $this->input->post('ktp_no'),
-								'ktp_img' => $ktp->_fileName,
+								'ktp_img' => $ktp['_fileName'],
 								'alamat' => $this->input->post('alamat'),
 								'telepon_primer' => $this->input->post('telepon_primer'),
 								'rekening_no' => $this->input->post('rekening_no'),
@@ -204,8 +205,9 @@ class Users extends MX_Controller
 								'agama' => $this->input->post('agama'),
 								'status' => $this->input->post('status'),
 								'anak' => $this->input->post('anak'),
-								'photo' => $photo->_fileName,
-								'thumbnail' => $photo->_thumbName,
+								'photo' => $photo['_fileName'],
+								'thumbnail' => $photo['_thumbName'],
+								'tech_support' => 0,
 					),
 					'details' => array(
 								'id' => $id,
@@ -213,7 +215,7 @@ class Users extends MX_Controller
 								'telepon_pin' => ($this->input->post('telepon_pin') === '' ? 'null' : $this->input->post('telepon_pin')),
 								'telepon_whatsapp' => ($this->input->post('telepon_whatsapp') === '' ? 'null' : $this->input->post('telepon_whatsapp')),
 								'npwp_no' => ($this->input->post('npwp_no') === '' ? 'null' : $this->input->post('npwp_no')),
-								'npwp_img' => ($npwp === '' ? 'null' : $npwp->_fileName),
+								'npwp_img' => ($npwp === '' ? 'null' : $npwp['_fileName']),
 								'created_at' => mdate($datestring, time()),
 								'edited_at' => mdate($datestring, time())
 					),
@@ -295,7 +297,7 @@ class Users extends MX_Controller
 	 */
 	function _uploadPhoto($id = 'IU000', $path = './assets/', $input = '_img')
 	{
-		$_name = [];
+		$_name = '';
 		/**
 		 * initialize config
 		 */
@@ -309,6 +311,7 @@ class Users extends MX_Controller
 			'image_library' => 'gd2',
 			'create_thumb' => TRUE,
 			'maintain_ratio' => TRUE,
+			'file_permissions' => 0777,
 			'width' => 600,
 		);
 
@@ -326,12 +329,14 @@ class Users extends MX_Controller
 		 */
 		if($this->upload->do_upload($input))
 		{
+			$_name['_fileName'] = $this->upload->data('file_name');
+
 			/**
 			 * change file permission
 			 */
 			chmod($this->upload->data('full_path'), 0777);
 
-			$resize_conf['source_image'] = $this->upload->data('full_path');
+			$resizeConfig['source_image'] = $this->upload->data('full_path');
 			$this->image_lib->initialize($resizeConfig);
 
 			/**
@@ -339,13 +344,11 @@ class Users extends MX_Controller
 			 */
 			if ($this->image_lib->resize())
 			{
-				$name = array(
-					'_fileName' => $this->upload->data('file_name'),
-					'_thumbName' => ''.$id.'_thumb'.$this->upload->data('file_ext'),
-				);
+				$_name['_thumbName'] = ''.$id.'_thumb'.$this->upload->data('file_ext');
 			}
 			
-			return $name ;
 		}
+		
+		return $_name ;
 	}
 }
