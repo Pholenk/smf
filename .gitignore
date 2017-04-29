@@ -11,6 +11,9 @@ application/logs/*
 user_guide/*
 readme.srt
 /vendor/
+assets/ktp/*
+assets/photo/*
+assets/npwp/*
 
 # IDE Files
 #-------------------------
