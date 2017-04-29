@@ -105,7 +105,7 @@ class Supplier extends MX_Controller
 		}
 		else
 		{
-			redirect(base_url());
+			echo "!LOGIN";
 		}
 	}
 
@@ -151,6 +151,7 @@ class Supplier extends MX_Controller
 		}
 		else
 		{
+			echo "!LOGIN";
 			redirect(base_url());
 		}
 	}
@@ -179,7 +180,7 @@ class Supplier extends MX_Controller
 		}
 		else
 		{
-			redirect(base_url());
+			echo "!LOGIN";
 		}
 	}
 
@@ -260,7 +261,7 @@ class Supplier extends MX_Controller
 		}
 		else
 		{
-			redirect(base_url());
+			echo "!LOGIN";
 		}
 	}
 

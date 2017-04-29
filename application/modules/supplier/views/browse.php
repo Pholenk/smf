@@ -7,8 +7,8 @@
 		  <div class="box-header with-border">
 			<h3 class="box-title">Suppliers List</h3>
 			<div class='box-tools'>
-			  <div class="input-group input-group-sm">
-				<input class="form-control pull-right" type="text" style="width:23%;" id="supplier_search">
+			  <div class="input-group pull-right" style="width:23%;">
+				<input class="form-control " type="text" id="supplier_search" placeholder="Search">
 				<span class="input-group-addon" style="color:white;background-color:grey;"><i class="fa fa-search"></i></span>
 			  </div>
 			</div>
@@ -24,7 +24,7 @@
 				  <th style="text-align:center;">Action</th>
 				</tr>
 			  	</thead>
-			  	<tbody id="supplier-result">
+			  	<tbody id="supplier_result">
 				<?php foreach ($supplier_data as $data) { ?>
 				<tr id="edit_source_<?php echo $data->id ?>">
 				  <td style="text-align:center;"><?php echo $data->id ?></td>

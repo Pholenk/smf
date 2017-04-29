@@ -387,6 +387,15 @@ $(document).ready(function() {
         })
     })
 
+    $('#supplier_search').on('keyup', function() {
+      $.ajax({
+            url: 'supplier/search/'+$('#supplier_search').val(),
+            success: function(response) {
+                response === '!LOGIN' ? window.location = '/auth' : $('#supplier_result').html(response)
+            }
+        })  
+    })
+
     $('body').on('submit', '#add_form_supplier', function() {
         $.ajax({
             type: 'post',
