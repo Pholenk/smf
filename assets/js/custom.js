@@ -22,7 +22,7 @@ $(document).ready(
 //  users page  //
 //==============//
 $(document).ready(function() {
-	var id
+    var id
 
 	$('#table_search').on('keyup', function() {
 		if ($('#table_search').val() !== '') {
@@ -109,7 +109,7 @@ $(document).ready(function() {
 //=======================//
 
 $(document).ready(function() {
-	var id
+    var id
 
 	$("button[id^='edit_std_prod_']").on('click', function() {
 		id = this.id.replace("edit_std_prod_", "")
@@ -166,8 +166,8 @@ $(document).ready(function() {
 //=================//
 
 $(document).ready(function() {
-	var id
-	var type_contract
+    var id
+    var type_contract
 
 	$("button[id^='edit_contract_']").click(function() {
 		type_contract = this.id.replace('edit_contract_', '')
@@ -315,7 +315,7 @@ $(document).ready(function() {
 //  tech_support page  //
 //=====================//
 $(document).ready(function() {
-	var id
+    var id
 
 	$("button[id^='edit_tech_support_']").click(function() {
 		id = this.id.replace('edit_tech_support_', '')
@@ -336,16 +336,16 @@ $(document).ready(function() {
 		})
 	})
 
-	$('body').on('submit', '#add_form_tech_support', function() {
-		$.ajax({
-			type: 'post',
-			url: 'tech_support/add/',
-			data: $('#add_form_tech_support').serialize(),
-			success: function(response) {
-				response === 'success' ? window.location = '/tech_support/' : window.location = '/users'
-			},
-		})
-	})
+    $('body').on('submit', '#add_form_tech_support', function() {
+        $.ajax({
+            type: 'post',
+            url: 'tech_support/add/',
+            data: $('#add_form_tech_support').serialize(),
+            success: function(response) {
+                response === 'success' ? window.location = '/tech_support/' : window.location = '/users'
+            },
+        })
+    })
 
 	$('body').on('submit', '#edit_form_tech_support', function() {
 		$.ajax({
@@ -363,7 +363,7 @@ $(document).ready(function() {
 //  supplier page  //
 //=================//
 $(document).ready(function() {
-	var id
+    var id
 
 	$("button[id^='edit_supplier_']").click(function() {
 		id = this.id.replace('edit_supplier_', '')
@@ -420,7 +420,7 @@ $(document).ready(function() {
 //  supplier_product page  //
 //=========================//
 $(document).ready(function() {
-	var id
+    var id
 
 	$('#supplier_data').on('change', function() {
 		if ($('#supplier_data').val() !== '') {
@@ -454,16 +454,16 @@ $(document).ready(function() {
 		})
 	})
 
-	$('body').on('submit', '#add_form_supplier_product', function() {
-		$.ajax({
-			type: 'post',
-			url: 'supplier_product/add/',
-			data: $('#add_form_supplier_product').serialize(),
-			success: function(response) {
-				response === 'success' ? window.location = '/supplier_product/' : window.location = '/users'
-			},
-		})
-	})
+    $('body').on('submit', '#add_form_supplier_product', function() {
+        $.ajax({
+            type: 'post',
+            url: 'supplier_product/add/',
+            data: $('#add_form_supplier_product').serialize(),
+            success: function(response) {
+                response === 'success' ? window.location = '/supplier_product/' : window.location = '/users'
+            },
+        })
+    })
 
 	$('body').on('submit', '#edit_form_supplier_product', function() {
 		$.ajax({
@@ -481,7 +481,7 @@ $(document).ready(function() {
 //  breeder page  //
 //=========================//
 $(document).ready(function() {
-	var id
+    var id
 
 	$("button[id^='edit_breeder_']").click(function() {
 		id = this.id.replace('edit_breeder_', '');

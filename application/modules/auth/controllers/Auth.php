@@ -88,10 +88,10 @@ class Auth extends MX_Controller
 			$this->load->view('sidebar');
 			$this->load->view('foot');
 		}
-		else
-		{
-			return FALSE;
-		}
+		// else
+		// {
+		// 	return FALSE;
+		// }
 	}
 
 }
