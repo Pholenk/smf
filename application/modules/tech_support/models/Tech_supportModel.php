@@ -25,9 +25,9 @@ class Tech_supportModel extends CI_Model
 	}
 
 	/**
-	 * browse_ts method
+	 * browse_users_ts method
 	 */
-	public function browse_ts()
+	public function browse_users_ts()
 	{
 		$this->db->select('users.id, users.name_full, users.email')->from('users');
 		$this->db->join('users_details', 'users.id = users_details.id');
@@ -37,7 +37,10 @@ class Tech_supportModel extends CI_Model
 		return $query->result();
 	}
 
-	public function browse_tech_support()
+	/**
+	 * count_tech_support method
+	 */
+	public function count_tech_support()
 	{
 		$this->db->select('breeder.ts_id, (count(breeder.id)) as breeder_count, (SUM(breeder.populasi)) as populasi');
 		$this->db->from('breeder');

@@ -44,11 +44,19 @@
 								<tr id="edit_source">
 									<td><?php echo $ts->email; ?></td>
 									<td><?php echo $ts->name_full; ?></td>
-									<?php 
-									foreach ($tech_support_data as $total)
+									<?php
+									if ($count_breeder >= 1)
 									{
-										echo ($total->ts_id !== $ts->id ? '<td>0</td><td>0</td>' : '<td>'.$total->breeder_count.'</td><td>'.$total->populasi.'</td>');
-									} ?>
+										foreach ($count_breeder as $total)
+										{
+											echo ($total->ts_id != $ts->id ? '<td>0</td><td>0</td>' : '<td>'.$total->breeder_count.'</td><td>'.$total->populasi.'</td>');
+										}
+									}
+									else
+									{
+										echo '<td>0</td><td>0</td>';
+									}
+									?>										
 									<td>
 										<a href="/tech_support/delete/<?php echo $ts->id ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> DELETE</button></a>
 									</td>

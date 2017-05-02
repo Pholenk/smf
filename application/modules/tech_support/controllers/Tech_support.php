@@ -5,42 +5,35 @@
 */
 class Tech_support extends MX_Controller
 {
-	private $is_login;
+	private $_access;
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->module('auth');
 		$this->load->model('Tech_supportModel');
-		$this->is_login = $this->auth->is_login();
+		$this->_access = $this->auth->privileges_read('ts');
 	}
 
 	public function index()
 	{
-		$this->browse();
+		$this->_browse();
 	}
 
 	/**
 	 * browse method
 	 */
-	public function browse()
+	function _browse()
 	{
-		if ($this->is_login)
+		if ($this->_access)
 		{
-			$access = $this->auth->privileges_read('ts_browse');
-			if ($access)
-			{
-				$data['users_data'] = $this->Tech_supportModel->browse_users();
-				$data['tech_support_data'] = $this->Tech_supportModel->browse_tech_support();
-				$data['ts_data'] = $this->Tech_supportModel->browse_ts();
-				$this->_show_interface('browse', $data);
-
-			}
-			else
-			{
-				echo '!allowed';
-			}
-			
+			$data['users_data'] = $this->Tech_supportModel->browse_users();
+			$data['count_breeder'] = (count($this->Tech_supportModel->count_tech_support()) > 0 ? $this->Tech_supportModel->count_tech_support() : array());
+			$data['ts_data'] = $this->Tech_supportModel->browse_users_ts();
+			// echo "<pre>";
+			// print_r(count($data['count_ts_breeder']));
+			// echo "<pre>";
+			$this->_show_interface('browse', $data);
 		}
 		else
 		{
@@ -54,17 +47,9 @@ class Tech_support extends MX_Controller
 	 */
 	public function add($id)
 	{
-		if ($this->is_login)
+		if ($this->_access)
 		{
-			$access = $this->auth->privileges_read('ts_add');
-			if ($access)
-			{
-				(!empty($id) && $this->Tech_supportModel->add($id, array('tech_support' => 1)) ? redirect(base_url('tech_support')) : redirect(base_url()));
-			}
-			else
-			{
-				$this->_show_interface('Unauthorize', '');
-			}			
+			(!empty($id) && $this->Tech_supportModel->add($id, array('tech_support' => 1)) ? redirect(base_url('tech_support')) : redirect(base_url()));
 		}
 		else
 		{
@@ -78,17 +63,9 @@ class Tech_support extends MX_Controller
 	 */
 	public function delete($id)
 	{
-		if ($this->is_login)
+		if ($this->_access)
 		{
-			$access = $this->auth->privileges_read('ts_delete');
-			if ($access)
-			{
-				(!empty($id) && $this->Tech_supportModel->delete($id, array('tech_support' => 0)) ? redirect(base_url('tech_support')) : redirect(base_url()));
-			}
-			else
-			{
-				$this->_show_interface('Unauthorize', '');
-			}	
+			(!empty($id) && $this->Tech_supportModel->delete($id, array('tech_support' => 0)) ? redirect(base_url('tech_support')) : redirect(base_url()));
 		}
 		else
 		{
@@ -99,21 +76,13 @@ class Tech_support extends MX_Controller
 	/**
 	 * show_interface method
 	 */
-	function _show_interface($page, $data)
+	function _show_interface($page = 'Unauthorize', $data = '')
 	{
 		if(!empty($page && $data))
 		{
 			$this->load->view('head');
 			$this->load->view('navbar');
 			$this->load->view($page, $data);
-			$this->load->view('sidebar');
-			$this->load->view('foot');
-		}
-		elseif(empty($data))
-		{
-			$this->load->view('head');
-			$this->load->view('navbar');
-			$this->load->view($page);
 			$this->load->view('sidebar');
 			$this->load->view('foot');
 		}
