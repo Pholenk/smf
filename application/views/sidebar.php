@@ -7,12 +7,15 @@
         <img src="/vendor/almasaeed2010/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-    	<p style='padding-bottom:2px;'><?php echo $this->session->nama ?></p>
-        <i class="fa fa-circle text-success"></i> <?php echo $this->session->jabatan ?>
+        <p style='padding-bottom:2px;'>
+          <?php echo $this->session->nama ?>
+        </p>
+        <i class="fa fa-circle text-success"></i>
+        <?php echo $this->session->jabatan ?>
       </div>
     </div>
     <div style=' margin:10px;'>
-		<a href="" style='text-align:center;'><i class='fa fa-logout'></i>Signout</a>
+      <a href="/auth/logout" style='text-align:center;'><i class='fa fa-logout'></i>Signout</a>
     </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
@@ -37,7 +40,7 @@
           <li><a href="/std_production"><i class="fa fa-industry"></i> Standard Production</a></li>
           <li>
             <a href="#"><i class="fa fa-truck"></i> Supplier
-            	<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+              <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
             </a>
             <ul class="treeview-menu">
               <li><a href="/supplier"><i class="fa fa-th-list"></i> Suppliers List</a></li>

@@ -6,7 +6,7 @@
 <script src="/vendor/almasaeed2010/adminlte/plugins/jQueryUI/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button);
+$.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js"></script>
@@ -40,4 +40,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/vendor/almasaeed2010/adminlte/dist/js/demo.js"></script>
 </body>
+
 </html>
