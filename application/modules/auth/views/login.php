@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +17,6 @@
   <link rel="stylesheet" href="/vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css">
   <!-- Custom stylesheet -->
   <link rel="stylesheet" type="text/css" href="/assets/css/custom.css">
-
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -24,38 +24,41 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <body style="max-height:480px;">
-<div class="login-box">
-  <div class="login-logo">
-    <a><b>Management</b>Farm</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <form  method="post" id="login">
-      <div class="input-group">
-        <span class="input-group-addon input-icon"><i class="fa fa-envelope"></i></span>
-        <input type="email" id="email" class="form-control input-text" placeholder="Email">
+  <div class="login-box">
+    <div class="login-logo">
+      <a><b>Management</b>Farm</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <form method="post" id="login">
+        <div class="input-group">
+          <span class="input-group-addon input-icon"><i class="fa fa-envelope"></i></span>
+          <input type="email" id="email" class="form-control input-text" placeholder="Email">
+        </div>
+        <br />
+        <div class="input-group">
+          <span class="input-group-addon input-icon"><i class="fa fa-lock"></i></span>
+          <input type="password" id="password" class="form-control input-text" placeholder="Password">
+        </div>
+        <br />
+        <button type="submit" id="login" class="btn btn-primary btn-block btn-flat" onClick="login()">Sign In</button>
+      </form>
+    </div>
+    <!-- /.login-box-body -->
+    <div class="box-footer">
+      <div class="col-xs-5">
+        <a href="#">Forgot Password</a>
+        <br>
       </div>
-      <br />
-      <div class="input-group">
-        <span class="input-group-addon input-icon"><i class="fa fa-lock"></i></span>
-        <input type="password" id="password" class="form-control input-text" placeholder="Password">
-      </div>
-      <br />
-      <button type="submit" id="login" class="btn btn-primary btn-block btn-flat" onClick="login()" >Sign In</button>
-    </form>
-  </div>
-  <!-- /.login-box-body -->
-  <div class="box-footer">
-    <div class="col-xs-5">
-      <a href="#">Forgot Password</a><br>
     </div>
   </div>
-</div>
-<script src="/vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="/vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js"></script>
-<!-- Custom js -->
-<script src="/assets/js/custom.js"></script>
+  <script src="/vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <!-- Bootstrap 3.3.6 -->
+  <script src="/vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Custom js -->
+  <script src="/assets/js/custom.js"></script>
 </body>
+
 </html>
