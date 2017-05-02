@@ -408,14 +408,14 @@ $(document).ready(function() {
         })
     })
 
-    $("button[id='add_supplier_product']").click(function() {
-        $.ajax({
-            url: 'supplier_product/add/',
-            success: function(response) {
-                response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
-            }
-        })
-    })
+	$("button[id^='add_supplier_product']").click(function() {
+		$.ajax({
+			url: 'supplier_product/add/',
+			success: function(response) {
+				response === '!LOGIN' ? window.location = '/auth' : $('.modal-content').html(response)
+			}
+		})
+	})
 
     $('body').on('submit', '#add_form_supplier_product', function() {
         $.ajax({
