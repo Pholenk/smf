@@ -50,8 +50,7 @@ class Supplier_productModel extends CI_Model
 	 */
 	public function add($supplier_product_data)
 	{
-		$this->db->insert('supplier_product', $supplier_product_data);
-		return true;
+		return ($this->db->insert('supplier_product', $supplier_product_data) ? true : false);
 	}
 
 	/**
@@ -92,7 +91,7 @@ class Supplier_productModel extends CI_Model
 	public function idGen()
 	{
 		$result = $this->_getLastID()->id;
-		if($result < 0)
+		if($result <= 0)
 		{
 			$id = 'PR0001';
 			return $id;

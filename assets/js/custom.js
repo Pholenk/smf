@@ -408,7 +408,7 @@ $(document).ready(function() {
         })
     })
 
-    $("button[id^='add_supplier_product']").click(function() {
+    $("button[id='add_supplier_product']").click(function() {
         $.ajax({
             url: 'supplier_product/add/',
             success: function(response) {
