@@ -4,7 +4,7 @@
       <div class="col-xs-12">
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title" style="font-weight:bold;"><i class="fa fa-warning" style="color:orange;"></i> Supplier Products</h3>
+            <h3 class="box-title" style="font-weight:bold;"><i class="fa fa-archive"></i> Supplier Products</h3>
           </div>
           <div class="box-body">
             <div class="row">
