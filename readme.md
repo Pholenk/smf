@@ -12,7 +12,7 @@ This is a System Information to manage the farmer / breeder who join in the loca
 
 ### Nginx configuration
 - Configure your nginx. You can follow this recipe https://www.nginx.com/resources/wiki/start/topics/recipes/codeigniter/ or you wanna use this recipe
-`
+```
 server {
 	server_name (your.server.name);
 	root /your/root/folder/path;
@@ -34,19 +34,20 @@ server {
 	}
 
 }
+```
 ### Project Configuration
 
 - Change the base url in the file config like your server configuration. \
-\ | smf \
-\ |- application \
-\ |-- config \
-\ |--- config.php \
+ | smf \
+ |- application \
+ |-- config \
+ |--- config.php 
 
 - Change Database environment in application\config\database.php \
-\ | smf \
-\ |- application \
-\ |-- config \
-\ |--- database.php \
+ | smf \
+ |- application \
+ |-- config \
+ |--- database.php 
 
 
 ### Project Migration
