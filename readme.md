@@ -49,6 +49,8 @@ server {
  |-- config \
  |--- database.php 
 
+- Run composer update to get all dependencies.
+`composer update`
 
 ### Project Migration
 
