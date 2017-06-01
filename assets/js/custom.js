@@ -12,7 +12,7 @@ $(document).ready(
                 password: $('#password').val()
             },
             success: function(response) {
-                response === 'TRUE' ? window.location = '/users/' : window.location = '/auth'
+                response === TRUE ? window.location = '/users' : window.location = '/auth'
             }
         })
     })

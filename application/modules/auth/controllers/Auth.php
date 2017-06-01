@@ -17,7 +17,7 @@ class Auth extends MX_Controller
 
 	public function index()
 	{
-		($this->_is_login() === FALSE ? $this->load->view('login') : redirect(base_url('users/')));
+		($this->_is_login() === TRUE ? redirect(base_url('/users')) : $this->load->view('login'));
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Auth extends MX_Controller
 				'id' => $id,
 				'nama' => $nama,
 				'jabatan' => $jabatan,
-				'logged_in' => TRUE
+				'logged_in' => TRUE,
 				);
 				$this->session->set_userdata($data);
 				echo 'TRUE';
@@ -54,7 +54,7 @@ class Auth extends MX_Controller
 	 */
 	function _is_login()
 	{
-		return (!empty($this->session->userdata('logged_in')) ? TRUE : FALSE);
+		return $this->session->userdata('logged_in');
 	}
 
 	/**

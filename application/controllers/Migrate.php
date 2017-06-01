@@ -9,17 +9,19 @@ class Migrate extends CI_Controller
         if (!$this->input->is_cli_request()) {
             exit('Direct access is not allowed. This is a command line tool, use the terminal');
         }
+        $this->load->library('migration');
 	}
 
 	public function index()
     {
-    	if($this->migration->current() === FALSE)
+        $migrationStatus = $this->migration->latest();
+    	if($migrationStatus != 0)
         {
-            show_error($this->migration->error_string());
+            echo ($this->_seeder() ? 'migrating & seeding success' : 'migrating & seeding not success');
         }
         else
         {
-    		echo ($this->_seeder() ? 'migrating & seeding success' : 'migrating & seeding not success');
+            show_error($this->migration->error_string());    		
     	}
     }
 
@@ -27,7 +29,7 @@ class Migrate extends CI_Controller
     {
         $dataUser = array(
             'users' => array(
-                'id' => 'IU0000',
+                'id' => 'IU000',
                 'email' => 'admin@admin',
                 'password' => '12345',
                 'jabatan' => 'super_admin',
@@ -46,7 +48,7 @@ class Migrate extends CI_Controller
                 'tech_support' => '0',
             ),
             'details' => array(
-                'id' => 'IU0000',
+                'id' => 'IU000',
                 'telepon_sekunder' => '00',
                 'telepon_pin' => '00',
                 'telepon_whatsapp' => '00',
@@ -56,7 +58,7 @@ class Migrate extends CI_Controller
                 'edited_at' => mdate('%Y=%m-d',time()),
             ),
             'privileges' => array(
-                'id' => 1,
+                'id' => 'IU000',
                 'privileges' => 1,
                 'users' => 1,
                 'standard' => 1,
