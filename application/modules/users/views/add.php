@@ -5,7 +5,7 @@
       <div class="col-xs-12">
         <div class='box box-success'>
           <div class='box-header with-border'>
-            <h1 class='box-title'>Edit User</h1>
+            <h1 class='box-title'>New User</h1>
           </div>
           <div class='box-body'>
             <form class='form-horizontal' method='post' id='user_add_form' enctype='multipart/form-data'>

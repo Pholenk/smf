@@ -4,7 +4,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="/vendor/almasaeed2010/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src="/assets/photo/<?php echo $this->session->id ?>.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p style='padding-bottom:2px;'>
@@ -14,8 +14,8 @@
         <?php echo $this->session->jabatan ?>
       </div>
     </div>
-    <div style=' margin:10px;'>
-      <a href="/auth/logout" style='text-align:center;'><i class='fa fa-logout'></i>Signout</a>
+    <div style='margin:10px;'>
+      <a href="/auth/logout" style='text-align:center;'>Signout</a>
     </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">

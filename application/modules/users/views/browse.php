@@ -6,46 +6,49 @@
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Users List</h3>
-            <div class="box-tools">
-              <div class="input-group pull-right" style="width: 23%;">
-                <input type="text" id="table_search" class="form-control" placeholder="Search">
-                <span class="input-group-addon" style='color:white;background-color:grey;'><i class="fa fa-search"></i></span>
-              </div>
-            </div>
           </div>
           <!-- /.box-header -->
           <div class="box-body table-responsive no-padding">
+            <div class="box-tools">
+              <label class="col-xs-3 control-label">
+                <strong>Search by Email</strong>
+              </label>
+              <div class="input-group">
+                <input type="text" id="table_search" class="form-control input-text"  placeholder="Search">
+                <span class="input-group-addon input-icon" style="padding:1%"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
             <div class="col-sm-12">
               <table class="table table-hover" style="margin-top:1%;border:none;">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Jabatan</th>
-                    <th>Action</th>
+                    <th style="text-align:center">No</th>
+                    <th style="text-align:center">ID</th>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Email</th>
+                    <th style="text-align:center">Jabatan</th>
+                    <th style="text-align:center">Action</th>
                   </tr>
                 </thead>
                 <tbody id="user-data">
                   <?php $i=1; foreach ($users_data as $key) { ?>
                   <tr>
-                    <td>
+                    <td style="text-align:center">
                       <?php echo $i; ?>
                     </td>
-                    <td>
+                    <td style="text-align:center">
                       <?php echo $key->id; ?>
                     </td>
-                    <td>
+                    <td style="text-align:center">
                       <?php echo $key->name_full; ?>
                     </td>
-                    <td>
+                    <td style="text-align:center">
                       <?php echo $key->email; ?>
                     </td>
-                    <td>
+                    <td style="text-align:center">
                       <?php echo $key->jabatan; ?>
                     </td>
-                    <td>
+                    <td style="text-align:center">
                       <a href="<?php echo base_url('/users/read/'.$key->email)?>">
                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i> EDIT</button>
                       </a>
