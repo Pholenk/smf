@@ -45,13 +45,13 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>No KTP</label>
                   <div class='col-xs-9'>
-                    <input name='ktp_no' type='number' min = 0 class='form-control' value='<?php echo $data->ktp_no ?>' id='ktp_no_edit' required>
+                    <input name='ktp_no' type='number' min=0 class='form-control' value='<?php echo $data->ktp_no ?>' id='ktp_no_edit' required>
                   </div>
                 </div>
                 <div class='form-group' id='fileupload'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>KTP Image</label>
                   <div class='col-xs-9'>
-                    <input name='ktp_img' type='file' class='form-control' value='<?php echo $data->ktp_img ?>' id='ktp_img_edit' required>
+                    <input name='ktp_img' type='file' class='form-control' value='/assets/ktp/<?php echo $data->ktp_img ?>' id='ktp_img_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -63,25 +63,25 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Primer</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_primer' type='number' min = 0 class='form-control' value='<?php echo $data->telepon_primer ?>' id='telepon_primer_edit' required>
+                    <input name='telepon_primer' type='number' min=0 class='form-control' value='<?php echo $data->telepon_primer ?>' id='telepon_primer_edit' required>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_sekunder' type='number' min = 0 class='form-control' value='<?php echo $data->telepon_sekunder ?>' id='telepon_sekunder_edit' required>
+                    <input name='telepon_sekunder' type='number' min=0 class='form-control' value='<?php echo $data->telepon_sekunder ?>' id='telepon_sekunder_edit'>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_pin' type='text' class='form-control' value='<?php echo $data->telepon_pin ?>' id='telepon_pin_edit' required>
+                    <input name='telepon_pin' type='text' class='form-control' value='<?php echo $data->telepon_pin ?>' id='telepon_pin_edit'>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
                   <div class='col-xs-9'>
-                    <input name='telpon_whatsapp' type='number' min = 0 class='form-control' value='<?php echo $data->telepon_whatsapp ?>' id='telpon_whatsapp_edit' required>
+                    <input name='telpon_whatsapp' type='number' min=0 class='form-control' value='<?php echo $data->telepon_whatsapp ?>' id='telpon_whatsapp_edit'>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -93,7 +93,7 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
                   <div class='col-xs-9'>
-                    <select name='rekening_bank' class='form-control' id='rekening_bank'>
+                    <select name='rekening_bank' class='form-control' id='rekening_bank' required>
                       <?php echo $data->rekening_bank ?>
                       <option>BRI</option>
                       <option>BNI</option>
@@ -111,13 +111,13 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_no' type='text' class='form-control' value='<?php echo $data->npwp_no ?>' id='npwp_no_edit' required>
+                    <input name='npwp_no' type='text' class='form-control' value='<?php echo $data->npwp_no ?>' id='npwp_no_edit'>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_img' type='file' class='form-control' value='<?php echo $data->npwp_img ?>' id='npwp_img_edit' required>
+                    <input name='npwp_img' type='file' class='form-control' value='<?php echo $data->npwp_img ?>' id='npwp_img_edit'>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -138,6 +138,8 @@
                   <div class='col-xs-9'>
                     <div class='radio'>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+                        <input name='anak' type='radio' value='0' <?php echo ($data->anak === '0' ? 'checked' : '') ?> id='anak_edit'> 0</label required>
+                      <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
                         <input name='anak' type='radio' value='1' <?php echo ($data->anak === '1' ? 'checked' : '') ?> id='anak_edit'> 1</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
                         <input name='anak' type='radio' value='2' <?php echo ($data->anak === '2' ? 'checked' : '') ?> id='anak_edit'> 2</label required>
@@ -155,8 +157,9 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Photo</label>
                   <div class='col-xs-9'>
-                    <input name='photo' type='file' class='form-control' value='<?php echo $data->photo ?>' id='photo' required>
+                    <input name='photo' type='file' class='form-control' value='/assets/photo/<?php echo $data->photo ?>' id='photo' required>
                   </div>
+                  <img src="/assets/photo/<?php echo $data->thumbnail ?>">
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Jabatan</label>

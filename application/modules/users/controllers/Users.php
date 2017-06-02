@@ -18,6 +18,12 @@ class Users extends MX_Controller
 		$this->load->model('UsersModel');
 		$this->load->helper('date');
 		$this->_access = $this->auth->privileges_read('users');
+
+		/**
+		 * call library upload
+		 */
+		$this->load->library('upload');
+		$this->load->library('image_lib');
 	}
 
 	/**
@@ -125,9 +131,9 @@ class Users extends MX_Controller
 			$datestring = '%Y-%m-%d %H:%i:%s';
 			if(substr($id, 0, 2) === 'IU')
 			{
-				$ktp = $this->_uploadPhoto($id, './assets/ktp', 'ktp_img');
-				$photo = $this->_uploadPhoto($id, './assets/photo', 'photo');
-				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp', 'npwp_img') : '' );
+				$ktp = $this->_uploadPhoto($id, './assets/ktp/', 'ktp_img');
+				$photo = $this->_uploadPhoto($id, './assets/photo/', 'photo');
+				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp/', 'npwp_img') : '' );
 				$data = array(
 						'users' => array(
 								'email' => $this->input->post('email'),
@@ -135,7 +141,7 @@ class Users extends MX_Controller
 								'jabatan' => $this->input->post('jabatan'),
 								'name_full' => $this->input->post('nama'),
 								'ktp_no' => $this->input->post('ktp_no'),
-								'ktp_img' => $ktp['_fileName'],
+								'ktp_img' => $ktp['fileName'],
 								'alamat' => $this->input->post('alamat'),
 								'telepon_primer' => $this->input->post('telepon_primer'),
 								'rekening_no' => $this->input->post('rekening_no'),
@@ -143,8 +149,8 @@ class Users extends MX_Controller
 								'agama' => $this->input->post('agama'),
 								'status' => $this->input->post('status'),
 								'anak' => $this->input->post('anak'),
-								'photo' => $photo['_fileName'],
-								'thumbnail' => $photo['_thumbName'],
+								'photo' => $photo['fileName'],
+								'thumbnail' => $photo['thumbName'],
 						),
 						'details' => array(
 								'telepon_sekunder' => ($this->input->post('telepon_sekunder') === '' ? 'null' : $this->input->post('telepon_sekunder')),
@@ -185,9 +191,9 @@ class Users extends MX_Controller
 			
 			if (!empty($this->input->post('email')))
 			{
-				$ktp = $this->_uploadPhoto($id, './assets/ktp', 'ktp_img');
-				$photo = $this->_uploadPhoto($id, './assets/photo', 'photo');
-				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp', 'npwp_img') : '' );
+				$ktp = $this->_uploadPhoto($id, './assets/ktp/', 'ktp_img');
+				$photo = $this->_uploadPhoto($id, './assets/photo/', 'photo');
+				$npwp = (!empty($this->input->post('npwp_img')) ? $this->_uploadPhoto($id, './assets/npwp/', 'npwp_img') : '' );
 
 				$data = array(
 					'users' => array(
@@ -197,7 +203,7 @@ class Users extends MX_Controller
 								'jabatan' => $this->input->post('jabatan'),
 								'name_full' => $this->input->post('nama'),
 								'ktp_no' => $this->input->post('ktp_no'),
-								'ktp_img' => $ktp['_fileName'],
+								'ktp_img' => $ktp['fileName'],
 								'alamat' => $this->input->post('alamat'),
 								'telepon_primer' => $this->input->post('telepon_primer'),
 								'rekening_no' => $this->input->post('rekening_no'),
@@ -205,8 +211,8 @@ class Users extends MX_Controller
 								'agama' => $this->input->post('agama'),
 								'status' => $this->input->post('status'),
 								'anak' => $this->input->post('anak'),
-								'photo' => $photo['_fileName'],
-								'thumbnail' => $photo['_thumbName'],
+								'photo' => $photo['fileName'],
+								'thumbnail' => $photo['thumbName'],
 								'tech_support' => 0,
 					),
 					'details' => array(
@@ -279,7 +285,7 @@ class Users extends MX_Controller
 	 * _show_interface method
 	 * load user interface page which contain the $data
 	 */
-	function _show_interface($page, $data)
+	protected function _show_interface($page, $data)
 	{
 		if(!empty($page && $data))
 		{
@@ -295,41 +301,33 @@ class Users extends MX_Controller
 	 * _uploadPhoto method
 	 * processing upload photo
 	 */
-	function _uploadPhoto($id = 'IU000', $path = './assets/', $input = '_img')
+	protected function _uploadPhoto($id, $path, $input)
 	{
-		$_name = '';
 		/**
-		 * initialize config
+		 * initialize procesing upload config
 		 */
 		$uploadConfig = array(
 			'allowed_types' => 'jpg|png|jpeg',
 			'max_size' => '10000',
-			'file_name' => $id,
 			'overwrite' => TRUE,
+			'file_name' => $id,
+			'upload_path' => $path,
 		);
 		$resizeConfig = array(
 			'image_library' => 'gd2',
 			'create_thumb' => TRUE,
 			'maintain_ratio' => TRUE,
 			'file_permissions' => 0777,
-			'width' => 600,
+			'width' => 160,
 		);
 
-		/**
-		 * call library upload
-		 */
-		$this->load->library('upload', $uploadConfig);
-		$this->load->library('image_lib',$resizeConfig);
-
-		$uploadConfig['upload_path'] = $path;
 		$this->upload->initialize($uploadConfig);
-
 		/**
 		 * execute upload photo
 		 */
 		if($this->upload->do_upload($input))
 		{
-			$_name['_fileName'] = $this->upload->data('file_name');
+			$name['fileName'] = $this->upload->data('file_name');
 
 			/**
 			 * change file permission
@@ -344,11 +342,14 @@ class Users extends MX_Controller
 			 */
 			if ($this->image_lib->resize())
 			{
-				$_name['_thumbName'] = ''.$id.'_thumb'.$this->upload->data('file_ext');
+				$name['thumbName'] = ''.$id.'_thumb'.$this->upload->data('file_ext');
 			}
-			
 		}
-		
-		return $_name ;
+		else
+		{
+			$name = $this->upload->display_errors();
+		}
+
+		return $name ;		
 	}
 }

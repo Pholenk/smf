@@ -68,19 +68,19 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Telepon Sekunder</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_sekunder' type='number' class='form-control' id='telepon_sekunder_add' required>
+                    <input name='telepon_sekunder' type='number' class='form-control' id='telepon_sekunder_add'>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>PIN BB</label>
                   <div class='col-xs-9'>
-                    <input name='telepon_pin' type='text' class='form-control' id='telepon_pin_add' required>
+                    <input name='telepon_pin' type='text' class='form-control' id='telepon_pin_add'>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>WhatsApp</label>
                   <div class='col-xs-9'>
-                    <input name='telpon_whatsapp' type='number' class='form-control' id='telpon_whatsapp_add' required>
+                    <input name='telpon_whatsapp' type='number' class='form-control' id='telpon_whatsapp_add'>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -92,7 +92,7 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Bank</label>
                   <div class='col-xs-9'>
-                    <select name='rekening_bank' class='form-control' id='rekening_bank'>
+                    <select name='rekening_bank' class='form-control' id='rekening_bank' required>
                       <option>BRI</option>
                       <option>BNI</option>
                       <option>BCA</option>
@@ -109,13 +109,13 @@
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>NO NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_no' type='text' class='form-control' id='npwp_no_add' required>
+                    <input name='npwp_no' type='text' class='form-control' id='npwp_no_add'>
                   </div>
                 </div>
                 <div class='form-group'>
                   <label class='col-xs-3 control-label' style='text-align: left;'>Scan NPWP</label>
                   <div class='col-xs-9'>
-                    <input name='npwp_img' type='file' class='form-control' id='npwp_img_add' required>
+                    <input name='npwp_img' type='file' class='form-control' id='npwp_img_add'>
                   </div>
                 </div>
                 <div class='form-group'>
@@ -135,6 +135,8 @@
                   <label class='col-xs-3 control-label' style='text-align: left;'>Anak</label>
                   <div class='col-xs-9'>
                     <div class='radio'>
+                      <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
+                        <input name='anak' type='radio' value='0' id='anak_add'> 0</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>
                         <input name='anak' type='radio' value='1' id='anak_add'> 1</label required>
                       <label style='padding-right:12px;padding-left=8px;font-weight:bold;'>

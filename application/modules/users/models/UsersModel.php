@@ -129,7 +129,7 @@
 	public function idGen()
 	{
 		$result = $this->_getLastID()->id;
-		if($result < 0)
+		if($result <= 0)
 		{
 			$id = 'IU0001';
 			return $id;
